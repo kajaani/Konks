@@ -2,10 +2,29 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "Tile.h"
+#include "Box2D\Box2D.h"
 #include "CubeTest.h"
 #include "Player.h"
 #include "Rope.h"
 #include "Platform.h"
+
+#define CUSTOM_CREATE_FUNC(__TYPE__) \
+static __TYPE__* create(PhysicsWorld* world) \
+{ \
+    __TYPE__ *pRet = new __TYPE__(); \
+    if (pRet && pRet->init(world)) \
+	    { \
+       pRet->autorelease(); \
+       return pRet; \
+	     } \
+	      else \
+	      { \
+        delete pRet; \
+        pRet = NULL; \
+        return NULL; \
+	        } \
+}
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -14,7 +33,7 @@ public:
     static cocos2d::Scene* createScene();
 
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();
+	virtual bool init(PhysicsWorld* world);
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
@@ -24,25 +43,27 @@ public:
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event);
 	void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event);
 	void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event);
-	
 
-	void SpawnPlatform(float dt);
+	void SpawnPlatform(float dt); 
 
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 
     // implement the "static create()" method manually
-    CREATE_FUNC(HelloWorld);
+	CUSTOM_CREATE_FUNC(HelloWorld);
 
 protected:
 	CubeTest* cube;
 	cocos2d::LabelTTF* LabelCubeTest;
 	
-	Rope* rope;
-	cocos2d::CCDrawNode* Lrope;
-
+	Rope *rope;
 	Player *player;
-
 	Platform platform;
+
+	Peli::Tile *tile;
+
+	// Physics
+	cocos2d::PhysicsJointLimit *ropeJoint;
+	cocos2d::PhysicsWorld *_world;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

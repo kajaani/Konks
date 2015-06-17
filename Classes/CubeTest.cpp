@@ -4,7 +4,7 @@ using namespace cocos2d;
 
 CubeTest::CubeTest()
 {
-	LabelCubeTest = LabelTTF::create("Hello World", "fonts/NextGames.ttf", 72);
+	LabelCubeTest = LabelTTF::create("Hello World", "fonts/arial.ttf", 72);
 }
 
 CubeTest::~CubeTest()

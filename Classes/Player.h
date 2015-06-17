@@ -14,9 +14,13 @@ public:
 	bool isHooked;
 	bool isTouchHold;
 	float power;
+
 	cocos2d::Vec2 TouchPosition;
+	cocos2d::PhysicsBody* getPlayerPhysicsBody();
+	cocos2d::Sprite *getPlayer();
 protected:
 	cocos2d::Sprite* player;
-	cocos2d::PhysicsBody* PlayerPhysics;
+	cocos2d::PhysicsBody *PlayerPhysics;
+	
 };
 

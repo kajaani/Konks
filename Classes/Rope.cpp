@@ -2,21 +2,30 @@
 
 using namespace cocos2d;
 
-Rope::Rope()
+Rope::Rope(cocos2d::Layer *layer)
 {
-	Lrope = CCDrawNode::create();
+	rope = Sprite::create("CloseSelected.png");
+	rope->setPosition(Vec2(600, 600));
 	fromPosition = Vec2(50, 50);
 	toPosition = Vec2(100, 100);
 	radius = 15;
+
+	RopePhysics = PhysicsBody::createCircle(10);
+	RopePhysics->setDynamic(false); 
+	RopePhysics->setEnable(false);
+	rope->setPhysicsBody(RopePhysics);
+	
+	layer->addChild(rope, 16);
 }
 
 Rope::~Rope()
 {
+	
 }
 
-CCDrawNode *Rope::getNode()
+PhysicsBody* Rope::getRopePhysicsBody()
 {
-	return Lrope;
+	return RopePhysics;
 }
 
 void Rope::setFromPosition(Vec2 pos)
@@ -27,6 +36,7 @@ void Rope::setFromPosition(Vec2 pos)
 void Rope::setToPosition(Vec2 pos)
 {
 	toPosition = pos;
+	rope->setPosition(pos);
 }
 
 void Rope::setRadius(float r)

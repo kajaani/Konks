@@ -16,7 +16,7 @@ void Platform::setPosition(Vec2 newPos)
 void Platform::spawnPlatform(Layer *layer)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	log("Spawning");
+	//log("Spawning");
 
 	auto platform = Sprite::create("platform.png");
 	platform->setPosition(Vec2(visibleSize.width + rand() % 100, rand() % 600));

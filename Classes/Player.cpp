@@ -11,23 +11,22 @@ Player::Player(Layer *layer)
 
 	player = Sprite::create("defpappa.png");
 	player->setPosition(Vec2(250, 250));
+	player->setScale(0.5f);
 
-	PlayerPhysics = PhysicsBody::createBox(Size(112, 219));
+	PlayerPhysics = PhysicsBody::createBox(player->getContentSize() / 3);
 	PlayerPhysics->setVelocityLimit(2000);
 
 	PlayerPhysics->setGravityEnable(true);
 	PlayerPhysics->setMass(1000);
 
 	PlayerPhysics->setRotationEnable(false);
-
 	player->setPhysicsBody(PlayerPhysics);
-
-	layer->addChild(player, 15);	
+	
+	layer->addChild(player, 15);
 }
 
 void Player::runAction(Action *act)
 {
-	PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x , PlayerPhysics->getVelocity().y + 200));
 	player->runAction(act);
 }
 
@@ -55,9 +54,7 @@ void Player::update()
 			if (player->getPositionX() > TouchPosition.x)
 				PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x - power, PlayerPhysics->getVelocity().y));
 		}
-
-
-
+		
 		//CCLOG("Velocity X: %f Y: %f", PlayerPhysics->getVelocity().x, PlayerPhysics->getVelocity().y);
 
 		//if (isTouchHold)
@@ -66,15 +63,21 @@ void Player::update()
 		//	log("holding touch off");
 }
 
+
+PhysicsBody* Player::getPlayerPhysicsBody()
+{
+	return PlayerPhysics;
+}
+
+cocos2d::Sprite* Player::getPlayer()
+{
+	return player;
+}
 void Player::Grapple(Vec2 touchPosition)
 {
 	TouchPosition = touchPosition;
 	float distance = sqrt((player->getPositionX() - touchPosition.x) * (player->getPositionX() - touchPosition.x) + (player->getPositionY() - touchPosition.y) * (player->getPositionY() - touchPosition.y));
-	CCLOG("Distance %f", distance);
-
-	auto jump = JumpTo::create(3, Vec2(TouchPosition), distance, 1);
 	
-
 	/*if (player->getPositionY() < touchPosition.y)
 			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x , PlayerPhysics->getVelocity().y + distance));
 
