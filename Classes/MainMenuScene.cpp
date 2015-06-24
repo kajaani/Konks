@@ -1,5 +1,6 @@
 #include "MainMenuScene.h"
 #include "HelloWorldScene.h"
+#include "LevelMenuScene.h"
 #include "SettingsScene.h"
 #include "Definitions.h"
 
@@ -46,23 +47,28 @@ bool MainMenuScene::init()
 	this->addChild(titleSprite);
 
 	//In addition to previous sprites the play button changes its graphics once clicked
-	auto playItem = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
+	auto playButton = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		MainMenuScene::GoToGameScene, this));
-	playItem->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + 100));
+	playButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + 100));
 
 	//Quit button initialization and placement
-	auto quitItem = MenuItemImage::create("QuitButton.png", "QuitButtonClicked.png", CC_CALLBACK_1(
+	auto quitButton = MenuItemImage::create("QuitButton.png", "QuitButtonClicked.png", CC_CALLBACK_1(
 		MainMenuScene::Quit, this));
-	quitItem->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 - 100));
+	quitButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 - 100));
 
 	//Printing the resolution to log
 	log("width: %f",visibleSize.width);
 	log("length: %f", visibleSize.height);
 
 	//Settings button initialization and placement 
-	auto settingsItem = MenuItemImage::create("SettingsButton.png", "SettingsButtonClicked.png", CC_CALLBACK_1(
+	auto levelsButton = MenuItemImage::create("levelsButton.png", "levelsButtonClicked.png", CC_CALLBACK_1(
+		MainMenuScene::GoToLevelMenuScene, this));
+	levelsButton->setPosition(Point(visibleSize.width / 2, visibleSize.height / 5));
+
+	//Settings button initialization and placement 
+	auto settingsButton = MenuItemImage::create("SettingsButton.png", "SettingsButtonClicked.png", CC_CALLBACK_1(
 		MainMenuScene::GoToSettingsScene, this));
-	settingsItem->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2));
+	settingsButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2));
 	
 	// Sound on/off toggle
 	/*CCMenuItem *soundOnItem = [CCMenuItemImage item: @"soundOn.png"
@@ -81,16 +87,17 @@ bool MainMenuScene::init()
 
 
 	//Initializing the menu, placing the buttons and setting it visible
-	auto menu = Menu::create(playItem, NULL);
+	auto menu = Menu::create(playButton, NULL);
 	menu->setPosition(Point::ZERO);
-	menu->addChild(settingsItem);
-	menu->addChild(quitItem);
+	menu->addChild(settingsButton);
+	menu->addChild(levelsButton);
+	menu->addChild(quitButton);
 	this->addChild(menu);
 
 	return true;
 }
 
-//Method that replaces the current scene with the game scene
+//Method which replaces the current scene with the game scene
 void MainMenuScene::GoToGameScene(cocos2d::Ref *sender)
 {
 	auto scene = HelloWorld::createScene();
@@ -98,11 +105,19 @@ void MainMenuScene::GoToGameScene(cocos2d::Ref *sender)
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
-//Method that replaces the current scene with the settings scene
+//Method which replaces the current scene with the settings scene
 void MainMenuScene::GoToSettingsScene(cocos2d::Ref *sender)
 {
 	auto scene = SettingsScene::createScene();
 
+	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+
+//Method which replaces the current scene with the level menu scene
+void MainMenuScene::GoToLevelMenuScene(cocos2d::Ref *sender)
+{
+	auto scene = LevelMenuScene::createScene();
+	
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 

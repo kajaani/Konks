@@ -29,9 +29,12 @@ static __TYPE__* create(PhysicsWorld* world) \
 class HelloWorld : public cocos2d::Layer
 {
 public:
-    // there's no 'id' in cpp, so we recommend returning the class instance pointer
-    static cocos2d::Scene* createScene();
 
+	void setLevel( Scene *scene);
+
+    // there's no 'id' in cpp, so we recommend returning the class instance pointer
+	static cocos2d::Scene* createScene();
+	//static cocos2d::Scene* createScene(std::string level);
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
 	virtual bool init(PhysicsWorld* world);
     
@@ -39,12 +42,14 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
 
 	void update(float dt);
+	void initializeLevel(float dt);
 	
 	bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event);
 	void onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event);
 	void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event);
 
 	void SpawnPlatform(float dt); 
+
 
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 
@@ -64,6 +69,10 @@ protected:
 	// Physics
 	cocos2d::PhysicsJointLimit *ropeJoint;
 	cocos2d::PhysicsWorld *_world;
+	cocos2d::Node *node;
+
+	std::string _selectedLevel;
+
 };
 
 #endif // __HELLOWORLD_SCENE_H__

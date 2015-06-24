@@ -1,8 +1,9 @@
 #include "Tile.h"
 
-Peli::Tile::Tile(cocos2d::Layer *layer)
+Peli::Tile::Tile(cocos2d::Layer *layer, string level)
 {
-	map = cocos2d::TMXTiledMap::create("Background02.tmx");
+	CCLOG("Level name: %s", level.c_str());
+	map = cocos2d::TMXTiledMap::create(level.c_str());
 	_meta = map->layerNamed("Meta");
 	_meta = map->layerNamed("Background");
 	_meta = map->layerNamed("TileCats");

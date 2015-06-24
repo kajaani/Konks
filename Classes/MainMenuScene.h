@@ -18,6 +18,7 @@ public:
 private:
 	void GoToGameScene(cocos2d::Ref *sender);
 	void GoToSettingsScene(cocos2d::Ref *sender);
+	void GoToLevelMenuScene(cocos2d::Ref *sender);
 	void Quit(cocos2d::Ref *sender);
 };
 

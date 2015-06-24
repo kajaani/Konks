@@ -4,8 +4,11 @@
 USING_NS_CC;
 #define COCOS2D_DEBUG 1
 using namespace cocos2d;
+
 Scene* HelloWorld::createScene()
 {
+	log("create scene");
+
     // 'scene' is an autorelease object
     auto scene = Scene::createWithPhysics();
 	
@@ -18,9 +21,17 @@ Scene* HelloWorld::createScene()
     // add layer as a child to scene
     scene->addChild(layer);
 
+
     // return the scene
     return scene;
 }
+
+void HelloWorld::setLevel( Scene* scene)
+{
+	CCLOG("adasdasdfgsdgsgsgsd %s", scene->getChildByTag(50)->getName().c_str());
+	tile = new Peli::Tile(this, scene->getChildByTag(50)->getName().c_str());
+}
+
 
 // on "init" you need to initialize your instance
 bool HelloWorld::init(PhysicsWorld* world)
@@ -32,13 +43,14 @@ bool HelloWorld::init(PhysicsWorld* world)
         return false;
     }
 
+	log("initialize");
 	_world = world;
 	Vect g = _world->getGravity();
 	if (!Layer::init())
 	{
 		return false;
 	}
-
+	
 	Point origin = Director::getInstance()->getVisibleOrigin();
     Size visibleSize = Director::getInstance()->getVisibleSize();
 
@@ -61,8 +73,6 @@ bool HelloWorld::init(PhysicsWorld* world)
 	
 	// Rope
 	rope = new Rope(this);
-
-	tile = new Peli::Tile(this);
 
 	auto physicsBody = PhysicsBody::createBox(Size(65.0f, 81.0f), PhysicsMaterial(0.1f, 1.0f, 0.0f));
 	physicsBody->setDynamic(false);
@@ -89,6 +99,7 @@ bool HelloWorld::init(PhysicsWorld* world)
 	
 	platform.spawnPlatform(this);
 
+	scheduleOnce(schedule_selector(HelloWorld::initializeLevel), 0.1);
 	schedule(schedule_selector(HelloWorld::SpawnPlatform), 1.5);
 	schedule(schedule_selector(HelloWorld::update));
 	
@@ -109,6 +120,12 @@ void HelloWorld::update(float dt)
 	LabelCubeTest->setPosition(LabelCubeTest->getPositionX(), LabelCubeTest->getPositionY()-0.2);	
 	LabelCubeTest->setRotation(LabelCubeTest->getRotation() + 1);
 }
+
+void HelloWorld::initializeLevel(float dt)
+{
+	setLevel(this->getScene());
+}
+
 
 void HelloWorld::SpawnPlatform(float dt)
 {
