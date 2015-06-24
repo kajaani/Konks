@@ -74,6 +74,9 @@ protected:
 	Point origin;
 	Size visibleSize;
 
+private:
+	void GoToMainMenuScene(cocos2d::Ref *sender);
+
 };
 
 #endif // __HELLOWORLD_SCENE_H__

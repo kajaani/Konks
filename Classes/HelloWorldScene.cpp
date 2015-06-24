@@ -1,5 +1,7 @@
 #include "HelloWorldScene.h"
 #include "math\CCMath.h"
+#include "MainMenuScene.h"
+#include "Definitions.h"
 
 USING_NS_CC;
 #define COCOS2D_DEBUG 1
@@ -122,6 +124,13 @@ void HelloWorld::update(float dt)
 	LabelCubeTest->setColor(ccc3(rand() % 255, 0, 0));
 	LabelCubeTest->setPosition(LabelCubeTest->getPositionX(), LabelCubeTest->getPositionY()-0.2);	
 	LabelCubeTest->setRotation(LabelCubeTest->getRotation() + 1);
+
+	//Checks if the player is outside of the screen
+	if (player->getPosition().x <= 0 || player->getPosition().y <= 0 )
+	{
+		this->GoToMainMenuScene(this);
+	}
+
 }
 
 void HelloWorld::initializeLevel(float dt)
@@ -166,6 +175,13 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	//CCLOG("Touch position: %f, %f", touch->getLocation().x, touch->getLocation().y);
 
 	return true;
+}
+
+void HelloWorld::GoToMainMenuScene(cocos2d::Ref *sender)
+{
+	auto scene = MainMenuScene::createScene();
+
+	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 void HelloWorld::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
