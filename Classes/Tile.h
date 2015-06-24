@@ -6,7 +6,7 @@ namespace Peli
 	class Tile
 	{
 	public:
-		Tile(cocos2d::Layer *layer);
+		Tile(cocos2d::Layer *layer, std::string level);
 		cocos2d::Point tileCoordForPosition(cocos2d::Point position);
 		void testFunc();
 		void CollisionCreator();
