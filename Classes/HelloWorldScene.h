@@ -49,10 +49,7 @@ public:
 	void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event);
 
 	void SpawnPlatform(float dt); 
-
-
-	bool onContactBegin(cocos2d::PhysicsContact &contact);
-
+	
     // implement the "static create()" method manually
 	CUSTOM_CREATE_FUNC(HelloWorld);
 
@@ -72,6 +69,10 @@ protected:
 	cocos2d::Node *node;
 
 	std::string _selectedLevel;
+
+	float movedDistance = 0;
+	Point origin;
+	Size visibleSize;
 
 };
 
