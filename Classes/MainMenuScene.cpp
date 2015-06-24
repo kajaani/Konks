@@ -100,7 +100,12 @@ bool MainMenuScene::init()
 //Method which replaces the current scene with the game scene
 void MainMenuScene::GoToGameScene(cocos2d::Ref *sender)
 {
+	auto node = Node::create();
+	node->setTag(50);
+	node->setName("Background01.tmx");
+
 	auto scene = HelloWorld::createScene();
+	scene->addChild(node);
 
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
