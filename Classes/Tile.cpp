@@ -13,6 +13,8 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 
 	cocos2d::Vec2 tileSize = map->getLayer("Meta")->getMapTileSize();
 
+	int BITMASK_A = 0x1 << 0;
+	int BITMASK_B = 0x1 << 1;
 
 	for (i = 0; i < map->getMapSize().width; i++)
 	{
@@ -48,7 +50,8 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 				physicsBody->setDynamic(false);
 
 				sprite->setPhysicsBody(physicsBody);
-
+				sprite->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
+				sprite->getPhysicsBody()->setCategoryBitmask(BITMASK_A);
 
 				// sprite will use physicsBody
 				// map->getLayer("Meta")->setPhysicsBody(physicsBody);

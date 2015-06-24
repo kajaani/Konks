@@ -18,10 +18,16 @@ Player::Player(Layer *layer)
 
 	PlayerPhysics->setGravityEnable(true);
 	PlayerPhysics->setMass(1000);
-
 	PlayerPhysics->setRotationEnable(false);
+
+
+	int BITMASK_A = 0x1 << 0;
+	int BITMASK_B = 0x1 << 1;
+
+	//PlayerPhysics->setContactTestBitmask(BITMASK_A);
+	//PlayerPhysics->setCategoryBitmask(BITMASK_B);
+
 	player->setPhysicsBody(PlayerPhysics);
-	
 	layer->addChild(player, 15);
 }
 

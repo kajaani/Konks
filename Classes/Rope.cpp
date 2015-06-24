@@ -10,11 +10,18 @@ Rope::Rope(cocos2d::Layer *layer)
 	toPosition = Vec2(100, 100);
 	radius = 15;
 
+	int BITMASK_A = 0x1 << 0;
+	int BITMASK_B = 0x1 << 1;
+
 	RopePhysics = PhysicsBody::createCircle(10);
-	RopePhysics->setDynamic(false); 
-	RopePhysics->setEnable(false);
+	RopePhysics->setDynamic(true); 
+	RopePhysics->setEnable(true);
+	RopePhysics->setTag(11);
 	rope->setPhysicsBody(RopePhysics);
-	
+
+	rope->getPhysicsBody()->setContactTestBitmask(BITMASK_A);
+	rope->getPhysicsBody()->setCategoryBitmask(BITMASK_B);
+
 	layer->addChild(rope, 16);
 }
 

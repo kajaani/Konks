@@ -90,7 +90,12 @@ bool HelloWorld::init(PhysicsWorld* world)
 
     // add the sprite as a child to this layer
 	//this->addChild(background, 0);
-    	
+    
+	// Physics listener
+	auto contactListener = EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin, this);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+	
 	// Touch input
 	auto touchListener = EventListenerTouchOneByOne::create();
 	touchListener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
@@ -133,6 +138,23 @@ void HelloWorld::update(float dt)
 
 }
 
+bool HelloWorld::onContactBegin(PhysicsContact& contact)
+{
+	log("in contact!");
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+
+	if (bodyA->getTag() == 11)
+	{
+		bodyA->setEnable(false);
+	}
+	else
+	{
+		bodyA->setEnable(true);
+	}
+	return true;
+}
+
 void HelloWorld::initializeLevel(float dt)
 {
 	setLevel(this->getScene());
@@ -149,6 +171,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 	float distance = sqrt((player->getPosition().x - touchWorld.x + movedDistance) * (player->getPosition().x - touchWorld.x + movedDistance) +
 		(player->getPosition().y - touchWorld.y) * (player->getPosition().y - touchWorld.y));
+	rope->getRopePhysicsBody()->setEnable(true);
 
 	ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, distance - 25);
 	_world->addJoint(ropeJoint);
