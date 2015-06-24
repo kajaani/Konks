@@ -5,7 +5,7 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 	map = cocos2d::TMXTiledMap::create(level);
 	_meta = map->layerNamed("Meta");
 	_meta = map->layerNamed("Background");
-	_meta = map->layerNamed("TileCats");
+	//_meta = map->layerNamed("TileCats");
 	_meta->setVisible(true);
 
 	layer->addChild(map, 0);
@@ -22,7 +22,7 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 			float gid = map->getLayer("Meta")->getTileGIDAt(*tileCoord);
 			if (gid)
 			{
-				CCLOG("gid: %i", gid);
+				//CCLOG("gid: %i", gid);
 
 				tileXPosition = i * map->getTileSize().width;						//	* tileWidth;
 				tileYPosition = (map->getMapSize().height * map->getTileSize().height) - ((j + 1) * map->getTileSize().height);							//(mapHeight * tileHeight) - ((j + 1) tileHeight);
@@ -30,7 +30,7 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 				/*	int Width = map->getLayer("Meta")->getPosition().x;
 				int Height = map->getLayer("Meta")->getPosition().y;*/
 
-				CCLOG("Width: %i Height: %i", Width, Height);
+				//CCLOG("Width: %i Height: %i", Width, Height);
 
 
 				// react = rect(tileXPosition, tileYPosition, tileWidth, tileHeight);

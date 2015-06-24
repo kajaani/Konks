@@ -46,11 +46,24 @@ bool LevelMenuScene::init()
 	this->addChild(titleSprite);
 
 	//In addition to previous sprites the play button changes its graphics once clicked
-	playButton = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
-		LevelMenuScene::GoToGameScene, this, playButton));
-	playButton->setName("Background02.tmx");
-	playButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + 100));
+	//Level 1 button
+	playButton1 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
+		LevelMenuScene::GoToGameScene, this));
+	playButton1->setName("Background01.tmx");
+	playButton1->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + 100));
 
+	//Level 2 button
+	playButton2 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
+		LevelMenuScene::GoToGameScene, this));
+	playButton2->setName("Background02.tmx");
+	playButton2->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2));
+
+	//Level 3 button
+	playButton3 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
+		LevelMenuScene::GoToGameScene, this));
+	playButton3->setName("Background03.tmx");
+	playButton3->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 - 100));
+	
 	//In addition to previous sprites the play button changes its graphics once clicked
 	auto backButton = MenuItemImage::create("backButton.png", "backButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToMainMenuScene, this));
@@ -59,29 +72,37 @@ bool LevelMenuScene::init()
 	//Initializing the menu, placing the buttons and setting it visible
 	auto menu = Menu::create(backButton, NULL);
 	menu->setPosition(Point::ZERO); // == 0,
-	menu->addChild(playButton);
+	menu->addChild(playButton1);
+	menu->addChild(playButton2);
+	menu->addChild(playButton3);
 	this->addChild(menu);
 
 	return true;
 }
 
 //Method that replaces the current scene with the game scene
-void LevelMenuScene::GoToGameScene(cocos2d::Ref *sender, cocos2d::MenuItemImage *selectedLevel)
+void LevelMenuScene::GoToGameScene(cocos2d::Ref *sender)
 {
-	//CCLOG("Level name: %s", playButton->getName().c_str());
+	auto node = Node::create();
+	node->setTag(50);
 
-	_selectedLevel = playButton->getName(); //selectedLevel->getName().c_str();
-	CCLOG("Nappia painettu, %s", _selectedLevel.c_str());
+	if (sender->_ID == playButton1->_ID)
+	{
+		node->setName(playButton1->getName().c_str());
+	}
+	if (sender->_ID == playButton2->_ID)
+	{
+		node->setName(playButton2->getName().c_str());
+	}
+	if (sender->_ID == playButton3->_ID)
+	{
+		node->setName(playButton3->getName().c_str());
+	}
+
 	//CCLOG("%s", selectedLevel->getName().c_str());
 
 	auto scene = HelloWorld::createScene();
-	
-	auto node = Node::create();
-	node->setName(playButton->getName().c_str());
-	node->setTag(50);
 	scene->addChild(node);
-
-	CCLOG("Level name in levelmenuscene: %s", scene->getChildByTag(50)->getName().c_str());
 
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }

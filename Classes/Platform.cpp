@@ -24,7 +24,7 @@ void Platform::spawnPlatform(Layer *layer, Vec2 playerPosition)
 
 	platformPhysics->setGravityEnable(false);
 	platformPhysics->setDynamic(false);
-	platformPhysics->setEnable(true);
+	platformPhysics->setEnable(false);
 	platformPhysics->setMass(10000);
 
 	platform->setPhysicsBody(platformPhysics);

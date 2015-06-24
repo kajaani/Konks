@@ -18,9 +18,12 @@ public:
 	CREATE_FUNC(LevelMenuScene);
 
 private:
-	cocos2d::MenuItemImage* playButton;
-	void GoToGameScene(cocos2d::Ref *sender, cocos2d::MenuItemImage *selectedLevel);
+	cocos2d::MenuItemImage* playButton1;
+	cocos2d::MenuItemImage* playButton2;
+	cocos2d::MenuItemImage* playButton3;
+	void GoToGameScene(cocos2d::Ref *sender);
 	void GoToMainMenuScene(cocos2d::Ref *sender);
+
 };
 
 #endif // __LEVEL_MENU_SCENE_H__

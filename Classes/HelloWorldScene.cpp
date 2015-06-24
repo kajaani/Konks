@@ -99,7 +99,10 @@ bool HelloWorld::init(PhysicsWorld* world)
 	
 	platform.spawnPlatform(this, player->getPosition());
 
-	scheduleOnce(schedule_selector(HelloWorld::initializeLevel), 0.1);
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+	scheduleOnce(schedule_selector(HelloWorld::initializeLevel), 0.1); // VERY HAZARD, PLEASE KILL ME
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+
 	schedule(schedule_selector(HelloWorld::SpawnPlatform), 1.5);
 	schedule(schedule_selector(HelloWorld::update));
 	
