@@ -131,7 +131,7 @@ void HelloWorld::update(float dt)
 	LabelCubeTest->setRotation(LabelCubeTest->getRotation() + 1);
 
 	//Checks if the player is outside of the screen
-	if (player->getPosition().x <= 0 || player->getPosition().y <= 0 )
+	if (player->getPosition().x <= -35 || player->getPosition().y <= -50 )
 	{
 		this->GoToMainMenuScene(this);
 	}
@@ -151,6 +151,16 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	else
 	{
 		bodyA->setEnable(true);
+	}
+
+	if (bodyA->getTag() == 12 && bodyB->getTag() == 12)
+	{
+		CCLOG("BODY A OSUI");
+		this->GoToMainMenuScene(this);
+	}
+	if (bodyB->getTag() == 12 && bodyA->getTag() == 12)
+	{
+		this->GoToMainMenuScene(this);
 	}
 	return true;
 }

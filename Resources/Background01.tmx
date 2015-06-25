@@ -6,6 +6,9 @@
  <tileset firstgid="769" name="defpappa" tilewidth="32" tileheight="32">
   <image source="defpappa.png" width="254" height="272"/>
  </tileset>
+ <tileset firstgid="825" name="skull" tilewidth="32" tileheight="32">
+  <image source="skull.jpg" width="172" height="184"/>
+ </tileset>
  <layer name="Background" width="40" height="40">
   <data encoding="base64" compression="zlib">
    eJzt1McNwgAUBNHvKsh1mViHiXWQ6yAY6iDXQZaYMlZiD+8090kjoo4GmmihjQ5SgZahix76GGCIkUgbY4IpZphjgaVIW2GNDbbIscNepB1wxAlnXHDFTaTd8cATL7zxwVekFZKIIkooo4IqaolGU3iI/+K/+C/+i//iv/gv/ov/4r/4L/6LQlN4iP/iv/gv/ov/4r/8219+nQ2prg==
@@ -14,6 +17,11 @@
  <layer name="Meta" width="40" height="40">
   <data encoding="base64" compression="zlib">
    eJztlrsOAjEMBCNtB1wBXMGj4FEAVwD3/1+Hm0jXOFlblDuSpSnsKOWUIoQQQggh/skKpaxtNvB9QO7tet/yHlvb29ns4fuY/F+9b3mPg+0dbU7w/Zz83/Le8x4X27na3OD7Pfm/5b3nPR6287R5wfcp+b963/Ieb9v72Hzh+5z8X71vuRBCCCFEFKbvoz6Aa3um85m+j/oIru2Zzmf6Puqtno92PtP3UW/1fLTzmb6P+gSu7ZnOZ/o+6jO4tmc6/we+7yQO
+  </data>
+ </layer>
+ <layer name="Goal" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztzjkOg0AAwMCVeBXhviFAAv//DG4pqdjCI7l3CJIkSZIkSdL70iSED2WUU5G8fXRX8lNRTQ21kf11/PQ00EhTZH8zPwt9aaUtsr+dnx/96aAzsj9Jz10WOgcJ
   </data>
  </layer>
 </map>

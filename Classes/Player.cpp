@@ -24,9 +24,9 @@ Player::Player(Layer *layer)
 	int BITMASK_A = 0x1 << 0;
 	int BITMASK_B = 0x1 << 1;
 
-	//PlayerPhysics->setContactTestBitmask(BITMASK_A);
-	//PlayerPhysics->setCategoryBitmask(BITMASK_B);
-
+	PlayerPhysics->setContactTestBitmask(BITMASK_A);
+	PlayerPhysics->setCategoryBitmask(BITMASK_B);
+	PlayerPhysics->setTag(12);
 	player->setPhysicsBody(PlayerPhysics);
 	layer->addChild(player, 15);
 }
