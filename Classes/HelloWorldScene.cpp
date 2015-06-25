@@ -142,16 +142,16 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
 
-	//float distanceFromHook;
-	//distanceFromHook = sqrt((player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x + movedDistance) * (player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x + movedDistance) +
-	//	(player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y) * (player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y));
+	float distanceFromHook;
+	distanceFromHook = sqrt((player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x + movedDistance) * (player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x + movedDistance) +
+		(player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y) * (player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y));
 
 	if (bodyA->getTag() == 11)
 	{
 		player->isHooked = true;
 		bodyA->setEnable(false);
 		_world->removeAllJoints();
-		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getStaticRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, distance - 25);
+		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getStaticRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, distanceFromHook - 25);
 		ropeJoint->setCollisionEnable(false);
 		_world->addJoint(ropeJoint);
 	}
