@@ -17,11 +17,20 @@ Rope::Rope(cocos2d::Layer *layer)
 	RopePhysics->setDynamic(true); 
 	RopePhysics->setEnable(true);
 	RopePhysics->setTag(11);
+	RopePhysics->setVelocityLimit(1000);
 	rope->setPhysicsBody(RopePhysics);
+
+	// Another rope. nope.
+	StaticRopePhysics = PhysicsBody::createCircle(10);
+	StaticRopePhysics->setDynamic(false);
+	staticBody = Sprite::create();
+	staticBody->setPhysicsBody(StaticRopePhysics);
+
 
 	rope->getPhysicsBody()->setContactTestBitmask(BITMASK_A);
 	rope->getPhysicsBody()->setCategoryBitmask(BITMASK_B);
 
+	layer->addChild(staticBody);
 	layer->addChild(rope, 16);
 }
 
@@ -30,14 +39,32 @@ Rope::~Rope()
 	
 }
 
+void Rope::Grapple(Vec2 TouchPosition)
+{
+	if (rope->getPositionY() < TouchPosition.y)
+		RopePhysics->setVelocity(Vec2(RopePhysics->getVelocity().x, RopePhysics->getVelocity().y + 1000));
+
+	if (rope->getPositionY() > TouchPosition.y)
+		RopePhysics->setVelocity(Vec2(RopePhysics->getVelocity().x, RopePhysics->getVelocity().y - 1000));
+
+	if (rope->getPositionX() < TouchPosition.x)
+		RopePhysics->setVelocity(Vec2(RopePhysics->getVelocity().x + 1000, RopePhysics->getVelocity().y));
+
+	if (rope->getPositionX() > TouchPosition.x)
+		RopePhysics->setVelocity(Vec2(RopePhysics->getVelocity().x - 1000, RopePhysics->getVelocity().y));
+}
+
 PhysicsBody* Rope::getRopePhysicsBody()
 {
 	return RopePhysics;
 }
-
-void Rope::setFromPosition(Vec2 pos)
+PhysicsBody* Rope::getStaticRopePhysicsBody()
 {
-	fromPosition = pos;
+	return StaticRopePhysics;
+}
+void Rope::updateStaticBody(Vec2 pos)
+{
+	staticBody->setPosition(pos);
 }
 
 void Rope::setToPosition(Vec2 pos)
@@ -51,10 +78,9 @@ void Rope::setRadius(float r)
 	radius = r;
 }
 
-Vec2 Rope::getFromPosition()
+Vec2 Rope::getRopePosition()
 {
-
-	return fromPosition;
+	return rope->getPosition();
 }
 
 Vec2 Rope::getToPosition()

@@ -71,6 +71,7 @@ protected:
 
 	std::string _selectedLevel;
 
+	float distance;
 	float movedDistance = 0;
 	Point origin;
 	Size visibleSize;

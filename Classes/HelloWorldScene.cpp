@@ -11,24 +11,24 @@ Scene* HelloWorld::createScene()
 {
 	log("create scene");
 
-    // 'scene' is an autorelease object
-    auto scene = Scene::createWithPhysics();
-	
-    // 'layer' is an autorelease object
+	// 'scene' is an autorelease object
+	auto scene = Scene::createWithPhysics();
+
+	// 'layer' is an autorelease object
 	auto layer = HelloWorld::create(scene->getPhysicsWorld());
 	//layer->setPhysicsWorld(scene->getPhysicsWorld());
-	
+
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
-    // add layer as a child to scene
-    scene->addChild(layer);
+	// add layer as a child to scene
+	scene->addChild(layer);
 
 
-    // return the scene
-    return scene;
+	// return the scene
+	return scene;
 }
 
-void HelloWorld::setLevel( Scene* scene)
+void HelloWorld::setLevel(Scene* scene)
 {
 	CCLOG("adasdasdfgsdgsgsgsd %s", scene->getChildByTag(50)->getName().c_str());
 	tile = new Peli::Tile(this, scene->getChildByTag(50)->getName().c_str());
@@ -38,12 +38,12 @@ void HelloWorld::setLevel( Scene* scene)
 // on "init" you need to initialize your instance
 bool HelloWorld::init(PhysicsWorld* world)
 {
-    //////////////////////////////
-    // 1. super init first
-    if ( !Layer::init() )
-    {
-        return false;
-    }
+	//////////////////////////////
+	// 1. super init first
+	if (!Layer::init())
+	{
+		return false;
+	}
 
 	log("initialize");
 	_world = world;
@@ -52,9 +52,9 @@ bool HelloWorld::init(PhysicsWorld* world)
 	{
 		return false;
 	}
-	
+
 	origin = Director::getInstance()->getVisibleOrigin();
-    visibleSize = Director::getInstance()->getVisibleSize();
+	visibleSize = Director::getInstance()->getVisibleSize();
 
 	// Physics boundaries
 	//auto body = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 3);
@@ -62,40 +62,40 @@ bool HelloWorld::init(PhysicsWorld* world)
 	//edgeNode->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
 	//edgeNode->setPhysicsBody(body);
 	//this->addChild(edgeNode);
-	
+
 	// Text
 	cube = new CubeTest();
 	LabelCubeTest = cube->getLabel();
 	LabelCubeTest->setPosition(origin.x + visibleSize.width / 2,
-	origin.y + visibleSize.height - LabelCubeTest->getContentSize().height);
+		origin.y + visibleSize.height - LabelCubeTest->getContentSize().height);
 	//
 
 	// Player
 	player = new Player(this);
-	
+
 	// Rope
 	rope = new Rope(this);
 
 	auto physicsBody = PhysicsBody::createBox(Size(65.0f, 81.0f), PhysicsMaterial(0.1f, 1.0f, 0.0f));
 	physicsBody->setDynamic(false);
-	
-    // add the label as a child to this layer
+
+	// add the label as a child to this layer
 	this->addChild(LabelCubeTest, 1);
 
-    // add "HelloWorld" splash screen"
-    auto background = Sprite::create("Desert.jpg");
+	// add "HelloWorld" splash screen"
+	auto background = Sprite::create("Desert.jpg");
 
-    // position the sprite on the center of the screen
+	// position the sprite on the center of the screen
 	background->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
-    // add the sprite as a child to this layer
+	// add the sprite as a child to this layer
 	//this->addChild(background, 0);
-    
+
 	// Physics listener
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
-	
+
 	// Touch input
 	auto touchListener = EventListenerTouchOneByOne::create();
 	touchListener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
@@ -103,7 +103,7 @@ bool HelloWorld::init(PhysicsWorld* world)
 	touchListener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 	//
-	
+
 	platform.spawnPlatform(this, player->getPosition());
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,30 +112,30 @@ bool HelloWorld::init(PhysicsWorld* world)
 
 	schedule(schedule_selector(HelloWorld::SpawnPlatform), 1.5);
 	schedule(schedule_selector(HelloWorld::update));
-	
+
 	// Following view
 	this->runAction(Follow::create(player->getPlayer(),
-		Rect(visibleSize.width  + origin.x - visibleSize.width, 
-		visibleSize.height  + origin.y - visibleSize.height, 
-		visibleSize.width * 100, 
+		Rect(visibleSize.width + origin.x - visibleSize.width,
+		visibleSize.height + origin.y - visibleSize.height,
+		visibleSize.width * 100,
 		visibleSize.height * 100)));
-    return true;
+	return true;
 }
 
 void HelloWorld::update(float dt)
 {
+	rope->updateStaticBody(rope->getRopePosition());
 	player->update();
 	player->getPosition();
 	LabelCubeTest->setColor(ccc3(rand() % 255, 0, 0));
-	LabelCubeTest->setPosition(LabelCubeTest->getPositionX(), LabelCubeTest->getPositionY()-0.2);	
+	LabelCubeTest->setPosition(LabelCubeTest->getPositionX(), LabelCubeTest->getPositionY() - 0.2);
 	LabelCubeTest->setRotation(LabelCubeTest->getRotation() + 1);
 
 	//Checks if the player is outside of the screen
-	if (player->getPosition().x <= -35 || player->getPosition().y <= -50 )
+	if (player->getPosition().x <= 0 || player->getPosition().y <= 0)
 	{
 		this->GoToMainMenuScene(this);
 	}
-
 }
 
 bool HelloWorld::onContactBegin(PhysicsContact& contact)
@@ -144,9 +144,18 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
 
+	//float distanceFromHook;
+	//distanceFromHook = sqrt((player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x + movedDistance) * (player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x + movedDistance) +
+	//	(player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y) * (player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y));
+
 	if (bodyA->getTag() == 11)
 	{
+		player->isHooked = true;
 		bodyA->setEnable(false);
+		_world->removeAllJoints();
+		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getStaticRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, distance - 25);
+		ropeJoint->setCollisionEnable(false);
+		_world->addJoint(ropeJoint);
 	}
 	else
 	{
@@ -179,11 +188,13 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	Point touchWorld = convertToNodeSpace(touch->getLocation());
 
-	float distance = sqrt((player->getPosition().x - touchWorld.x + movedDistance) * (player->getPosition().x - touchWorld.x + movedDistance) +
+	distance = sqrt((player->getPosition().x - touchWorld.x + movedDistance) * (player->getPosition().x - touchWorld.x + movedDistance) +
 		(player->getPosition().y - touchWorld.y) * (player->getPosition().y - touchWorld.y));
 	rope->getRopePhysicsBody()->setEnable(true);
 
+
 	ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, distance - 25);
+	ropeJoint->setCollisionEnable(false);
 	_world->addJoint(ropeJoint);
 
 	player->isTouchHold = true;
@@ -201,9 +212,9 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	player->runAction(animate);
 	player->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
 
-	//rope->setToPosition(Vec2(touch->getLocation().x + (this->getScene()->getDefaultCamera()->getPosition().x/2), touch->getLocation().y)); // Add something to touch coordinates
-	rope->setToPosition(Vec2(touchWorld.x + movedDistance, touchWorld.y)); // Add something to touch coordinates
-
+	//rope->setToPosition(Vec2(touchWorld.x + movedDistance, touchWorld.y + movedDistance)); // Add something to touch coordinates
+	rope->setToPosition(player->getPosition());
+	rope->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
 	//CCLOG("Camera position: %f, %f", this->getScene()->getDefaultCamera()->getPosition().x, this->getScene()->getDefaultCamera()->getPosition().y);
 	//CCLOG("Touch position: %f, %f", touch->getLocation().x, touch->getLocation().y);
 
@@ -219,7 +230,8 @@ void HelloWorld::GoToMainMenuScene(cocos2d::Ref *sender)
 
 void HelloWorld::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
 {
-	_world->removeJoint(ropeJoint);
+	_world->removeAllJoints();
+	player->isHooked = false;
 	player->isTouchHold = false;
 }
 
@@ -231,9 +243,9 @@ void HelloWorld::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event)
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
-    Director::getInstance()->end();
+	Director::getInstance()->end();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
+	exit(0);
 #endif
 }
