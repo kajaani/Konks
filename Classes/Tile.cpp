@@ -2,19 +2,14 @@
 
 Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 {
-	map = cocos2d::TMXTiledMap::create(level);
-	_meta = map->layerNamed("Meta");
-	_meta = map->layerNamed("Background");
-	_meta = map->layerNamed("Goal");
-	//_meta = map->layerNamed("TileCats");
-	_meta->setVisible(true);
+	loadMap(level);
+	MapBoundariesTop(layer);
+	MapBoundariesRight(layer);
+	MapBoundariesLeft(layer);
 
 	layer->addChild(map, 0);
 
 	cocos2d::Vec2 tileSize = map->getLayer("Meta")->getMapTileSize();
-
-	int BITMASK_A = 0x1 << 0;
-	int BITMASK_B = 0x1 << 1;
 
 	for (i = 0; i < map->getMapSize().width; i++)
 	{
@@ -77,9 +72,61 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 
 }
 
+void Peli::Tile::loadMap(std::string level)
+{
+	map = cocos2d::TMXTiledMap::create(level);
+	_meta = map->layerNamed("Meta");
+	_meta = map->layerNamed("Background");
+	//_meta = map->layerNamed("TileCats");
+	_meta->setVisible(true);
+}
+
 cocos2d::Point	Peli::Tile::tileCoordForPosition(cocos2d::Point position)
 {
 	int x = position.x / map->getTileSize().width;
 	int y = ((map->getMapSize().height * map->getTileSize().height) - position.y) / map->getTileSize().height;
 	return cocos2d::Point(x, y);
+}
+
+
+void Peli::Tile::MapBoundariesTop(cocos2d::Layer *layer)
+{
+//Top Collision
+auto sprite = cocos2d::Sprite::create();
+sprite->setPosition(cocos2d::Vec2((map->getMapSize().width*map->getTileSize().width) / 2, (map->getMapSize().height * map->getTileSize().height + (map->getTileSize().height / 2))));
+
+physicsBody = cocos2d::PhysicsBody::createBox(cocos2d::Size(map->getMapSize().width * map->getTileSize().width, map->getTileSize().height));
+physicsBody->setDynamic(false);
+sprite->setPhysicsBody(physicsBody);
+layer->addChild(sprite);
+
+}
+
+void Peli::Tile::MapBoundariesRight(cocos2d::Layer *layer)
+{
+	//Right collision
+	auto sprite = cocos2d::Sprite::create();
+	sprite->setPosition(cocos2d::Vec2(map->getMapSize().width * map->getTileSize().width + (map->getTileSize().width / 2), ((map->getMapSize().height * map->getTileSize().height)) / 2));
+
+	physicsBody = cocos2d::PhysicsBody::createBox(cocos2d::Size(map->getTileSize().width, map->getMapSize().height * map->getTileSize().height));
+	physicsBody->setDynamic(false);
+	sprite->setPhysicsBody(physicsBody);
+	layer->addChild(sprite);
+}
+
+void Peli::Tile::MapBoundariesLeft(cocos2d::Layer *layer)
+{
+	//Left collision
+	auto sprite = cocos2d::Sprite::create();
+	sprite->setPosition(cocos2d::Vec2(0 - (map->getTileSize().width / 2), ((map->getMapSize().height * map->getTileSize().height)) / 2));
+
+	physicsBody = cocos2d::PhysicsBody::createBox(cocos2d::Size(map->getTileSize().width, map->getMapSize().height * map->getTileSize().height));
+	physicsBody->setDynamic(false);
+	sprite->setPhysicsBody(physicsBody);
+	layer->addChild(sprite);
+}
+
+cocos2d::TMXTiledMap *Peli::Tile::getMap()
+{
+	return map;
 }

@@ -32,6 +32,11 @@ void HelloWorld::setLevel(Scene* scene)
 {
 	CCLOG("adasdasdfgsdgsgsgsd %s", scene->getChildByTag(50)->getName().c_str());
 	tile = new Peli::Tile(this, scene->getChildByTag(50)->getName().c_str());
+	this->runAction(Follow::create(player->getPlayer(),
+		Rect(visibleSize.width + origin.x - visibleSize.width,
+		visibleSize.height + origin.y - visibleSize.height,
+		tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width,
+		tile->getMap()->getMapSize().height * tile->getMap()->getTileSize().height)));
 }
 
 
@@ -112,13 +117,6 @@ bool HelloWorld::init(PhysicsWorld* world)
 
 	schedule(schedule_selector(HelloWorld::SpawnPlatform), 1.5);
 	schedule(schedule_selector(HelloWorld::update));
-
-	// Following view
-	this->runAction(Follow::create(player->getPlayer(),
-		Rect(visibleSize.width + origin.x - visibleSize.width,
-		visibleSize.height + origin.y - visibleSize.height,
-		visibleSize.width * 100,
-		visibleSize.height * 100)));
 	return true;
 }
 
