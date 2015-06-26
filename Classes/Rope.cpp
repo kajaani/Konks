@@ -34,7 +34,7 @@ Rope::Rope(cocos2d::Layer *layer)
 	rope->getPhysicsBody()->setTag(13);
 	staticBody->getPhysicsBody()->setTag(13);
 
-	layer->addChild(staticBody);
+	layer->addChild(staticBody, 17);
 	layer->addChild(rope, 16);
 }
 
@@ -45,17 +45,19 @@ Rope::~Rope()
 
 void Rope::Grapple(Vec2 TouchPosition)
 {
-	if (rope->getPositionY() < TouchPosition.y)
-		RopePhysics->setVelocity(Vec2(RopePhysics->getVelocity().x, RopePhysics->getVelocity().y + 1000));
+	rope->stopAllActions();
+	//if (rope->getPositionY() < TouchPosition.y)
+	//	RopePhysics->setVelocity(Vec2(RopePhysics->getVelocity().x, RopePhysics->getVelocity().y + 1000));
 
-	if (rope->getPositionY() > TouchPosition.y)
-		RopePhysics->setVelocity(Vec2(RopePhysics->getVelocity().x, RopePhysics->getVelocity().y - 1000));
+	//if (rope->getPositionY() > TouchPosition.y)
+	//	RopePhysics->setVelocity(Vec2(RopePhysics->getVelocity().x, RopePhysics->getVelocity().y - 1000));
 
-	if (rope->getPositionX() < TouchPosition.x)
-		RopePhysics->setVelocity(Vec2(RopePhysics->getVelocity().x + 1000, RopePhysics->getVelocity().y));
+	//if (rope->getPositionX() < TouchPosition.x)
+	//	RopePhysics->setVelocity(Vec2(RopePhysics->getVelocity().x + 1000, RopePhysics->getVelocity().y));
 
-	if (rope->getPositionX() > TouchPosition.x)
-		RopePhysics->setVelocity(Vec2(RopePhysics->getVelocity().x - 1000, RopePhysics->getVelocity().y));
+	//if (rope->getPositionX() > TouchPosition.x)
+	//	RopePhysics->setVelocity(Vec2(RopePhysics->getVelocity().x - 1000, RopePhysics->getVelocity().y));
+	rope->runAction(MoveTo::create(1, TouchPosition));
 }
 
 PhysicsBody* Rope::getRopePhysicsBody()

@@ -150,6 +150,7 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	{
 		if (player->isTouchHold)
 		{
+			log("Got 99 promblems but a bug aint one");
 			player->isHooked = true;
 			bodyA->setEnable(false);
 			_world->removeAllJoints();
@@ -205,8 +206,10 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 	distance = sqrt((player->getPosition().x - touchWorld.x + movedDistance) * (player->getPosition().x - touchWorld.x + movedDistance) +
 		(player->getPosition().y - touchWorld.y) * (player->getPosition().y - touchWorld.y));
+
+	///////////////////////////////////////////
 	rope->getRopePhysicsBody()->setEnable(true);
-	
+
 	player->isTouchHold = true;
 	Vector<SpriteFrame*> animFrames(46);
 
