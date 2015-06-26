@@ -14,18 +14,20 @@ Player::Player(Layer *layer)
 	player->setScale(0.5f);
 
 	PlayerPhysics = PhysicsBody::createBox(player->getContentSize() / 3);
-	PlayerPhysics->setVelocityLimit(2000);
+	PlayerPhysics->setVelocityLimit(1000);
 
 	PlayerPhysics->setGravityEnable(true);
-	PlayerPhysics->setMass(1000);
+	PlayerPhysics->setMass(10000);
 	PlayerPhysics->setRotationEnable(false);
 
 
-	int BITMASK_A = 0x1 << 0;
-	int BITMASK_B = 0x1 << 1;
+	int BITMASK_A = 0x1;
+	int BITMASK_B = 0x2;
 
 	PlayerPhysics->setContactTestBitmask(BITMASK_A);
 	PlayerPhysics->setCategoryBitmask(BITMASK_B);
+
+
 	PlayerPhysics->setTag(12);
 
 	player->setPhysicsBody(PlayerPhysics);
@@ -46,7 +48,7 @@ void Player::update()
 	else if (!isTouchHold)
 		power = 0;
 
-	if (distance > 25 && isTouchHold)
+	if (distance > 25 && isTouchHold && isHooked)
 	{
 		if (player->getPositionY() < TouchPosition.y)
 			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x, PlayerPhysics->getVelocity().y + power));

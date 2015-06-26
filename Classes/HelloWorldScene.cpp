@@ -138,7 +138,6 @@ void HelloWorld::update(float dt)
 
 bool HelloWorld::onContactBegin(PhysicsContact& contact)
 {
-	log("in contact!");
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
 
@@ -146,28 +145,46 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	distanceFromHook = sqrt((player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x + movedDistance) * (player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x + movedDistance) +
 		(player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y) * (player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y));
 
-	if (bodyA->getTag() == 11)
+	// Hook hits platform
+	if (bodyA->getTag() == 13 && bodyB->getTag() == 11)
 	{
-		player->isHooked = true;
-		bodyA->setEnable(false);
-		_world->removeAllJoints();
-		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getStaticRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, distanceFromHook - 25);
-		ropeJoint->setCollisionEnable(false);
-		_world->addJoint(ropeJoint);
+		if (player->isTouchHold)
+		{
+			player->isHooked = true;
+			bodyA->setEnable(false);
+			_world->removeAllJoints();
+			ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getStaticRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, distanceFromHook - 25);
+			ropeJoint->setCollisionEnable(false);
+			_world->addJoint(ropeJoint);
+		}
 	}
 	else
 	{
 		bodyA->setEnable(true);
 	}
 
+	// Player hits goal
 	if (bodyA->getTag() == 12 && bodyB->getTag() == 12)
 	{
 		CCLOG("BODY A OSUI");
 		this->GoToMainMenuScene(this);
+		return false;
 	}
 	if (bodyB->getTag() == 12 && bodyA->getTag() == 12)
 	{
 		this->GoToMainMenuScene(this);
+	}
+	
+	// Hook hits player, cancel
+	if (bodyA->getTag() == 12 && bodyB->getTag() == 13)
+	{
+		log("hook hit player");
+		return false;
+	}
+	if (bodyB->getTag() == 12 && bodyA->getTag() == 13)
+	{
+		log("hook hit player");
+		return false;
 	}
 	return true;
 }
@@ -189,12 +206,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	distance = sqrt((player->getPosition().x - touchWorld.x + movedDistance) * (player->getPosition().x - touchWorld.x + movedDistance) +
 		(player->getPosition().y - touchWorld.y) * (player->getPosition().y - touchWorld.y));
 	rope->getRopePhysicsBody()->setEnable(true);
-
-
-	ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, distance - 25);
-	ropeJoint->setCollisionEnable(false);
-	_world->addJoint(ropeJoint);
-
+	
 	player->isTouchHold = true;
 	Vector<SpriteFrame*> animFrames(46);
 
@@ -208,14 +220,19 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	auto animation = Animation::createWithSpriteFrames(animFrames, 0.05f);
 	auto animate = Animate::create(animation);
 	player->runAction(animate);
-	player->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
+	
+	if (distance > 100 && player->isTouchHold)
+	{
+		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, distance + 100);
+		ropeJoint->setCollisionEnable(false);
+		_world->addJoint(ropeJoint);
 
-	//rope->setToPosition(Vec2(touchWorld.x + movedDistance, touchWorld.y + movedDistance)); // Add something to touch coordinates
-	rope->setToPosition(player->getPosition());
-	rope->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
-	//CCLOG("Camera position: %f, %f", this->getScene()->getDefaultCamera()->getPosition().x, this->getScene()->getDefaultCamera()->getPosition().y);
-	//CCLOG("Touch position: %f, %f", touch->getLocation().x, touch->getLocation().y);
+		player->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
+		//rope->setToPosition(Vec2(touchWorld.x + movedDistance, touchWorld.y + movedDistance)); // Add something to touch coordinates
+		rope->setToPosition(player->getPosition());
+		rope->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
 
+	}
 	return true;
 }
 

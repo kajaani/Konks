@@ -10,13 +10,12 @@ Rope::Rope(cocos2d::Layer *layer)
 	toPosition = Vec2(100, 100);
 	radius = 15;
 
-	int BITMASK_A = 0x1 << 0;
-	int BITMASK_B = 0x1 << 1;
+	int BITMASK_A = 0x1;
+	int BITMASK_B = 0x2;
 
 	RopePhysics = PhysicsBody::createCircle(10);
 	RopePhysics->setDynamic(true); 
 	RopePhysics->setEnable(true);
-	RopePhysics->setTag(11);
 	RopePhysics->setVelocityLimit(1000);
 	rope->setPhysicsBody(RopePhysics);
 
@@ -25,10 +24,15 @@ Rope::Rope(cocos2d::Layer *layer)
 	StaticRopePhysics->setDynamic(false);
 	staticBody = Sprite::create();
 	staticBody->setPhysicsBody(StaticRopePhysics);
+	
+	rope->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
+	rope->getPhysicsBody()->setCategoryBitmask(BITMASK_A);
 
-
-	rope->getPhysicsBody()->setContactTestBitmask(BITMASK_A);
-	rope->getPhysicsBody()->setCategoryBitmask(BITMASK_B);
+	staticBody->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
+	staticBody->getPhysicsBody()->setCategoryBitmask(BITMASK_A);
+	
+	rope->getPhysicsBody()->setTag(13);
+	staticBody->getPhysicsBody()->setTag(13);
 
 	layer->addChild(staticBody);
 	layer->addChild(rope, 16);

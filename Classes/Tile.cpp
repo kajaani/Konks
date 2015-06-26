@@ -36,10 +36,11 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 				// create a static PhysicsBody0
 				physicsBody = cocos2d::PhysicsBody::createBox(cocos2d::Size(map->getTileSize().width, map->getTileSize().height));
 				physicsBody->setDynamic(false);
+				physicsBody->setTag(11);
 
 				sprite->setPhysicsBody(physicsBody);
-				sprite->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
-				sprite->getPhysicsBody()->setCategoryBitmask(BITMASK_A);
+				sprite->getPhysicsBody()->setContactTestBitmask(BITMASK_A);
+				sprite->getPhysicsBody()->setCategoryBitmask(BITMASK_B);
 			}
 			
 			//Handling the object collision
