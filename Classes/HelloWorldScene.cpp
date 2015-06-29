@@ -99,6 +99,7 @@ bool HelloWorld::init(PhysicsWorld* world)
 	// Physics listener
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin, this);
+	contactListener->onContactPostSolve = CC_CALLBACK_1(HelloWorld::onContactPostSolve, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	// Touch input
@@ -122,7 +123,7 @@ bool HelloWorld::init(PhysicsWorld* world)
 
 void HelloWorld::update(float dt)
 {
-	rope->updateStaticBody(rope->getRopePosition());
+	//rope->updateStaticBody(rope->getRopePosition());
 	player->update();
 	player->getPosition();
 	LabelCubeTest->setColor(ccc3(rand() % 255, 0, 0));
@@ -134,6 +135,18 @@ void HelloWorld::update(float dt)
 	{
 		this->GoToMainMenuScene(this);
 	}
+}
+
+
+void HelloWorld::onContactPostSolve(PhysicsContact &contact)
+{
+	//auto bodyA = contact.getShapeA()->getBody();
+	//auto bodyB = contact.getShapeB()->getBody();
+	//log("Nigga stole my bike");
+	//if (bodyA->getTag() == 13 && bodyB->getTag() == 11)
+	//{
+	//	_world->removeBody(rope->getRopePhysicsBody());
+	//}
 }
 
 bool HelloWorld::onContactBegin(PhysicsContact& contact)
@@ -150,11 +163,11 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	{
 		if (player->isTouchHold)
 		{
-			log("Got 99 promblems but a bug aint one");
+			//log("Got 99 promblems but a bug aint one");
+			_world->removeAllJoints();
 			player->isHooked = true;
 			bodyA->setEnable(false);
-			_world->removeAllJoints();
-			ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getStaticRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, distanceFromHook - 25);
+			ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, 100);
 			ropeJoint->setCollisionEnable(false);
 			_world->addJoint(ropeJoint);
 		}
@@ -202,7 +215,42 @@ void HelloWorld::SpawnPlatform(float dt)
 
 bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
+	// RayCast
+	player->getPlayerPhysicsBody()->setEnable(false); // Disabled player collisions while testing raycast functioning //
 	Point touchWorld = convertToNodeSpace(touch->getLocation());
+
+		CCLOG("  Touch   position    at: %f, %f", touchWorld.x, touchWorld.y);
+		Vec2 points[5];
+		Vec2 RayHitPosition(0,0);
+		int num = 0;
+		bool isHit = false;
+
+		PhysicsRayCastCallbackFunc func = [&points, &num, &RayHitPosition, &isHit](PhysicsWorld& world,
+			const PhysicsRayCastInfo& info, void* data)->bool
+		{
+			if (num < 5)
+			{
+				isHit = true;
+				points[num++] = info.contact;
+				RayHitPosition = points[0];
+				CCLOG("RayCast hit something at: %f, %f", info.contact.x, info.contact.y);
+			}
+			return true;
+		};
+
+		if (!RayHitPosition.x)
+		{
+			RayHitPosition = touchWorld;
+			isHit = false;
+		}
+
+		_world->rayCast(func, player->getPosition(), touchWorld, nullptr);
+		auto _drawNode = DrawNode::create();
+		_drawNode->drawSegment(player->getPosition(), touchWorld, 1, Color4F::RED);
+		this->addChild(_drawNode);
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	distance = sqrt((player->getPosition().x - touchWorld.x + movedDistance) * (player->getPosition().x - touchWorld.x + movedDistance) +
 		(player->getPosition().y - touchWorld.y) * (player->getPosition().y - touchWorld.y));
@@ -224,16 +272,17 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	auto animate = Animate::create(animation);
 	player->runAction(animate);
 	
-	if (distance > 100 && player->isTouchHold)
+	if (distance > 100 && player->isTouchHold && isHit)
 	{
-		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, distance + 100);
+		rope->getRopePhysicsBody()->setDynamic(true);
+		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, 100);
 		ropeJoint->setCollisionEnable(false);
 		_world->addJoint(ropeJoint);
 
 		player->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
 		//rope->setToPosition(Vec2(touchWorld.x + movedDistance, touchWorld.y + movedDistance)); // Add something to touch coordinates
 		rope->setToPosition(player->getPosition());
-		rope->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
+		rope->Grapple(RayHitPosition);
 
 	}
 	return true;
@@ -248,6 +297,7 @@ void HelloWorld::GoToMainMenuScene(cocos2d::Ref *sender)
 
 void HelloWorld::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
 {
+	rope->getRopePhysicsBody()->setDynamic(false);
 	_world->removeAllJoints();
 	player->isHooked = false;
 	player->isTouchHold = false;

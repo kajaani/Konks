@@ -49,6 +49,8 @@ public:
 	void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event);
 
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
+	void onContactPostSolve(cocos2d::PhysicsContact &contact);
+
 	void SpawnPlatform(float dt); 
 	
     // implement the "static create()" method manually

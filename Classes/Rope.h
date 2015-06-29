@@ -11,7 +11,7 @@ public:
 	
 	Vec2 getRopePosition();
 	Vec2 getToPosition();
-	float getRadius();
+	Sprite* getRope();
 
 	void updateStaticBody(Vec2 pos);
 	void setToPosition(Vec2 pos);

@@ -16,25 +16,26 @@ Rope::Rope(cocos2d::Layer *layer)
 	RopePhysics = PhysicsBody::createCircle(10);
 	RopePhysics->setDynamic(true); 
 	RopePhysics->setEnable(true);
+	RopePhysics->setGravityEnable(false);
 	RopePhysics->setVelocityLimit(1000);
 	rope->setPhysicsBody(RopePhysics);
-
+	rope->setName("ropename");
 	// Another rope. nope.
-	StaticRopePhysics = PhysicsBody::createCircle(10);
-	StaticRopePhysics->setDynamic(false);
-	staticBody = Sprite::create();
-	staticBody->setPhysicsBody(StaticRopePhysics);
+	/*StaticRopePhysics = PhysicsBody::createCircle(10);
+	StaticRopePhysics->setDynamic(false);*/
+	/*staticBody = Sprite::create();
+	staticBody->setPhysicsBody(StaticRopePhysics);*/
 	
 	rope->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
 	rope->getPhysicsBody()->setCategoryBitmask(BITMASK_A);
 
-	staticBody->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
-	staticBody->getPhysicsBody()->setCategoryBitmask(BITMASK_A);
+	/*staticBody->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
+	staticBody->getPhysicsBody()->setCategoryBitmask(BITMASK_A);*/
 	
 	rope->getPhysicsBody()->setTag(13);
-	staticBody->getPhysicsBody()->setTag(13);
+	//staticBody->getPhysicsBody()->setTag(13);
 
-	layer->addChild(staticBody, 17);
+	//layer->addChild(staticBody, 17);
 	layer->addChild(rope, 16);
 }
 
@@ -94,7 +95,7 @@ Vec2 Rope::getToPosition()
 	return toPosition;
 }
 
-float Rope::getRadius()
+Sprite* Rope::getRope()
 {
-	return radius;
+	return rope;
 }
