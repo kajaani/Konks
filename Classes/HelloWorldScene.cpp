@@ -30,6 +30,7 @@ Scene* HelloWorld::createScene()
 
 void HelloWorld::setLevel(Scene* scene)
 {
+	CCLOG("adasdasdfgsdgsgsgsd %s", scene->getChildByTag(50)->getName().c_str());
 	tile = new Peli::Tile(this, scene->getChildByTag(50)->getName().c_str());
 	this->runAction(Follow::create(player->getPlayer(),
 		Rect(visibleSize.width + origin.x - visibleSize.width,
@@ -150,11 +151,10 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	// Player hits goal
 	if (bodyA->getTag() == 12 && bodyB->getTag() == 12)
 	{
+		CCLOG("BODY A OSUI");
 		this->GoToMainMenuScene(this);
 		return false;
 	}
-
-	// Player hits goal
 	if (bodyB->getTag() == 12 && bodyA->getTag() == 12)
 	{
 		this->GoToMainMenuScene(this);
@@ -190,7 +190,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	player->getPlayerPhysicsBody()->setEnable(true); // Disabled player collisions while testing raycast functioning //
 	Point touchWorld = convertToNodeSpace(touch->getLocation());
 
-	CCLOG("Touch position at: %f, %f", touchWorld.x, touchWorld.y);
+	CCLOG("  Touch   position    at: %f, %f", touchWorld.x, touchWorld.y);
 	Vec2 points;
 	Vec2 RayHitPosition(0, 0);
 	int num = 0;
@@ -268,16 +268,23 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 		ropeJoint->setCollisionEnable(true);
 		_world->addJoint(ropeJoint);
 
-		//Checking which way the player should face
-
 		auto distancefromvec1tovec2 = player->getPosition() - touchWorld;
-		float angle = (CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
-		if (( angle > 90 && angle <= 179) || (angle > -180 && angle <= -90))
+
+		////////////////////////////////////////////////////////////////////////////////////////////
+		//Determines the direction which player faces upon shooting the "hook"
+		CCLOG("Current angle: %f", CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
+		////////////////////////////////////////////////////////////////////////////////////////////
+
+		if (((CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) > 90 && (CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) <= 179)
+			|| ((CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) > -180 && (CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) <= -90))
 		{
+			CCLOG("Vasen ala");
+			//player->getPlayer()->setRotation(CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
 			player->getPlayer()->setScaleX(0.5);
 		}
 		else
 		{
+			CCLOG("Oikea ala");
 			player->getPlayer()->setScaleX(-0.5);
 		}
 
