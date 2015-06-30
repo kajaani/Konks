@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
  <tileset firstgid="1" name="skull" tilewidth="32" tileheight="32">
   <image source="skull.jpg" width="172" height="184"/>
  </tileset>
  <tileset firstgid="26" name="CloseNormal" tilewidth="32" tileheight="32">
   <image source="CloseNormal.png" width="40" height="40"/>
  </tileset>
- <layer name="Background" width="20" height="20">
+ <tileset firstgid="27" name="cat02" tilewidth="32" tileheight="32">
+  <image source="cat02.png" width="43" height="34"/>
+ </tileset>
+ <layer name="Background" width="200" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt0TkSgDAQA8E1l7nBgA38/6PMH1RFtEEnE0rBzCrUaNAiCK1DRI8Bo9gmzFiwYhPbjoQDJy6xZRTcePCKTdne//A//A//488/Pr3GFFE=
+   eJzt17cRwwAAgEDJOee4/6LmXGgGCgqa34BxGIYZzWlBSxqzLPvbita0oS3tsiybbE8HOtKJzlmWTXahK93oTo8syyZ70ove9KFvlmWTmV4oy2xmeqEss5nphbLMZqYXyjKbmV4oy2xmeqEss5nphbLMZqYXyjKbmV4oy2xmeqEss5nphbLMZqYXyjKbmV4oy2xmeqEss5nphbLMZj8POssh
   </data>
  </layer>
- <layer name="Meta" width="20" height="20">
+ <layer name="Meta" width="200" height="20">
   <data encoding="base64" compression="zlib">
-   eJyTYmBgkKIyphYYNW/UvFHzRs0bNY+65lETAwA2GAe5
+   eJzt2lsKhDAMBVD30f3vU/wbhgnK1DTVngP5LMTHjSBpG/CtfRSsqF2s3vM9BZmy3/1sIzKo1q5/9Z6HN5MPiMkHxOQDYvIBMfmAmHzAb3f8H4a3kg+IyQfE5ANi8kGFEXtTd5ilD55l5K5gZWbkgzOzzfRDVk+zfseuqN6P7pmN1T2NmvVVsq63+t6v8qx4th2dOy+S
   </data>
  </layer>
- <layer name="Goal" width="20" height="20">
+ <layer name="Goal" width="200" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYKAekKKiWaNgFIyCUTAKBjcAAKEIABs=
+   eJzt0zENAAAIBLH3gX+fWCBhIrTTGbgEbqlBw1f+AAAAAAAAAAAAAAAAAAA2GhMLAKM=
   </data>
  </layer>
 </map>
