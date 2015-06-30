@@ -78,6 +78,9 @@ protected:
 	Point origin;
 	Size visibleSize;
 
+	DrawNode *_drawNode;
+
+
 private:
 	void GoToMainMenuScene(cocos2d::Ref *sender);
 

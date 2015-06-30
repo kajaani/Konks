@@ -206,6 +206,13 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	int num = 0;
 	bool isHit = false;
 
+
+	if (_drawNode)
+	{
+		removeChild(_drawNode);
+	}
+	_drawNode = DrawNode::create();
+
 	PhysicsRayCastCallbackFunc func = [&points, &num, &RayHitPosition, &isHit](PhysicsWorld& world,
 		const PhysicsRayCastInfo& info, void* data)->bool
 	{
@@ -233,19 +240,18 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	Dx /= Dlength;
 	Dy /= Dlength;
 
-	_world->rayCast(func, Vec2(player->getPosition().x + Dx * -200, player->getPosition().y + Dy * -200), touchWorld, nullptr);
-	auto _drawNode = DrawNode::create();
-	_drawNode->drawSegment(Vec2(player->getPosition().x + Dx * -200, player->getPosition().y + Dy * -200), touchWorld, 1, Color4F::RED);
+	_world->rayCast(func, Vec2(player->getPosition().x + Dx * -100, player->getPosition().y + Dy * -100), touchWorld, nullptr);
+	_drawNode->drawSegment(Vec2(player->getPosition().x + Dx * -100, player->getPosition().y + Dy * -100), touchWorld, 1, Color4F::RED);
 	this->addChild(_drawNode);
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	distance = sqrt((player->getPosition().x - touchWorld.x + movedDistance) * (player->getPosition().x - touchWorld.x + movedDistance) +
-		(player->getPosition().y - touchWorld.y) * (player->getPosition().y - touchWorld.y));
+	distance = sqrt((player->getPosition().x - RayHitPosition.x + movedDistance) * (player->getPosition().x - RayHitPosition.x + movedDistance) +
+		(player->getPosition().y - RayHitPosition.y) * (player->getPosition().y - RayHitPosition.y));
 
 	///////////////////////////////////////////
-	rope->getRopePhysicsBody()->setEnable(true);
+	rope->getRopePhysicsBody()->setEnable(false);
 
 	player->isTouchHold = true;
 	Vector<SpriteFrame*> animFrames(46);
@@ -263,16 +269,15 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 	if (distance > 100 && player->isTouchHold && isHit)
 	{
-		rope->getRopePhysicsBody()->setDynamic(true);
-		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, 100);
+		rope->getRopePhysicsBody()->setDynamic(false);
+		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, distance - 50);
 		ropeJoint->setCollisionEnable(true);
 		_world->addJoint(ropeJoint);
 
 		player->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
-		//rope->setToPosition(Vec2(touchWorld.x + movedDistance, touchWorld.y + movedDistance)); // Add something to touch coordinates
 		rope->setToPosition(player->getPosition());
 		rope->Grapple(RayHitPosition);
-
+		player->isHooked = true;
 	}
 	return true;
 }

@@ -17,10 +17,9 @@ Player::Player(Layer *layer)
 	PlayerPhysics->setVelocityLimit(1000);
 
 	PlayerPhysics->setGravityEnable(true);
-	PlayerPhysics->setMass(10000);
+	PlayerPhysics->setMass(1000);
 	PlayerPhysics->setRotationEnable(false);
-
-
+	
 	int BITMASK_A = 0x1;
 	int BITMASK_B = 0x2;
 
@@ -50,6 +49,7 @@ void Player::update()
 
 	if (distance > 25 && isTouchHold && isHooked)
 	{
+		// Player movement while hooked
 		if (player->getPositionY() < TouchPosition.y)
 			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x, PlayerPhysics->getVelocity().y + power));
 

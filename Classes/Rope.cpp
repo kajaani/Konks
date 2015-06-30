@@ -58,7 +58,7 @@ void Rope::Grapple(Vec2 TouchPosition)
 
 	//if (rope->getPositionX() > TouchPosition.x)
 	//	RopePhysics->setVelocity(Vec2(RopePhysics->getVelocity().x - 1000, RopePhysics->getVelocity().y));
-	rope->runAction(MoveTo::create(1, TouchPosition));
+	rope->runAction(MoveTo::create(0.1, TouchPosition));
 }
 
 PhysicsBody* Rope::getRopePhysicsBody()
