@@ -73,7 +73,6 @@ bool HelloWorld::init(PhysicsWorld* world)
 	LabelCubeTest = cube->getLabel();
 	LabelCubeTest->setPosition(origin.x + visibleSize.width / 2,
 		origin.y + visibleSize.height - LabelCubeTest->getContentSize().height);
-	//
 
 	// Player
 	player = new Player(this);
@@ -87,15 +86,6 @@ bool HelloWorld::init(PhysicsWorld* world)
 	// add the label as a child to this layer
 	this->addChild(LabelCubeTest, 1);
 
-	// add "HelloWorld" splash screen"
-	auto background = Sprite::create("Desert.jpg");
-
-	// position the sprite on the center of the screen
-	background->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-
-	// add the sprite as a child to this layer
-	//this->addChild(background, 0);
-
 	// Physics listener
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin, this);
@@ -108,7 +98,7 @@ bool HelloWorld::init(PhysicsWorld* world)
 	touchListener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
-	//
+
 
 	platform.spawnPlatform(this, player->getPosition());
 
@@ -201,7 +191,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	Point touchWorld = convertToNodeSpace(touch->getLocation());
 
 	CCLOG("  Touch   position    at: %f, %f", touchWorld.x, touchWorld.y);
-	Vec2 points[5];
+	Vec2 points;
 	Vec2 RayHitPosition(0, 0);
 	int num = 0;
 	bool isHit = false;
@@ -210,18 +200,20 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	if (_drawNode)
 	{
 		removeChild(_drawNode);
-	}
+	} 
 	_drawNode = DrawNode::create();
 
+	
 	PhysicsRayCastCallbackFunc func = [&points, &num, &RayHitPosition, &isHit](PhysicsWorld& world,
 		const PhysicsRayCastInfo& info, void* data)->bool
 	{
-		if (num < 5)
+		if (info.shape->getBody()->getTag() == 11)
 		{
+			log("raycast  found tile");
 			isHit = true;
-			points[num++] = info.contact;
-			RayHitPosition = points[0];
-			CCLOG("RayCast hit something at: %f, %f", info.contact.x, info.contact.y);
+			points = info.contact;
+			RayHitPosition = points;
+			return false;
 		}
 		return true;
 	};
@@ -237,11 +229,13 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 	float Dlength = sqrt(Dx*Dx + Dy*Dy);
 
+
 	Dx /= Dlength;
 	Dy /= Dlength;
 
-	_world->rayCast(func, Vec2(player->getPosition().x + Dx * -100, player->getPosition().y + Dy * -100), touchWorld, nullptr);
-	_drawNode->drawSegment(Vec2(player->getPosition().x + Dx * -100, player->getPosition().y + Dy * -100), touchWorld, 1, Color4F::RED);
+	float rayCastOffset = 100;
+	_world->rayCast(func, Vec2(player->getPosition().x , player->getPosition().y ), touchWorld, nullptr);
+	_drawNode->drawSegment(Vec2(player->getPosition().x , player->getPosition().y ), touchWorld, 1, Color4F::RED);
 	this->addChild(_drawNode);
 
 
@@ -293,6 +287,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 			CCLOG("Oikea ala");
 			player->getPlayer()->setScaleX(-0.5);
 		}
+
 
 		player->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
 		rope->setToPosition(player->getPosition());

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="skull" tilewidth="32" tileheight="32">
+  <image source="skull.jpg" width="172" height="184"/>
+ </tileset>
+ <tileset firstgid="26" name="CloseNormal" tilewidth="32" tileheight="32">
+  <image source="CloseNormal.png" width="40" height="40"/>
+ </tileset>
+ <layer name="Background" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt0TkSgDAQA8E1l7nBgA38/6PMH1RFtEEnE0rBzCrUaNAiCK1DRI8Bo9gmzFiwYhPbjoQDJy6xZRTcePCKTdne//A//A//488/Pr3GFFE=
+  </data>
+ </layer>
+ <layer name="Meta" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJyTYmBgkKIyphYYNW/UvFHzRs0bNY+65lETAwA2GAe5
+  </data>
+ </layer>
+ <layer name="Goal" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAekKKiWaNgFIyCUTAKBjcAAKEIABs=
+  </data>
+ </layer>
+</map>

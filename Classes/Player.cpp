@@ -10,7 +10,7 @@ Player::Player(Layer *layer)
 	TouchPosition = Vec2(0, 0);
 
 	player = Sprite::create("defpappa.png");
-	player->setPosition(Vec2(250, 250));
+	player->setPosition(Vec2(350,350));
 	player->setScale(0.5f);
 
 	PlayerPhysics = PhysicsBody::createBox(player->getContentSize() / 3);
@@ -19,6 +19,8 @@ Player::Player(Layer *layer)
 	PlayerPhysics->setGravityEnable(true);
 	PlayerPhysics->setMass(1000);
 	PlayerPhysics->setRotationEnable(false);
+	
+	
 	
 	int BITMASK_A = 0x1;
 	int BITMASK_B = 0x2;

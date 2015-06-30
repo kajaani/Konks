@@ -49,7 +49,7 @@ bool LevelMenuScene::init()
 	//Level 1 button
 	playButton1 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
-	playButton1->setName("Background01.tmx");
+	playButton1->setName("Testmap9000.tmx");
 	playButton1->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + 100));
 
 	//Level 2 button
