@@ -274,6 +274,26 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 		ropeJoint->setCollisionEnable(true);
 		_world->addJoint(ropeJoint);
 
+		auto distancefromvec1tovec2 = player->getPosition() - touchWorld;
+
+		////////////////////////////////////////////////////////////////////////////////////////////
+		//Determines the direction which player faces upon shooting the "hook"
+		CCLOG("Current angle: %f", CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
+		////////////////////////////////////////////////////////////////////////////////////////////
+
+		if (((CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) > 90 && (CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) <= 179)
+			|| ((CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) > -180 && (CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) <= -90))
+		{
+			CCLOG("Vasen ala");
+			//player->getPlayer()->setRotation(CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
+			player->getPlayer()->setScaleX(0.5);
+		}
+		else
+		{
+			CCLOG("Oikea ala");
+			player->getPlayer()->setScaleX(-0.5);
+		}
+
 		player->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
 		rope->setToPosition(player->getPosition());
 		rope->Grapple(RayHitPosition);
