@@ -9,34 +9,16 @@
 #include "Rope.h"
 #include "Platform.h"
 
-#define CUSTOM_CREATE_FUNC(__TYPE__) \
-static __TYPE__* create(PhysicsWorld* world) \
-{ \
-    __TYPE__ *pRet = new __TYPE__(); \
-    if (pRet && pRet->init(world)) \
-	    { \
-       pRet->autorelease(); \
-       return pRet; \
-	     } \
-	      else \
-	      { \
-        delete pRet; \
-        pRet = NULL; \
-        return NULL; \
-	        } \
-}
-
 class HelloWorld : public cocos2d::Layer
 {
 public:
-
 	void setLevel( Scene *scene);
 
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
 	static cocos2d::Scene* createScene();
 	//static cocos2d::Scene* createScene(std::string level);
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-	virtual bool init(PhysicsWorld* world);
+	virtual bool init();
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
@@ -49,12 +31,11 @@ public:
 	void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event);
 
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
-	void onContactPostSolve(cocos2d::PhysicsContact &contact);
 
 	void SpawnPlatform(float dt); 
 	
     // implement the "static create()" method manually
-	CUSTOM_CREATE_FUNC(HelloWorld);
+	CREATE_FUNC(HelloWorld);
 
 protected:
 	CubeTest* cube;
@@ -79,11 +60,9 @@ protected:
 	Size visibleSize;
 
 	DrawNode *_drawNode;
-
-
 private:
 	void GoToMainMenuScene(cocos2d::Ref *sender);
-
+	void SetPhysicsWorld(cocos2d::PhysicsWorld *world) {  _world = world; };
 };
 
 #endif // __HELLOWORLD_SCENE_H__

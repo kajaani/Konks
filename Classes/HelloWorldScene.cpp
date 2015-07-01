@@ -15,14 +15,13 @@ Scene* HelloWorld::createScene()
 	auto scene = Scene::createWithPhysics();
 
 	// 'layer' is an autorelease object
-	auto layer = HelloWorld::create(scene->getPhysicsWorld());
-	//layer->setPhysicsWorld(scene->getPhysicsWorld());
+	auto layer = HelloWorld::create();
+	layer->SetPhysicsWorld(scene->getPhysicsWorld());
 
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	// add layer as a child to scene
 	scene->addChild(layer);
-
 
 	// return the scene
 	return scene;
@@ -30,18 +29,20 @@ Scene* HelloWorld::createScene()
 
 void HelloWorld::setLevel(Scene* scene)
 {
-	CCLOG("adasdasdfgsdgsgsgsd %s", scene->getChildByTag(50)->getName().c_str());
 	tile = new Peli::Tile(this, scene->getChildByTag(50)->getName().c_str());
+
 	this->runAction(Follow::create(player->getPlayer(),
 		Rect(visibleSize.width + origin.x - visibleSize.width,
 		visibleSize.height + origin.y - visibleSize.height,
 		tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width,
 		tile->getMap()->getMapSize().height * tile->getMap()->getTileSize().height)));
+
+	//this->runAction(MoveTo::create(100, Vec2(-tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width, 0)));
 }
 
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init(PhysicsWorld* world)
+bool HelloWorld::init()
 {
 	//////////////////////////////
 	// 1. super init first
@@ -50,9 +51,8 @@ bool HelloWorld::init(PhysicsWorld* world)
 		return false;
 	}
 
-	log("initialize");
-	_world = world;
-	Vect g = _world->getGravity();
+	//log("initialize");
+
 	if (!Layer::init())
 	{
 		return false;
@@ -89,7 +89,6 @@ bool HelloWorld::init(PhysicsWorld* world)
 	// Physics listener
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin, this);
-	contactListener->onContactPostSolve = CC_CALLBACK_1(HelloWorld::onContactPostSolve, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	// Touch input
@@ -98,7 +97,6 @@ bool HelloWorld::init(PhysicsWorld* world)
 	touchListener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
 	touchListener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
-
 
 	platform.spawnPlatform(this, player->getPosition());
 
@@ -111,9 +109,18 @@ bool HelloWorld::init(PhysicsWorld* world)
 	return true;
 }
 
+void HelloWorld::initializeLevel(float dt)
+{
+	setLevel(this->getScene());
+}
+
+void HelloWorld::SpawnPlatform(float dt)
+{
+	platform.spawnPlatform(this, player->getPosition());
+}
+
 void HelloWorld::update(float dt)
 {
-	//rope->updateStaticBody(rope->getRopePosition());
 	player->update();
 	player->getPosition();
 	LabelCubeTest->setColor(ccc3(rand() % 255, 0, 0));
@@ -125,18 +132,6 @@ void HelloWorld::update(float dt)
 	{
 		this->GoToMainMenuScene(this);
 	}
-}
-
-
-void HelloWorld::onContactPostSolve(PhysicsContact &contact)
-{
-	//auto bodyA = contact.getShapeA()->getBody();
-	//auto bodyB = contact.getShapeB()->getBody();
-	//log("Nigga stole my bike");
-	//if (bodyA->getTag() == 13 && bodyB->getTag() == 11)
-	//{
-	//	_world->removeBody(rope->getRopePhysicsBody());
-	//}
 }
 
 bool HelloWorld::onContactBegin(PhysicsContact& contact)
@@ -151,7 +146,6 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	// Player hits goal
 	if (bodyA->getTag() == 12 && bodyB->getTag() == 12)
 	{
-		CCLOG("BODY A OSUI");
 		this->GoToMainMenuScene(this);
 		return false;
 	}
@@ -163,56 +157,46 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	// Hook hits player, cancel
 	if (bodyA->getTag() == 12 && bodyB->getTag() == 13)
 	{
-		log("hook hit player");
 		return false;
 	}
 	if (bodyB->getTag() == 12 && bodyA->getTag() == 13)
 	{
-		log("hook hit player");
 		return false;
 	}
 	return true;
-}
-
-void HelloWorld::initializeLevel(float dt)
-{
-	setLevel(this->getScene());
-}
-
-void HelloWorld::SpawnPlatform(float dt)
-{
-	platform.spawnPlatform(this, player->getPosition());
 }
 
 bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	// RayCast
 	player->getPlayerPhysicsBody()->setEnable(true); // Disabled player collisions while testing raycast functioning //
-	Point touchWorld = convertToNodeSpace(touch->getLocation());
 
-	CCLOG("  Touch   position    at: %f, %f", touchWorld.x, touchWorld.y);
-	Vec2 points;
+	Point touchWorld = touch->getLocationInView();
+	touchWorld = Director::sharedDirector()->convertToGL(touchWorld);
+	touchWorld = this->convertToNodeSpace(touchWorld);
+
 	Vec2 RayHitPosition(0, 0);
-	int num = 0;
 	bool isHit = false;
-
+	
+	////////////////////////////////////////////////
+	player->getPlayerPhysicsBody()->setEnable(true);
 
 	if (_drawNode)
 	{
 		removeChild(_drawNode);
 	} 
 	_drawNode = DrawNode::create();
-
 	
-	PhysicsRayCastCallbackFunc func = [&points, &num, &RayHitPosition, &isHit](PhysicsWorld& world,
+	PhysicsRayCastCallbackFunc func = [&RayHitPosition, &isHit](PhysicsWorld& world,
 		const PhysicsRayCastInfo& info, void* data)->bool
 	{
+		CCLOG("Raycasting");
 		if (info.shape->getBody()->getTag() == 11)
 		{
-			log("raycast  found tile");
 			isHit = true;
-			points = info.contact;
-			RayHitPosition = points;
+			RayHitPosition = info.contact;
+			
+			CCLOG("contact %f, %f", info.contact.x, info.contact.y);
 			return false;
 		}
 		return true;
@@ -224,27 +208,18 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 		isHit = false;
 	}
 
-	float Dx = player->getPosition().x - touchWorld.x;
-	float Dy = player->getPosition().y - touchWorld.y;
+	//CCLOG("camera  %f, %f", this->getPosition().x, this->getPosition().y);
+	//CCLOG("touch   %f, %f", touchWorld.x, touchWorld.y);
+	
+	this->getScene()->getPhysicsWorld()->rayCast(func, player->getPosition(), touchWorld, nullptr);
+	_drawNode->drawSegment(player->getPosition(), touchWorld, 1, Color4F::RED);
+	//_world->rayCast(func, player->getPosition(), touchWorld, nullptr);
 
-	float Dlength = sqrt(Dx*Dx + Dy*Dy);
-
-
-	Dx /= Dlength;
-	Dy /= Dlength;
-
-	float rayCastOffset = 100;
-	_world->rayCast(func, Vec2(player->getPosition().x , player->getPosition().y ), touchWorld, nullptr);
-	_drawNode->drawSegment(Vec2(player->getPosition().x , player->getPosition().y ), touchWorld, 1, Color4F::RED);
 	this->addChild(_drawNode);
-
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	distance = sqrt((player->getPosition().x - RayHitPosition.x + movedDistance) * (player->getPosition().x - RayHitPosition.x + movedDistance) +
 		(player->getPosition().y - RayHitPosition.y) * (player->getPosition().y - RayHitPosition.y));
 
-	///////////////////////////////////////////
 	rope->getRopePhysicsBody()->setEnable(false);
 
 	player->isTouchHold = true;
@@ -272,24 +247,21 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 		////////////////////////////////////////////////////////////////////////////////////////////
 		//Determines the direction which player faces upon shooting the "hook"
-		CCLOG("Current angle: %f", CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
+		//CCLOG("Current angle: %f", CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
 		////////////////////////////////////////////////////////////////////////////////////////////
 
 		if (((CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) > 90 && (CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) <= 179)
 			|| ((CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) > -180 && (CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) <= -90))
 		{
-			CCLOG("Vasen ala");
 			//player->getPlayer()->setRotation(CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
 			player->getPlayer()->setScaleX(0.5);
 		}
 		else
 		{
-			CCLOG("Oikea ala");
 			player->getPlayer()->setScaleX(-0.5);
 		}
-
-
-		player->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
+		
+		player->Grapple(touchWorld);
 		rope->setToPosition(player->getPosition());
 		rope->Grapple(RayHitPosition);
 		player->isHooked = true;
@@ -315,7 +287,7 @@ void HelloWorld::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
 void HelloWorld::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	Point touchWorld = convertToNodeSpace(touch->getLocation());
-	player->TouchPosition = Vec2(touchWorld.x + movedDistance, touchWorld.y);
+	player->TouchPosition = touchWorld;
 }
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
@@ -326,3 +298,11 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 	exit(0);
 #endif
 }
+
+//float Dx = player->getPosition().x - touchWorld.x;
+//float Dy = player->getPosition().y - touchWorld.y;
+
+//float Dlength = sqrt(Dx*Dx + Dy*Dy);
+
+//Dx /= Dlength;
+//Dy /= Dlength;
