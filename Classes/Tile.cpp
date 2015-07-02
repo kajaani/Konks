@@ -46,9 +46,6 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 			//Handling the object collision
 			if (gidGoal)
 			{
-				int BITMASK_A = 0x1 << 0;
-				int BITMASK_B = 0x1 << 1;
-
 				tileXPosition = i * map->getTileSize().width;																	//	* tileWidth;
 				tileYPosition = (map->getMapSize().height * map->getTileSize().height) - ((j + 1) * map->getTileSize().height); //(mapHeight * tileHeight) - ((j + 1) tileHeight);
 				

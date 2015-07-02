@@ -16,12 +16,13 @@ Scene* HelloWorld::createScene()
 
 	// 'layer' is an autorelease object
 	auto layer = HelloWorld::create();
-	layer->SetPhysicsWorld(scene->getPhysicsWorld());
+	layer->setPhysicsWorld(scene->getPhysicsWorld());
 
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	// add layer as a child to scene
 	scene->addChild(layer);
+
 
 	// return the scene
 	return scene;
@@ -29,15 +30,13 @@ Scene* HelloWorld::createScene()
 
 void HelloWorld::setLevel(Scene* scene)
 {
+	CCLOG("adasdasdfgsdgsgsgsd %s", scene->getChildByTag(50)->getName().c_str());
 	tile = new Peli::Tile(this, scene->getChildByTag(50)->getName().c_str());
-
 	this->runAction(Follow::create(player->getPlayer(),
 		Rect(visibleSize.width + origin.x - visibleSize.width,
 		visibleSize.height + origin.y - visibleSize.height,
 		tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width,
 		tile->getMap()->getMapSize().height * tile->getMap()->getTileSize().height)));
-
-	//this->runAction(MoveTo::create(100, Vec2(-tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width, 0)));
 }
 
 
@@ -51,12 +50,13 @@ bool HelloWorld::init()
 		return false;
 	}
 
-	//log("initialize");
-
+	log("initialize");
 	if (!Layer::init())
 	{
 		return false;
 	}
+
+	isHit = false;
 
 	origin = Director::getInstance()->getVisibleOrigin();
 	visibleSize = Director::getInstance()->getVisibleSize();
@@ -98,6 +98,7 @@ bool HelloWorld::init()
 	touchListener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 
+
 	platform.spawnPlatform(this, player->getPosition());
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -109,18 +110,9 @@ bool HelloWorld::init()
 	return true;
 }
 
-void HelloWorld::initializeLevel(float dt)
-{
-	setLevel(this->getScene());
-}
-
-void HelloWorld::SpawnPlatform(float dt)
-{
-	platform.spawnPlatform(this, player->getPosition());
-}
-
 void HelloWorld::update(float dt)
 {
+	//rope->updateStaticBody(rope->getRopePosition());
 	player->update();
 	player->getPosition();
 	LabelCubeTest->setColor(ccc3(rand() % 255, 0, 0));
@@ -142,10 +134,11 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	float distanceFromHook;
 	distanceFromHook = sqrt((player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x + movedDistance) * (player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x + movedDistance) +
 		(player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y) * (player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y));
-	
+
 	// Player hits goal
 	if (bodyA->getTag() == 12 && bodyB->getTag() == 12)
 	{
+		CCLOG("BODY A OSUI");
 		this->GoToMainMenuScene(this);
 		return false;
 	}
@@ -157,70 +150,102 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	// Hook hits player, cancel
 	if (bodyA->getTag() == 12 && bodyB->getTag() == 13)
 	{
+		log("hook hit player");
 		return false;
 	}
 	if (bodyB->getTag() == 12 && bodyA->getTag() == 13)
 	{
+		log("hook hit player");
 		return false;
+	}
+
+	// RayBox hits player
+	if (bodyA->getTag() == 12 && bodyB->getTag() == 22)
+	{
+		CCLOG("BOX OSUI PELAAJAAN");
+		return false;
+	}
+	if (bodyB->getTag() == 12 && bodyA->getTag() == 22)
+	{
+		CCLOG("BOX OSUI PELAAJAAN");
+		return false;
+	}
+
+	// RayBox hits tiles
+	if (bodyA->getTag() == 22 && bodyB->getTag() == 11)
+	{
+		sprite->stopAllActions();
+		rope->Grapple(bodyA->getPosition());
+		isHit = true;
+		CCLOG("BOX OSUI TILEEN");
+		return true;
+	}
+	if (bodyB->getTag() == 22 && bodyA->getTag() == 11)
+	{
+		sprite->stopAllActions();
+		rope->Grapple(bodyB->getPosition());
+		CCLOG("BOX OSUI TILEEN");
+		isHit = true;
+		return true;
 	}
 	return true;
 }
 
+void HelloWorld::initializeLevel(float dt)
+{
+	setLevel(this->getScene());
+}
+
+void HelloWorld::SpawnPlatform(float dt)
+{
+	platform.spawnPlatform(this, player->getPosition());
+}
+
 bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
+	Point touchWorld = convertToNodeSpace(touch->getLocation());
+
+	if (sprite)
+	{
+		removeChild(sprite);
+	}
+
+	sprite = Sprite::create("skull.jpg");
+	sprite->setScale(0.2);
+	sprite->setColor(ccc3(100, 0, 0));
+	sprite->setPosition(player->getPosition());
+
+	auto spriteBody = PhysicsBody::createBox(sprite->getContentSize() * 0.2);
+	sprite->setPhysicsBody(spriteBody);
+
+	int BITMASK_A = 0x1;
+	int BITMASK_B = 0x2;
+
+	sprite->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
+	sprite->getPhysicsBody()->setCategoryBitmask(BITMASK_A);
+	sprite->getPhysicsBody()->setGravityEnable(false);
+	sprite->getPhysicsBody()->setDynamic(true);
+	sprite->getPhysicsBody()->setTag(22);
+
+	this->addChild(sprite);
+
+	sprite->runAction(MoveTo::create(0.5, touchWorld));
+
 	// RayCast
 	player->getPlayerPhysicsBody()->setEnable(true); // Disabled player collisions while testing raycast functioning //
-
-	Point touchWorld = touch->getLocationInView();
-	touchWorld = Director::sharedDirector()->convertToGL(touchWorld);
-	touchWorld = this->convertToNodeSpace(touchWorld);
-
+	Vec2 points;
 	Vec2 RayHitPosition(0, 0);
-	bool isHit = false;
-	
-	////////////////////////////////////////////////
-	player->getPlayerPhysicsBody()->setEnable(true);
+	int num = 0;
 
 	if (_drawNode)
 	{
 		removeChild(_drawNode);
-	} 
-	_drawNode = DrawNode::create();
-	
-	PhysicsRayCastCallbackFunc func = [&RayHitPosition, &isHit](PhysicsWorld& world,
-		const PhysicsRayCastInfo& info, void* data)->bool
-	{
-		CCLOG("Raycasting");
-		if (info.shape->getBody()->getTag() == 11)
-		{
-			isHit = true;
-			RayHitPosition = info.contact;
-			
-			CCLOG("contact %f, %f", info.contact.x, info.contact.y);
-			return false;
-		}
-		return true;
-	};
-
-	if (!RayHitPosition.x)
-	{
-		RayHitPosition = touchWorld;
-		isHit = false;
 	}
+	_drawNode = DrawNode::create();
 
-	//CCLOG("camera  %f, %f", this->getPosition().x, this->getPosition().y);
-	//CCLOG("touch   %f, %f", touchWorld.x, touchWorld.y);
-	
-	this->getScene()->getPhysicsWorld()->rayCast(func, player->getPosition(), touchWorld, nullptr);
-	_drawNode->drawSegment(player->getPosition(), touchWorld, 1, Color4F::RED);
-	//_world->rayCast(func, player->getPosition(), touchWorld, nullptr);
-
+	float rayCastOffset = 100;
+	_drawNode->drawSegment(Vec2(player->getPosition().x, player->getPosition().y), touchWorld, 1, Color4F::RED);
 	this->addChild(_drawNode);
-
-	distance = sqrt((player->getPosition().x - RayHitPosition.x + movedDistance) * (player->getPosition().x - RayHitPosition.x + movedDistance) +
-		(player->getPosition().y - RayHitPosition.y) * (player->getPosition().y - RayHitPosition.y));
-
-	rope->getRopePhysicsBody()->setEnable(false);
 
 	player->isTouchHold = true;
 	Vector<SpriteFrame*> animFrames(46);
@@ -236,22 +261,28 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	auto animate = Animate::create(animation);
 	player->runAction(animate);
 
-	if (distance > 100 && player->isTouchHold && isHit)
+	distance = sqrt((player->getPosition().x - boxHitPos.x) * (player->getPosition().x - boxHitPos.x) +
+		(player->getPosition().y - boxHitPos.y) * (player->getPosition().y - boxHitPos.y));
+
+	if (distance > 50 && player->isTouchHold && isHit)
 	{
+		log("CREATING THE ROPE");
+		///////////////////////////////////////////
+		rope->getRopePhysicsBody()->setEnable(false);
 		rope->getRopePhysicsBody()->setDynamic(false);
-		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, distance - 50);
+		rope->Grapple(sprite->getPosition());
+		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, 100);
 		ropeJoint->setCollisionEnable(true);
 		_world->addJoint(ropeJoint);
 
+		CCLOG("Rope pos: %f, %f", rope->getRopePhysicsBody()->getPosition().x, rope->getRopePhysicsBody()->getPosition().y);
+
+		//Handling the rotation of the player, depending on where he shoots
 		auto distancefromvec1tovec2 = player->getPosition() - touchWorld;
 
-		////////////////////////////////////////////////////////////////////////////////////////////
-		//Determines the direction which player faces upon shooting the "hook"
-		//CCLOG("Current angle: %f", CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
-		////////////////////////////////////////////////////////////////////////////////////////////
+		float angle = (CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
 
-		if (((CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) > 90 && (CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) <= 179)
-			|| ((CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) > -180 && (CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle())) <= -90))
+		if ((angle > 90 && angle <= 179) || (angle > -180 && angle <= -90))
 		{
 			//player->getPlayer()->setRotation(CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
 			player->getPlayer()->setScaleX(0.5);
@@ -260,10 +291,9 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 		{
 			player->getPlayer()->setScaleX(-0.5);
 		}
-		
-		player->Grapple(touchWorld);
+
+		player->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
 		rope->setToPosition(player->getPosition());
-		rope->Grapple(RayHitPosition);
 		player->isHooked = true;
 	}
 	return true;
@@ -287,7 +317,7 @@ void HelloWorld::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
 void HelloWorld::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	Point touchWorld = convertToNodeSpace(touch->getLocation());
-	player->TouchPosition = touchWorld;
+	player->TouchPosition = Vec2(touchWorld.x + movedDistance, touchWorld.y);
 }
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
@@ -298,11 +328,3 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 	exit(0);
 #endif
 }
-
-//float Dx = player->getPosition().x - touchWorld.x;
-//float Dy = player->getPosition().y - touchWorld.y;
-
-//float Dlength = sqrt(Dx*Dx + Dy*Dy);
-
-//Dx /= Dlength;
-//Dy /= Dlength;
