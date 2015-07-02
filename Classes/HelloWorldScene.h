@@ -54,12 +54,12 @@ protected:
 
 	std::string _selectedLevel;
 
+	bool isAlreadyRoped;
 	float distance;
 	float movedDistance = 0;
 	Point origin;
 	Size visibleSize;
 	Vec2 boxHitPos;
-	bool isHit;
 
 	DrawNode *_drawNode;
 	Sprite *sprite;

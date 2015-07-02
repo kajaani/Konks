@@ -56,10 +56,6 @@ bool MainMenuScene::init()
 		MainMenuScene::Quit, this));
 	quitButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 - 100));
 
-	//Printing the resolution to log
-	log("width: %f",visibleSize.width);
-	log("length: %f", visibleSize.height);
-
 	//Settings button initialization and placement 
 	auto levelsButton = MenuItemImage::create("levelsButton.png", "levelsButtonClicked.png", CC_CALLBACK_1(
 		MainMenuScene::GoToLevelMenuScene, this));
