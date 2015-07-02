@@ -34,6 +34,9 @@ void HelloWorld::setLevel(Scene* scene)
 		visibleSize.height + origin.y - visibleSize.height,
 		tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width,
 		tile->getMap()->getMapSize().height * tile->getMap()->getTileSize().height)));
+
+	float gravityMultiplier = 2;
+	_world->setGravity(Vec2(0, -98 * gravityMultiplier));
 }
 
 // on "init" you need to initialize your instance
@@ -111,20 +114,32 @@ void HelloWorld::update(float dt)
 	LabelCubeTest->setPosition(LabelCubeTest->getPositionX(), LabelCubeTest->getPositionY() - 0.2);
 	LabelCubeTest->setRotation(LabelCubeTest->getRotation() + 1);
 
-	float realDistance = player->getPosition().distance(boxHitPos);
+	Point hitWorld = convertToNodeSpace(boxHitPos);
+	float realDistance = player->getPosition().distance(hitWorld);
 
 	if (realDistance > 50 && player->isTouchHold && player->isHooked && !isAlreadyRoped)
 	{
+		log("PlayerPos: %f, %f", player->getPosition().x, player->getPosition().y);
+		log("hit box  : %f, %f", boxHitPos.x, boxHitPos.y);
+		
+		log("Distance 1: %f", realDistance);
+		log("Distance 2: %f", distanceFromHook);
+
 		isAlreadyRoped = true;
 		rope->getRopePhysicsBody()->setEnable(false);
 		rope->getRopePhysicsBody()->setDynamic(false);
 
-		//rope->setPosition(Vec2(400,400));
 		rope->setPosition(sprite->getPosition());
 
-		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, 300);
+		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, realDistance - 50);
 		ropeJoint->setCollisionEnable(true);
+
 		_world->addJoint(ropeJoint);
+	}
+	
+	if (realDistance > 50 && player->isTouchHold && player->isHooked && isAlreadyRoped)
+	{
+		// Pull player to hook here
 	}
 
 	//Checks if the player is outside of the screen
@@ -139,9 +154,10 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
 
-	float distanceFromHook;
-	distanceFromHook = sqrt((player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x + movedDistance) * (player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x + movedDistance) +
-		(player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y) * (player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y));
+	//distanceFromHook = sqrt((player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x ) * (player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x ) +
+	//	(player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y) * (player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y));
+
+	distanceFromHook = player->getPosition().distance(contact.getShapeA()->getBody()->getPosition());
 
 	// Player hits goal
 	if (bodyA->getTag() == 12 && bodyB->getTag() == 12)
@@ -183,12 +199,14 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	if (bodyA->getTag() == 22 && bodyB->getTag() == 11)
 	{
 		sprite->stopAllActions();
+		boxHitPos = bodyA->getPosition();
 		player->isHooked = true;
 		return true;
 	}
 	if (bodyB->getTag() == 22 && bodyA->getTag() == 11)
 	{
 		sprite->stopAllActions();
+		boxHitPos = bodyA->getPosition();
 		player->isHooked = true;
 		return true;
 	}
@@ -267,9 +285,9 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 	distance = sqrt((player->getPosition().x - boxHitPos.x) * (player->getPosition().x - boxHitPos.x) +
 		(player->getPosition().y - boxHitPos.y) * (player->getPosition().y - boxHitPos.y));
-	
+
 	if (distance > 50 && player->isTouchHold)
-	{
+	{	
 		//Handling the rotation of the player, depending on where he shoots
 		auto distancefromvec1tovec2 = player->getPosition() - touchWorld;
 

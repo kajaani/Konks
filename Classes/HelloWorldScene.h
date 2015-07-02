@@ -56,6 +56,7 @@ protected:
 
 	bool isAlreadyRoped;
 	float distance;
+	float distanceFromHook;
 	float movedDistance = 0;
 	Point origin;
 	Size visibleSize;

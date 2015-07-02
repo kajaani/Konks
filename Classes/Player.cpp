@@ -13,8 +13,8 @@ Player::Player(Layer *layer)
 	player->setPosition(Vec2(350,350));
 	player->setScale(0.5f);
 
-	PlayerPhysics = PhysicsBody::createBox(player->getContentSize() / 3);
-	PlayerPhysics->setVelocityLimit(1000);
+	PlayerPhysics = PhysicsBody::createBox(player->getContentSize() / 3, PhysicsMaterial(1.0f, 0.0f, 0.0f));
+	PlayerPhysics->setVelocityLimit(500);
 
 	PlayerPhysics->setGravityEnable(true);
 	PlayerPhysics->setMass(1000);
@@ -48,8 +48,21 @@ void Player::update()
 
 	if (distance > 25 && isTouchHold && isHooked)
 	{
+		//
+
+		// Use this to move player towards hook
+		//float Dx = player->getPosition().x - touchWorld.x;
+		//float Dy = player->getPosition().y - touchWorld.y;
+
+		//float Dlength = sqrt(Dx*Dx + Dy*Dy);
+
+		//Dx /= Dlength;
+		//Dy /= Dlength;
+
+		//
+
 		// Player movement while hooked
-		if (player->getPositionY() < TouchPosition.y)
+		/*if (player->getPositionY() < TouchPosition.y)
 			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x, PlayerPhysics->getVelocity().y + power));
 
 		if (player->getPositionY() > TouchPosition.y)
@@ -59,7 +72,7 @@ void Player::update()
 			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x + power, PlayerPhysics->getVelocity().y));
 
 		if (player->getPositionX() > TouchPosition.x)
-			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x - power, PlayerPhysics->getVelocity().y));
+			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x - power, PlayerPhysics->getVelocity().y));*/
 	}
 
 	//CCLOG("Velocity X: %f Y: %f", PlayerPhysics->getVelocity().x, PlayerPhysics->getVelocity().y);

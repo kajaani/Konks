@@ -34,7 +34,7 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 				//Creating the sprite
 
 				// create a static PhysicsBody0
-				physicsBody = cocos2d::PhysicsBody::createBox(cocos2d::Size(map->getTileSize().width, map->getTileSize().height));
+				physicsBody = cocos2d::PhysicsBody::createBox(cocos2d::Size(map->getTileSize().width, map->getTileSize().height), cocos2d::PhysicsMaterial(1.0f, 0.0f, 0.0f));
 				physicsBody->setDynamic(false);
 				physicsBody->setTag(11);
 
