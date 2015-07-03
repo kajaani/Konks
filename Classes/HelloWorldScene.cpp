@@ -16,7 +16,7 @@ Scene* HelloWorld::createScene()
 	auto layer = HelloWorld::create();
 	layer->setPhysicsWorld(scene->getPhysicsWorld());
 
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_JOINT);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	// add layer as a child to scene
 	scene->addChild(layer);
@@ -148,6 +148,22 @@ void HelloWorld::update(float dt)
 	{
 		this->GoToMainMenuScene(this);
 	}
+
+	if (_drawNode)
+	{
+		removeChild(_drawNode);
+	}
+	
+	_drawNode = DrawNode::create();
+
+	float rayCastOffset = 100;
+	if (player->isHooked)
+	{
+		Point ropeBodyA = convertToNodeSpace(ropeJoint->getBodyA()->getPosition());
+		Point ropeBodyB = convertToNodeSpace(ropeJoint->getBodyB()->getPosition());
+		_drawNode->drawSegment(ropeBodyA, ropeBodyB, 1, Color4F::BLACK);
+	}
+	this->addChild(_drawNode);
 }
 
 void HelloWorld::onContactPostSolve(PhysicsContact &contact, const PhysicsContactPostSolve &solve)
@@ -158,12 +174,12 @@ void HelloWorld::onContactPostSolve(PhysicsContact &contact, const PhysicsContac
 	if (bodyA->getTag() == 12 && bodyB->getTag() == 11)
 	{
 		log("onContactPostSolve!");
-		bodyA->setVelocity(bodyA->getVelocity() * 0.95);
+		bodyA->setVelocity(Vec2(bodyA->getVelocity().x * 0.99, bodyA->getVelocity().y * 0.99));
 	}
 	if (bodyB->getTag() == 12 && bodyA->getTag() == 11)
 	{
 		log("onContactPostSolve!");
-		bodyB->setVelocity(bodyB->getVelocity() * 0.95);
+		bodyB->setVelocity(Vec2(bodyB->getVelocity().x * 0.99, bodyB->getVelocity().y * 0.99));
 	}
 }
 
@@ -277,16 +293,6 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	Vec2 points;
 	Vec2 RayHitPosition(0, 0);
 	int num = 0;
-
-	if (_drawNode)
-	{
-		removeChild(_drawNode);
-	}
-	_drawNode = DrawNode::create();
-
-	float rayCastOffset = 100;
-	_drawNode->drawSegment(Vec2(player->getPosition().x, player->getPosition().y), touchWorld, 1, Color4F::RED);
-	this->addChild(_drawNode);
 
 	Vector<SpriteFrame*> animFrames(46);
 
