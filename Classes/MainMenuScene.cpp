@@ -98,7 +98,7 @@ void MainMenuScene::GoToGameScene(cocos2d::Ref *sender)
 {
 	auto node = Node::create();
 	node->setTag(50);
-	node->setName("Background01.tmx");
+	node->setName("Tutorial.tmx");
 
 	auto scene = HelloWorld::createScene();
 	scene->addChild(node);
