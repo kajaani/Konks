@@ -39,8 +39,8 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 				physicsBody->setTag(11);
 
 				sprite->setPhysicsBody(physicsBody);
-				sprite->getPhysicsBody()->setContactTestBitmask(BITMASK_A);
-				sprite->getPhysicsBody()->setCategoryBitmask(BITMASK_B);
+				sprite->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
+				sprite->getPhysicsBody()->setCategoryBitmask(BITMASK_A);
 			}
 			
 			//Handling the object collision

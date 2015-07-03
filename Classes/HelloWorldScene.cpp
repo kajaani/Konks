@@ -86,6 +86,7 @@ bool HelloWorld::init()
 	// Physics listener
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin, this);
+	contactListener->onContactPostSolve = CC_CALLBACK_2(HelloWorld::onContactPostSolve, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	// Touch input
@@ -149,14 +150,28 @@ void HelloWorld::update(float dt)
 	}
 }
 
-bool HelloWorld::onContactBegin(PhysicsContact& contact)
+void HelloWorld::onContactPostSolve(PhysicsContact &contact, const PhysicsContactPostSolve &solve)
 {
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
 
-	//distanceFromHook = sqrt((player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x ) * (player->getPosition().x - contact.getShapeA()->getBody()->getPosition().x ) +
-	//	(player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y) * (player->getPosition().y - contact.getShapeA()->getBody()->getPosition().y));
+	if (bodyA->getTag() == 12 && bodyB->getTag() == 11)
+	{
+		log("onContactPostSolve!");
+		bodyA->setVelocity(bodyA->getVelocity() * 0.95);
+	}
+	if (bodyB->getTag() == 12 && bodyA->getTag() == 11)
+	{
+		log("onContactPostSolve!");
+		bodyB->setVelocity(bodyB->getVelocity() * 0.95);
+	}
+}
 
+bool HelloWorld::onContactBegin(PhysicsContact& contact)
+{
+	auto bodyA = contact.getShapeA()->getBody();
+	auto bodyB = contact.getShapeB()->getBody();
+	
 	distanceFromHook = player->getPosition().distance(contact.getShapeA()->getBody()->getPosition());
 
 	// Player hits goal
@@ -196,19 +211,22 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	}
 
 	// RayBox hits tiles
-	if (bodyA->getTag() == 22 && bodyB->getTag() == 11)
+	if (player->isTouchHold)
 	{
-		sprite->stopAllActions();
-		boxHitPos = bodyA->getPosition();
-		player->isHooked = true;
-		return true;
-	}
-	if (bodyB->getTag() == 22 && bodyA->getTag() == 11)
-	{
-		sprite->stopAllActions();
-		boxHitPos = bodyA->getPosition();
-		player->isHooked = true;
-		return true;
+		if (bodyA->getTag() == 22 && bodyB->getTag() == 11)
+		{
+			sprite->stopAllActions();
+			boxHitPos = bodyA->getPosition();
+			player->isHooked = true;
+			return true;
+		}
+		if (bodyB->getTag() == 22 && bodyA->getTag() == 11)
+		{
+			sprite->stopAllActions();
+			boxHitPos = bodyA->getPosition();
+			player->isHooked = true;
+			return true;
+		}
 	}
 	return true;
 }
@@ -240,11 +258,12 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	auto spriteBody = PhysicsBody::createBox(sprite->getContentSize() * 0.2);
 	sprite->setPhysicsBody(spriteBody);
 
-	int BITMASK_A = 0x1;
-	int BITMASK_B = 0x2;
+	int BITMASK_A = 0x02;
+	int BITMASK_B = 0x01;
 
 	sprite->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
 	sprite->getPhysicsBody()->setCategoryBitmask(BITMASK_A);
+
 	sprite->getPhysicsBody()->setGravityEnable(false);
 	sprite->getPhysicsBody()->setDynamic(true);
 	sprite->getPhysicsBody()->setTag(22);

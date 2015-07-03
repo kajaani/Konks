@@ -11,8 +11,10 @@ namespace Peli
 		void testFunc();
 		void CollisionCreator();
 		int Width, Height = 0;
-		int BITMASK_A = 0x1 << 0;
-		int BITMASK_B = 0x1 << 1;
+
+		int BITMASK_A = 0x01;
+		int BITMASK_B = 0x02;
+
 		void loadMap(std::string level);
 		void MapBoundariesTop(cocos2d::Layer *layer);
 		void MapBoundariesRight(cocos2d::Layer *layer);

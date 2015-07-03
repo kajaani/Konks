@@ -20,8 +20,8 @@ Player::Player(Layer *layer)
 	PlayerPhysics->setMass(1000);
 	PlayerPhysics->setRotationEnable(false);
 	
-	int BITMASK_A = 0x1;
-	int BITMASK_B = 0x2;
+	int BITMASK_A = 0x01;
+	int BITMASK_B = 0x02;
 
 	PlayerPhysics->setContactTestBitmask(BITMASK_A);
 	PlayerPhysics->setCategoryBitmask(BITMASK_B);
