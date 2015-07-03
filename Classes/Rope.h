@@ -1,5 +1,6 @@
 #pragma once
 #include "cocos2d.h"
+#include "Definitions.h"
 using namespace cocos2d;
 class Rope : cocos2d::CCDrawNode
 {

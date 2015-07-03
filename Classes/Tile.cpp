@@ -22,7 +22,6 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 			//Handling the platform collision
 			if (gidPlatform)
 			{
-
 				tileXPosition = i * map->getTileSize().width;																	//	* tileWidth;
 				tileYPosition = (map->getMapSize().height * map->getTileSize().height) - ((j + 1) * map->getTileSize().height);	//(mapHeight * tileHeight) - ((j + 1) tileHeight);
 
@@ -39,8 +38,10 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 				physicsBody->setTag(11);
 
 				sprite->setPhysicsBody(physicsBody);
-				sprite->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
-				sprite->getPhysicsBody()->setCategoryBitmask(BITMASK_A);
+
+				sprite->getPhysicsBody()->setCategoryBitmask(BITMASKTILE);
+				sprite->getPhysicsBody()->setCollisionBitmask(BITMASKPLAYER);
+				sprite->getPhysicsBody()->setContactTestBitmask(BITMASKCOLLISIONBOX);
 			}
 			
 			//Handling the object collision
@@ -59,8 +60,10 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 				objectPhysicsBody->setDynamic(false);
 
 				objectSprite->setPhysicsBody(objectPhysicsBody);
-				objectSprite->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
-				objectSprite->getPhysicsBody()->setCategoryBitmask(BITMASK_A);
+
+				objectSprite->getPhysicsBody()->setCategoryBitmask(BITMASKTILE);
+				objectSprite->getPhysicsBody()->setCollisionBitmask(BITMASKNONE);
+				objectSprite->getPhysicsBody()->setContactTestBitmask(BITMASKPLAYER);
 
 				objectPhysicsBody->setTag(12);
 		

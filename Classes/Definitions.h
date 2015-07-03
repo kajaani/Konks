@@ -23,4 +23,11 @@
 
 #define MUTE_SOUNDS true
 
+
+#define BITMASKTILE 0x01
+#define BITMASKPLAYER 0x02
+#define BITMASKCOLLISIONBOX 0x03
+#define BITMASKROPE 0x04
+#define BITMASKNONE 0x00
+
 #endif // __DEFINITIONS_H__

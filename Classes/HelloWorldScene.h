@@ -59,7 +59,7 @@ protected:
 	bool isAlreadyRoped;
 	float distance;
 	float distanceFromHook;
-	float movedDistance = 0;
+	float oldRopePosX = 0;
 	Point origin;
 	Size visibleSize;
 	Vec2 boxHitPos;

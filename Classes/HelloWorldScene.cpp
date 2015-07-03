@@ -3,6 +3,19 @@
 #include "MainMenuScene.h"
 #include "Definitions.h"
 
+// TODO LIST //
+/*
+	Android support
+	Change player spawn location
+	Hook disappears if it doesnt hit anything
+	Final final final final final level design
+	Fix bouncing between walls
+	Animations
+	Save progress
+	Bring back the splash scene \o/
+	Sound effects
+*/
+
 USING_NS_CC;
 #define COCOS2D_DEBUG 1
 using namespace cocos2d;
@@ -126,7 +139,6 @@ void HelloWorld::update(float dt)
 		log("Distance 1: %f", realDistance);
 		log("Distance 2: %f", distanceFromHook);
 
-		isAlreadyRoped = true;
 		rope->getRopePhysicsBody()->setEnable(false);
 		rope->getRopePhysicsBody()->setDynamic(false);
 
@@ -136,6 +148,7 @@ void HelloWorld::update(float dt)
 		ropeJoint->setCollisionEnable(true);
 
 		_world->addJoint(ropeJoint);
+		isAlreadyRoped = true;
 	}
 	
 	if (realDistance > 50 && player->isTouchHold && player->isHooked && isAlreadyRoped)
@@ -157,10 +170,11 @@ void HelloWorld::update(float dt)
 	_drawNode = DrawNode::create();
 
 	float rayCastOffset = 100;
-	if (player->isHooked)
+	if (isAlreadyRoped)
 	{
-		Point ropeBodyA = convertToNodeSpace(ropeJoint->getBodyA()->getPosition());
-		Point ropeBodyB = convertToNodeSpace(ropeJoint->getBodyB()->getPosition());
+		Point ropeBodyA = player->getPlayer()->getPosition();
+		Point ropeBodyB =rope->getRope()->getPosition();
+
 		_drawNode->drawSegment(ropeBodyA, ropeBodyB, 1, Color4F::BLACK);
 	}
 	this->addChild(_drawNode);
@@ -173,12 +187,10 @@ void HelloWorld::onContactPostSolve(PhysicsContact &contact, const PhysicsContac
 
 	if (bodyA->getTag() == 12 && bodyB->getTag() == 11)
 	{
-		log("onContactPostSolve!");
 		bodyA->setVelocity(Vec2(bodyA->getVelocity().x * 0.99, bodyA->getVelocity().y * 0.99));
 	}
 	if (bodyB->getTag() == 12 && bodyA->getTag() == 11)
 	{
-		log("onContactPostSolve!");
 		bodyB->setVelocity(Vec2(bodyB->getVelocity().x * 0.99, bodyB->getVelocity().y * 0.99));
 	}
 }
@@ -190,60 +202,67 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	
 	distanceFromHook = player->getPosition().distance(contact.getShapeA()->getBody()->getPosition());
 
-	// Player hits goal
-	if (bodyA->getTag() == 12 && bodyB->getTag() == 12)
+	
+	if ((bodyA->getCategoryBitmask() & bodyB->getCollisionBitmask()) == 0
+		|| (bodyB->getCategoryBitmask() & bodyA->getCollisionBitmask()) == 0)
 	{
-		CCLOG("BODY A OSUI");
-		this->GoToMainMenuScene(this);
-		return false;
-	}
-	if (bodyB->getTag() == 12 && bodyA->getTag() == 12)
-	{
-		this->GoToMainMenuScene(this);
-	}
-
-	// Hook hits player, cancel
-	if (bodyA->getTag() == 12 && bodyB->getTag() == 13)
-	{
-		log("hook hit player");
-		return false;
-	}
-	if (bodyB->getTag() == 12 && bodyA->getTag() == 13)
-	{
-		log("hook hit player");
-		return false;
-	}
-
-	// RayBox hits player
-	if (bodyA->getTag() == 12 && bodyB->getTag() == 22)
-	{
-		//CCLOG("BOX OSUI PELAAJAAN");
-		return false;
-	}
-	if (bodyB->getTag() == 12 && bodyA->getTag() == 22)
-	{
-		//CCLOG("BOX OSUI PELAAJAAN");
-		return false;
-	}
-
-	// RayBox hits tiles
-	if (player->isTouchHold)
-	{
-		if (bodyA->getTag() == 22 && bodyB->getTag() == 11)
+		// Player hits goal
+		if (bodyA->getTag() == 12 && bodyB->getTag() == 12)
 		{
-			sprite->stopAllActions();
-			boxHitPos = bodyA->getPosition();
-			player->isHooked = true;
-			return true;
+			CCLOG("BODY A OSUI");
+			this->GoToMainMenuScene(this);
+			return false;
 		}
-		if (bodyB->getTag() == 22 && bodyA->getTag() == 11)
+		if (bodyB->getTag() == 12 && bodyA->getTag() == 12)
 		{
-			sprite->stopAllActions();
-			boxHitPos = bodyA->getPosition();
-			player->isHooked = true;
-			return true;
+			this->GoToMainMenuScene(this);
 		}
+
+		// Hook hits player, cancel
+		if (bodyA->getTag() == 12 && bodyB->getTag() == 13)
+		{
+			log("hook hit player");
+			return false;
+		}
+		if (bodyB->getTag() == 12 && bodyA->getTag() == 13)
+		{
+			log("hook hit player");
+			return false;
+		}
+
+		// RayBox hits player
+		if (bodyA->getTag() == 12 && bodyB->getTag() == 22)
+		{
+			CCLOG("BOX OSUI PELAAJAAN");
+			return false;
+		}
+		if (bodyB->getTag() == 12 && bodyA->getTag() == 22)
+		{
+			CCLOG("BOX OSUI PELAAJAAN");
+			return false;
+		}
+
+		// RayBox hits tiles
+		if (player->isTouchHold)
+		{
+			if (bodyA->getTag() == 22 && bodyB->getTag() == 11)
+			{
+				sprite->stopAllActions();
+				boxHitPos = bodyA->getPosition();
+				player->isHooked = true;
+				return true;
+			}
+			if (bodyB->getTag() == 22 && bodyA->getTag() == 11)
+			{
+				sprite->stopAllActions();
+				boxHitPos = bodyA->getPosition();
+				player->isHooked = true;
+				return true;
+			}
+		}
+
 	}
+
 	return true;
 }
 
@@ -266,19 +285,16 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 		removeChild(sprite);
 	}
 
-	sprite = Sprite::create("skull.jpg");
-	sprite->setScale(0.2);
+	sprite = Sprite::create("CloseSelected.png");
 	sprite->setColor(ccc3(100, 0, 0));
 	sprite->setPosition(player->getPosition());
 
 	auto spriteBody = PhysicsBody::createBox(sprite->getContentSize() * 0.2);
 	sprite->setPhysicsBody(spriteBody);
 
-	int BITMASK_A = 0x02;
-	int BITMASK_B = 0x01;
-
-	sprite->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
-	sprite->getPhysicsBody()->setCategoryBitmask(BITMASK_A);
+	sprite->getPhysicsBody()->setCategoryBitmask(BITMASKCOLLISIONBOX);
+	sprite->getPhysicsBody()->setCollisionBitmask(BITMASKNONE);
+	sprite->getPhysicsBody()->setContactTestBitmask(BITMASKTILE);
 
 	sprite->getPhysicsBody()->setGravityEnable(false);
 	sprite->getPhysicsBody()->setDynamic(true);
@@ -321,13 +337,13 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 		if ((angle > 90 && angle <= 179) || (angle > -180 && angle <= -90))
 		{
 			//player->getPlayer()->setRotation(CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
-			player->getPlayer()->setScaleX(0.5);
+			//player->getPlayer()->setScaleX(0.5);
 		}
 		else
 		{
-			player->getPlayer()->setScaleX(-0.5);
+			//player->getPlayer()->setScaleX(-0.5);
 		}
-		player->Grapple(Vec2(touchWorld.x + movedDistance, touchWorld.y));
+		player->Grapple(Vec2(touchWorld.x, touchWorld.y));
 	}
 	return true;
 }
@@ -351,7 +367,7 @@ void HelloWorld::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
 void HelloWorld::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	Point touchWorld = convertToNodeSpace(touch->getLocation());
-	player->TouchPosition = Vec2(touchWorld.x + movedDistance, touchWorld.y);
+	player->TouchPosition = Vec2(touchWorld.x, touchWorld.y);
 }
 
 void HelloWorld::menuCloseCallback(Ref* pSender)

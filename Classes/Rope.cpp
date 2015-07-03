@@ -4,11 +4,8 @@ using namespace cocos2d;
 
 Rope::Rope(cocos2d::Layer *layer)
 {
-	rope = Sprite::create("CloseSelected.png");
+	rope = Sprite::create();
 	rope->setPosition(Vec2(600, 600));
-	
-	int BITMASK_A = 0x1;
-	int BITMASK_B = 0x2;
 
 	RopePhysics = PhysicsBody::createCircle(10);
 	RopePhysics->setDynamic(true); 
@@ -18,8 +15,9 @@ Rope::Rope(cocos2d::Layer *layer)
 	rope->setPhysicsBody(RopePhysics);
 	rope->setName("ropename");
 	
-	rope->getPhysicsBody()->setContactTestBitmask(BITMASK_B);
-	rope->getPhysicsBody()->setCategoryBitmask(BITMASK_A);
+	rope->getPhysicsBody()->setCategoryBitmask(BITMASKROPE);
+	rope->getPhysicsBody()->setCollisionBitmask(BITMASKNONE);
+	rope->getPhysicsBody()->setContactTestBitmask(BITMASKNONE);
 	
 	rope->getPhysicsBody()->setTag(13);
 
