@@ -19,7 +19,7 @@ Rope::Rope(cocos2d::Layer *layer)
 	rope->getPhysicsBody()->setCollisionBitmask(BITMASKNONE);
 	rope->getPhysicsBody()->setContactTestBitmask(BITMASKNONE);
 	
-	rope->getPhysicsBody()->setTag(13);
+	rope->getPhysicsBody()->setTag(HOOK);
 
 	layer->addChild(rope, 16);
 }

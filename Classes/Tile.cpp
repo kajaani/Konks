@@ -35,7 +35,7 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 				// create a static PhysicsBody0
 				physicsBody = cocos2d::PhysicsBody::createBox(cocos2d::Size(map->getTileSize().width, map->getTileSize().height), cocos2d::PhysicsMaterial(1.0f, 0.0f, 0.0f));
 				physicsBody->setDynamic(false);
-				physicsBody->setTag(11);
+				physicsBody->setTag(TILE);
 
 				sprite->setPhysicsBody(physicsBody);
 
@@ -65,7 +65,7 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 				objectSprite->getPhysicsBody()->setCollisionBitmask(BITMASKNONE);
 				objectSprite->getPhysicsBody()->setContactTestBitmask(BITMASKPLAYER);
 
-				objectPhysicsBody->setTag(12);
+				objectPhysicsBody->setTag(GOAL);
 		
 			}
 		}

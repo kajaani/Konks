@@ -6,7 +6,6 @@
 // TODO LIST //
 /*
 	Renaming the HelloWorldScene.h
-	Add tags n stuff to Definitions.h
 	Hook shot into wall in right angle
 	Android support
 	Change player spawn location
@@ -44,7 +43,7 @@ Scene* HelloWorld::createScene()
 void HelloWorld::setLevel(Scene* scene)
 {
 	//CCLOG("adasdasdfgsdgsgsgsd %s", scene->getChildByTag(50)->getName().c_str());
-	tile = new Peli::Tile(this, scene->getChildByTag(50)->getName().c_str());
+	tile = new Peli::Tile(this, scene->getChildByTag(MAPNAME)->getName().c_str());
 	this->runAction(Follow::create(player->getPlayer(),
 		Rect(visibleSize.width + origin.x - visibleSize.width,
 		visibleSize.height + origin.y - visibleSize.height,
@@ -188,11 +187,11 @@ void HelloWorld::onContactPostSolve(PhysicsContact &contact, const PhysicsContac
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
 
-	if (bodyA->getTag() == 12 && bodyB->getTag() == 11)
+	if (bodyA->getTag() == PLAYER && bodyB->getTag() == TILE)
 	{
 		bodyA->setVelocity(Vec2(bodyA->getVelocity().x * 0.99, bodyA->getVelocity().y * 0.99));
 	}
-	if (bodyB->getTag() == 12 && bodyA->getTag() == 11)
+	if (bodyB->getTag() == PLAYER && bodyA->getTag() == TILE)
 	{
 		bodyB->setVelocity(Vec2(bodyB->getVelocity().x * 0.99, bodyB->getVelocity().y * 0.99));
 	}
@@ -210,36 +209,36 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 		|| (bodyB->getCategoryBitmask() & bodyA->getCollisionBitmask()) == 0)
 	{
 		// Player hits goal
-		if (bodyA->getTag() == 12 && bodyB->getTag() == 12)
+		if (bodyA->getTag() == PLAYER && bodyB->getTag() == GOAL)
 		{
 			CCLOG("BODY A OSUI");
 			this->GoToMainMenuScene(this);
 			return false;
 		}
-		if (bodyB->getTag() == 12 && bodyA->getTag() == 12)
+		if (bodyB->getTag() == PLAYER && bodyA->getTag() == GOAL)
 		{
 			this->GoToMainMenuScene(this);
 		}
 
 		// Hook hits player, cancel
-		if (bodyA->getTag() == 12 && bodyB->getTag() == 13)
+		if (bodyA->getTag() == PLAYER && bodyB->getTag() == HOOK)
 		{
 			log("hook hit player");
 			return false;
 		}
-		if (bodyB->getTag() == 12 && bodyA->getTag() == 13)
+		if (bodyB->getTag() == PLAYER && bodyA->getTag() == HOOK)
 		{
 			log("hook hit player");
 			return false;
 		}
 
 		// RayBox hits player
-		if (bodyA->getTag() == 12 && bodyB->getTag() == 22)
+		if (bodyA->getTag() == PLAYER && bodyB->getTag() == RAYCASTCOLLISIONBOX)
 		{
 			CCLOG("BOX OSUI PELAAJAAN");
 			return false;
 		}
-		if (bodyB->getTag() == 12 && bodyA->getTag() == 22)
+		if (bodyB->getTag() == PLAYER && bodyA->getTag() == RAYCASTCOLLISIONBOX)
 		{
 			CCLOG("BOX OSUI PELAAJAAN");
 			return false;
@@ -248,14 +247,14 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 		// RayBox hits tiles
 		if (player->isTouchHold)
 		{
-			if (bodyA->getTag() == 22 && bodyB->getTag() == 11)
+			if (bodyA->getTag() == RAYCASTCOLLISIONBOX && bodyB->getTag() == TILE)
 			{
 				sprite->stopAllActions();
 				boxHitPos = bodyA->getPosition();
 				player->isHooked = true;
 				return true;
 			}
-			if (bodyB->getTag() == 22 && bodyA->getTag() == 11)
+			if (bodyB->getTag() == RAYCASTCOLLISIONBOX && bodyA->getTag() == TILE)
 			{
 				sprite->stopAllActions();
 				boxHitPos = bodyA->getPosition();
@@ -301,7 +300,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 	sprite->getPhysicsBody()->setGravityEnable(false);
 	sprite->getPhysicsBody()->setDynamic(true);
-	sprite->getPhysicsBody()->setTag(22);
+	sprite->getPhysicsBody()->setTag(RAYCASTCOLLISIONBOX);
 
 	this->addChild(sprite);
 

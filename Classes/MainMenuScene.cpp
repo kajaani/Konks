@@ -97,7 +97,7 @@ bool MainMenuScene::init()
 void MainMenuScene::GoToGameScene(cocos2d::Ref *sender)
 {
 	auto node = Node::create();
-	node->setTag(50);
+	node->setTag(MAPNAME);
 	node->setName("Tutorial.tmx");
 
 	auto scene = HelloWorld::createScene();

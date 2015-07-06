@@ -24,7 +24,7 @@ Player::Player(Layer *layer)
 	PlayerPhysics->setCollisionBitmask(BITMASKTILE);
 	PlayerPhysics->setContactTestBitmask(BITMASKCOLLISIONBOX);
 	
-	PlayerPhysics->setTag(12);
+	PlayerPhysics->setTag(PLAYER);
 
 	player->setPhysicsBody(PlayerPhysics);
 	layer->addChild(player, 15);

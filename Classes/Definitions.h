@@ -14,6 +14,11 @@
 #define BITMASKNONE 0x00
 
 // Tags
-#define SPAWN 0
+#define PLAYER 0
+#define TILE 1
+#define GOAL 2
+#define MAPNAME 3
+#define HOOK 4
+#define RAYCASTCOLLISIONBOX 5
 
 #endif // __DEFINITIONS_H__

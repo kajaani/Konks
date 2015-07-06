@@ -84,7 +84,7 @@ bool LevelMenuScene::init()
 void LevelMenuScene::GoToGameScene(cocos2d::Ref *sender)
 {
 	auto node = Node::create();
-	node->setTag(50);
+	node->setTag(MAPNAME);
 
 	if (sender->_ID == playButton1->_ID)
 	{
