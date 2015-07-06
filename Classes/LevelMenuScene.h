@@ -2,7 +2,7 @@
 #define __LEVEL_MENU_SCENE_H__
 
 #include "cocos2d.h"
-#include "HelloWorldScene.h"
+#include "GameScene.h"
 class LevelMenuScene : public cocos2d::Layer
 {
 public:

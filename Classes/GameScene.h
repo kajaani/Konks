@@ -1,5 +1,5 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#ifndef __GAME_SCENE_H__
+#define __GAME_SCENE_H__
 
 #include "cocos2d.h"
 #include "Tile.h"
@@ -9,7 +9,7 @@
 #include "Rope.h"
 #include "Platform.h"
 
-class HelloWorld : public cocos2d::Layer
+class GameScene : public cocos2d::Layer
 {
 public:
 
@@ -37,7 +37,7 @@ public:
 	void SpawnPlatform(float dt);
 
 	// implement the "static create()" method manually
-	CREATE_FUNC(HelloWorld);
+	CREATE_FUNC(GameScene);
 
 protected:
 	CubeTest* cube;
@@ -63,6 +63,7 @@ protected:
 	Point origin;
 	Size visibleSize;
 	Vec2 boxHitPos;
+	Vec2 SpawnPosition;
 
 	DrawNode *_drawNode;
 	Sprite *sprite;
@@ -74,4 +75,4 @@ private:
 
 };
 
-#endif // __HELLOWORLD_SCENE_H__
+#endif // __GAME_SCENE_H__

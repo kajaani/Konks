@@ -1,5 +1,5 @@
 #include "MainMenuScene.h"
-#include "HelloWorldScene.h"
+#include "GameScene.h"
 #include "LevelMenuScene.h"
 #include "SettingsScene.h"
 #include "Definitions.h"
@@ -100,7 +100,7 @@ void MainMenuScene::GoToGameScene(cocos2d::Ref *sender)
 	node->setTag(MAPNAME);
 	node->setName("Tutorial.tmx");
 
-	auto scene = HelloWorld::createScene();
+	auto scene = GameScene::createScene();
 	scene->addChild(node);
 
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));

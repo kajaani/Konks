@@ -17,6 +17,7 @@ namespace Peli
 		void MapBoundariesRight(cocos2d::Layer *layer);
 		void MapBoundariesLeft(cocos2d::Layer *layer);
 		cocos2d::TMXTiledMap *getMap();
+		cocos2d::Vec2 GetSpawnPosition();
 	private:
 		cocos2d::TMXTiledMap *map;
 		cocos2d::TMXLayer *_background;
@@ -24,6 +25,8 @@ namespace Peli
 
 		int mapWidth, mapHeight, tileWidth, tileHeight, collidableLayer, i, j = 0;
 		int tileYPosition, tileXPosition;
+
+		cocos2d::Vec2 SpawnPosition;
 
 		cocos2d::PhysicsBody *physicsBody;
 		cocos2d::PhysicsBody *objectPhysicsBody;

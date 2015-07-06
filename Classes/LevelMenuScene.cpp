@@ -101,7 +101,7 @@ void LevelMenuScene::GoToGameScene(cocos2d::Ref *sender)
 
 	//CCLOG("%s", selectedLevel->getName().c_str());
 
-	auto scene = HelloWorld::createScene();
+	auto scene = GameScene::createScene();
 	scene->addChild(node);
 
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));

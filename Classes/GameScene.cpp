@@ -1,4 +1,4 @@
-#include "HelloWorldScene.h"
+#include "GameScene.h"
 #include "math\CCMath.h"
 #include "MainMenuScene.h"
 #include "Definitions.h"
@@ -19,13 +19,13 @@ USING_NS_CC;
 #define COCOS2D_DEBUG 1
 using namespace cocos2d;
 
-Scene* HelloWorld::createScene()
+Scene* GameScene::createScene()
 {
 	// 'scene' is an autorelease object
 	auto scene = Scene::createWithPhysics();
 
 	// 'layer' is an autorelease object
-	auto layer = HelloWorld::create();
+	auto layer = GameScene::create();
 	layer->setPhysicsWorld(scene->getPhysicsWorld());
 
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
@@ -37,7 +37,7 @@ Scene* HelloWorld::createScene()
 	return scene;
 }
 
-void HelloWorld::setLevel(Scene* scene)
+void GameScene::setLevel(Scene* scene)
 {
 	//CCLOG("adasdasdfgsdgsgsgsd %s", scene->getChildByTag(50)->getName().c_str());
 	tile = new Peli::Tile(this, scene->getChildByTag(MAPNAME)->getName().c_str());
@@ -52,7 +52,7 @@ void HelloWorld::setLevel(Scene* scene)
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool GameScene::init()
 {
 	//////////////////////////////
 	// 1. super init first
@@ -97,15 +97,15 @@ bool HelloWorld::init()
 
 	// Physics listener
 	auto contactListener = EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin, this);
-	contactListener->onContactPostSolve = CC_CALLBACK_2(HelloWorld::onContactPostSolve, this);
+	contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
+	contactListener->onContactPostSolve = CC_CALLBACK_2(GameScene::onContactPostSolve, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	// Touch input
 	auto touchListener = EventListenerTouchOneByOne::create();
-	touchListener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
-	touchListener->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
-	touchListener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
+	touchListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
+	touchListener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
+	touchListener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 
 	platform.spawnPlatform(this, player->getPosition());
@@ -116,15 +116,15 @@ bool HelloWorld::init()
 	this->addChild(sprite);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
-	scheduleOnce(schedule_selector(HelloWorld::initializeLevel), 0.1); // VERY HAZARD, PLEASE KILL ME
+	scheduleOnce(schedule_selector(GameScene::initializeLevel), 0.1); // VERY HAZARD, PLEASE KILL ME
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 
-	schedule(schedule_selector(HelloWorld::SpawnPlatform), 1.5);
-	schedule(schedule_selector(HelloWorld::update));
+	schedule(schedule_selector(GameScene::SpawnPlatform), 1.5);
+	schedule(schedule_selector(GameScene::update));
 	return true;
 }
 
-void HelloWorld::update(float dt)
+void GameScene::update(float dt)
 {
 	player->update();
 	player->getPosition();
@@ -191,7 +191,7 @@ void HelloWorld::update(float dt)
 	this->addChild(_drawNode);
 }
 
-void HelloWorld::onContactPostSolve(PhysicsContact &contact, const PhysicsContactPostSolve &solve)
+void GameScene::onContactPostSolve(PhysicsContact &contact, const PhysicsContactPostSolve &solve)
 {
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
@@ -206,7 +206,7 @@ void HelloWorld::onContactPostSolve(PhysicsContact &contact, const PhysicsContac
 	}
 }
 
-bool HelloWorld::onContactBegin(PhysicsContact& contact)
+bool GameScene::onContactBegin(PhysicsContact& contact)
 {
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
@@ -280,17 +280,17 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 	return true;
 }
 
-void HelloWorld::initializeLevel(float dt)
+void GameScene::initializeLevel(float dt)
 {
 	setLevel(this->getScene());
 }
 
-void HelloWorld::SpawnPlatform(float dt)
+void GameScene::SpawnPlatform(float dt)
 {
 	//platform.spawnPlatform(this, player->getPosition());
 }
 
-bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
+bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	Point touchWorld = convertToNodeSpace(touch->getLocation());
 	player->isTouchHold = true;
@@ -367,14 +367,14 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	return true;
 }
 
-void HelloWorld::GoToMainMenuScene(cocos2d::Ref *sender)
+void GameScene::GoToMainMenuScene(cocos2d::Ref *sender)
 {
 	auto scene = MainMenuScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
-void HelloWorld::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
+void GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	rope->getRopePhysicsBody()->setDynamic(false);
 	_world->removeAllJoints();
@@ -383,13 +383,13 @@ void HelloWorld::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
 	isAlreadyRoped = false;
 }
 
-void HelloWorld::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event)
+void GameScene::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	Point touchWorld = convertToNodeSpace(touch->getLocation());
 	player->TouchPosition = Vec2(touchWorld.x, touchWorld.y);
 }
 
-void HelloWorld::menuCloseCallback(Ref* pSender)
+void GameScene::menuCloseCallback(Ref* pSender)
 {
 	Director::getInstance()->end();
 
