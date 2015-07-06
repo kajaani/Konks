@@ -7,8 +7,6 @@
 /*
 	Renaming the HelloWorldScene.h
 	Android support
-	Change player spawn location
-	Hook disappears if it doesnt hit anything
 	Final final final final final level design
 	Fix bouncing between walls
 	Animations
@@ -112,6 +110,11 @@ bool HelloWorld::init()
 
 	platform.spawnPlatform(this, player->getPosition());
 
+
+	sprite = Sprite::create("CloseSelected.png");
+	sprite->setTag(RAYCASTCOLLISIONBOX);
+	this->addChild(sprite);
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	scheduleOnce(schedule_selector(HelloWorld::initializeLevel), 0.1); // VERY HAZARD, PLEASE KILL ME
 	/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -136,7 +139,7 @@ void HelloWorld::update(float dt)
 	{
 		log("PlayerPos: %f, %f", player->getPosition().x, player->getPosition().y);
 		log("hit box  : %f, %f", boxHitPos.x, boxHitPos.y);
-		
+
 		log("Distance 1: %f", realDistance);
 		log("Distance 2: %f", distanceFromHook);
 
@@ -161,6 +164,13 @@ void HelloWorld::update(float dt)
 	if (player->getPosition().x <= 0 || player->getPosition().y <= 0)
 	{
 		this->GoToMainMenuScene(this);
+	}
+
+	// Hide hook if it doesnt hit the wall
+	if (sprite && !player->isHooked && player->isTouchHold)
+	{
+		if (sprite->numberOfRunningActions() == 0)
+			sprite->setPosition(Vec2(-1000,-1000));
 	}
 
 	if (_drawNode)
@@ -242,26 +252,29 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 			CCLOG("BOX OSUI PELAAJAAN");
 			return false;
 		}
-
-		// RayBox hits tiles
-		if (player->isTouchHold)
+		if (sprite)
 		{
-			if (bodyA->getTag() == RAYCASTCOLLISIONBOX && bodyB->getTag() == TILE)
+			// RayBox hits tiles
+			if (player->isTouchHold)
 			{
-				sprite->stopAllActions();
-				boxHitPos = bodyA->getPosition();
-				player->isHooked = true;
-				return true;
-			}
-			if (bodyB->getTag() == RAYCASTCOLLISIONBOX && bodyA->getTag() == TILE)
-			{
-				sprite->stopAllActions();
-				boxHitPos = bodyA->getPosition();
-				player->isHooked = true;
-				return true;
+				if (bodyA->getTag() == RAYCASTCOLLISIONBOX && bodyB->getTag() == TILE)
+				{
+					CCLOG("BODY A");
+					sprite->stopAllActions();
+					boxHitPos = bodyA->getPosition();
+					player->isHooked = true;
+					return true;
+				}
+				else if (bodyB->getTag() == RAYCASTCOLLISIONBOX && bodyA->getTag() == TILE)
+				{
+					CCLOG("BODY B");
+					sprite->stopAllActions();
+					boxHitPos = bodyA->getPosition();
+					player->isHooked = true;
+					return true;
+				}
 			}
 		}
-
 	}
 
 	return true;
