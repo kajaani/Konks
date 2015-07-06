@@ -6,7 +6,6 @@
 // TODO LIST //
 /*
 	Renaming the HelloWorldScene.h
-	Hook shot into wall in right angle
 	Android support
 	Change player spawn location
 	Hook disappears if it doesnt hit anything
@@ -303,7 +302,7 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	sprite->getPhysicsBody()->setTag(RAYCASTCOLLISIONBOX);
 
 	this->addChild(sprite);
-
+	 
 	sprite->runAction(MoveTo::create(0.25, touchWorld));
 
 	// RayCast
@@ -330,20 +329,25 @@ bool HelloWorld::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 		(player->getPosition().y - boxHitPos.y) * (player->getPosition().y - boxHitPos.y));
 
 	if (distance > 50 && player->isTouchHold)
-	{	
+	{			
 		//Handling the rotation of the player, depending on where he shoots
-		auto distancefromvec1tovec2 = player->getPosition() - touchWorld;
 
-		float angle = (CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
+		Point fromplayertohook = ccpSub(player->getPosition(), touchWorld);
+		float angle = -CC_RADIANS_TO_DEGREES(ccpToAngle(fromplayertohook));
+		float realangle = angle + 270;
+
+		CCLOG("Angle: %f", realangle);
+
+		sprite->setRotation(realangle);
 
 		if ((angle > 90 && angle <= 179) || (angle > -180 && angle <= -90))
 		{
-			//player->getPlayer()->setRotation(CC_RADIANS_TO_DEGREES(distancefromvec1tovec2.getAngle()));
-			//player->getPlayer()->setScaleX(0.5);
+	
+			player->getPlayer()->setScaleX(0.5);
 		}
 		else
 		{
-			//player->getPlayer()->setScaleX(-0.5);
+			player->getPlayer()->setScaleX(-0.5);
 		}
 		player->Grapple(Vec2(touchWorld.x, touchWorld.y));
 	}
