@@ -6,28 +6,14 @@
 #define DISPLAY_TIME_SPLASH_SCENE 2
 #define TRANSITION_TIME 0.5
 
-#define PIPE_SPAWN_FREQUENCY 0.0005
-
-//The gap between top and bottom pipes
-#define PIPE_GAP 10
-#define UPPER_SCREEN_PIPE_THRESHOLD 0.65
-#define LOWER_SCREEN_PIPE_THRESHOLD 0.35
-
-#define PIPE_MOVEMENT_SPEED 0.01
-
-#define PLAYER_COLLISION_BITMASK 0x000001
-#define OBSTACLE_COLLISION_BITMASK 0x000002
-
-#define PLAYER_FALLING_SPEED 0.0025
-#define PLAYER_MOVEMENT_SPEED
-
-#define MUTE_SOUNDS true
-
-
+// Bitmasks for collision check
 #define BITMASKTILE 0x01
 #define BITMASKPLAYER 0x02
 #define BITMASKCOLLISIONBOX 0x03
 #define BITMASKROPE 0x04
 #define BITMASKNONE 0x00
+
+// Tags
+#define SPAWN 0
 
 #endif // __DEFINITIONS_H__

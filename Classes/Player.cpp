@@ -10,7 +10,7 @@ Player::Player(Layer *layer)
 	TouchPosition = Vec2(0, 0);
 
 	player = Sprite::create("defpappa.png");
-	player->setPosition(Vec2(350,350));
+	player->setPosition(100, 120);
 	player->setScale(0.5f);
 
 	PlayerPhysics = PhysicsBody::createCircle(player->getContentSize().width / 6, PhysicsMaterial(1.0f, 0.0f, 0.0f));

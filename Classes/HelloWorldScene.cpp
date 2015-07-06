@@ -5,6 +5,9 @@
 
 // TODO LIST //
 /*
+	Renaming the HelloWorldScene.h
+	Add tags n stuff to Definitions.h
+	Hook shot into wall in right angle
 	Android support
 	Change player spawn location
 	Hook disappears if it doesnt hit anything
