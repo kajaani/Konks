@@ -5,13 +5,12 @@
 
 // TODO LIST //
 /*
-	Renaming the HelloWorldScene.h
-	Android support
+    Android back button function
+	Lag issues with android (camera or tiles?)
 	Final final final final final level design
 	Fix bouncing between walls
 	Animations
 	Save progress
-	Bring back the splash scene \o/
 	Sound effects
 */
 
@@ -41,14 +40,16 @@ void GameScene::setLevel(Scene* scene)
 {
 	//CCLOG("adasdasdfgsdgsgsgsd %s", scene->getChildByTag(50)->getName().c_str());
 	tile = new Peli::Tile(this, scene->getChildByTag(MAPNAME)->getName().c_str());
-	this->runAction(Follow::create(player->getPlayer(),
+	/*this->runAction(Follow::create(player->getPlayer(),
 		Rect(visibleSize.width + origin.x - visibleSize.width,
 		visibleSize.height + origin.y - visibleSize.height,
 		tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width,
-		tile->getMap()->getMapSize().height * tile->getMap()->getTileSize().height)));
+		tile->getMap()->getMapSize().height * tile->getMap()->getTileSize().height)));*/
 
 	float gravityMultiplier = 2;
 	_world->setGravity(Vec2(0, -98 * gravityMultiplier));
+
+	this->runAction(cocos2d::MoveTo::create(50, Vec2( -tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width, this->getPosition().y)));
 }
 
 // on "init" you need to initialize your instance
@@ -121,6 +122,9 @@ bool GameScene::init()
 
 	schedule(schedule_selector(GameScene::SpawnPlatform), 1.5);
 	schedule(schedule_selector(GameScene::update));
+
+	this->setKeypadEnabled(true);
+
 	return true;
 }
 
@@ -189,6 +193,11 @@ void GameScene::update(float dt)
 		_drawNode->drawSegment(ropeBodyA, ropeBodyB, 1, Color4F::BLACK);
 	}
 	this->addChild(_drawNode);
+}
+
+void GameScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event *event)
+{
+	Director::getInstance()->end();
 }
 
 void GameScene::onContactPostSolve(PhysicsContact &contact, const PhysicsContactPostSolve &solve)

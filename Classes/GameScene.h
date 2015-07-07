@@ -34,6 +34,8 @@ public:
 	bool onContactBegin(cocos2d::PhysicsContact &contact);
 	void onContactPostSolve(cocos2d::PhysicsContact &contact, const cocos2d::PhysicsContactPostSolve &solve);
 
+	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event *event);
+
 	void SpawnPlatform(float dt);
 
 	// implement the "static create()" method manually
