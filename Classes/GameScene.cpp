@@ -5,11 +5,10 @@
 
 // TODO LIST //
 /*
-    Android back button function
 	Lag issues with android (camera or tiles?)
+	Animations
 	Final final final final final level design
 	Fix bouncing between walls
-	Animations
 	Save progress
 	Sound effects
 */
@@ -197,7 +196,7 @@ void GameScene::update(float dt)
 
 void GameScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event *event)
 {
-	Director::getInstance()->end();
+	this->GoToMainMenuScene(this);
 }
 
 void GameScene::onContactPostSolve(PhysicsContact &contact, const PhysicsContactPostSolve &solve)
