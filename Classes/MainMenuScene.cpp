@@ -66,22 +66,6 @@ bool MainMenuScene::init()
 		MainMenuScene::GoToSettingsScene, this));
 	settingsButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2));
 	
-	// Sound on/off toggle
-	/*CCMenuItem *soundOnItem = [CCMenuItemImage item: @"soundOn.png"
-							selectedImage:@"soundOn.png"
-								   target:nil
-								 selector:nil];
- 
-	CCMenuItem *soundOffItem = [CCMenuItemImage itemFromNormalImage:@"soundOff.png"
-							 selectedImage:@"soundOff.png"
-								target:nil
-								  selector:nil];
- 
-	CCMenuItemToggle *soundToggleItem = [CCMenuItemToggle itemWithTarget:self
-									selector:@selector(soundButtonTapped:)
-									   items:soundOnItem, soundOffItem, nil];*/
-
-
 	//Initializing the menu, placing the buttons and setting it visible
 	auto menu = Menu::create(playButton, NULL);
 	menu->setPosition(Point::ZERO);

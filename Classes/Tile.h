@@ -11,6 +11,7 @@ namespace Peli
 		void testFunc();
 		void CollisionCreator();
 		int Width, Height = 0;
+		int tileAmount = 0;
 
 		void loadMap(std::string level);
 		void MapBoundariesTop(cocos2d::Layer *layer);
@@ -22,18 +23,20 @@ namespace Peli
 		cocos2d::TMXTiledMap *map;
 		cocos2d::TMXLayer *_background;
 		cocos2d::TMXLayer *_meta;
-		cocos2d::Sprite *prevTile;
-
 
 		int mapWidth, mapHeight, tileWidth, tileHeight, collidableLayer, i, j = 0;
 		int tileYPosition, tileXPosition;
+		int AmountOfTilesInRow = 0;
 
 		cocos2d::Vec2 SpawnPosition;
+		cocos2d::Vec2 previousTilePosition;
 
 		cocos2d::PhysicsBody *physicsBody;
 		cocos2d::PhysicsBody *objectPhysicsBody;
 		cocos2d::Vec2 *tileCoord;
 		cocos2d::Sprite *sprite;
 		bool onContactBegin(cocos2d::PhysicsContact &contact);
+		
+		std::vector<cocos2d::Vec2> TilesInRow;
 	};
 }

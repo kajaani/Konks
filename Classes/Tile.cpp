@@ -7,24 +7,40 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 	MapBoundariesRight(layer);
 	MapBoundariesLeft(layer);
 
-	layer->addChild(map, 0);
+	previousTilePosition = cocos2d::Vec2(-1, -1);
 
-	cocos2d::Vec2 tileSize = map->getLayer("Meta")->getMapTileSize();
+	layer->addChild(map, 0);
+	
+	cocos2d::Vec2 tileSize = map->getLayer("Collision")->getMapTileSize();
 
 	for (i = 0; i < map->getMapSize().width; i++)
 	{
 		for (j = 0; j < map->getMapSize().height; j++)
 		{
 			tileCoord = new cocos2d::Vec2(i, j);
-			float gidPlatform = map->getLayer("Meta")->getTileGIDAt(*tileCoord);
+			float gidPlatform = map->getLayer("Collision")->getTileGIDAt(*tileCoord);
+			map->getLayer("Collision")->setVisible(false);
 			float gidGoal = map->getLayer("Goal")->getTileGIDAt(*tileCoord);
 
 			//Handling the platform collision
 			if (gidPlatform)
 			{
+				tileAmount++;
 				tileXPosition = i * map->getTileSize().width;																	//	* tileWidth;
 				tileYPosition = (map->getMapSize().height * map->getTileSize().height) - ((j + 1) * map->getTileSize().height);	//(mapHeight * tileHeight) - ((j + 1) tileHeight);
-
+				
+				// Do this for first tile in the map
+				if (previousTilePosition.x < 0)
+				{
+					previousTilePosition = cocos2d::Vec2(tileXPosition, tileYPosition);
+				}
+				
+				if (previousTilePosition.x + map->getTileSize().width == tileXPosition)
+				{
+					CCLOG("Collision was found next to this guy");
+					previousTilePosition = cocos2d::Vec2(tileXPosition, tileYPosition);
+				}
+				
 				//create a sprite
 				auto sprite = cocos2d::Sprite::create();
 				sprite->setPosition(cocos2d::Vec2(tileXPosition + map->getTileSize().width / 2, tileYPosition + map->getTileSize().height / 2));
@@ -42,12 +58,6 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 				sprite->getPhysicsBody()->setCategoryBitmask(BITMASKTILE);
 				sprite->getPhysicsBody()->setCollisionBitmask(BITMASKPLAYER);
 				sprite->getPhysicsBody()->setContactTestBitmask(BITMASKCOLLISIONBOX);
-
-				if (prevTile != sprite)
-				{
-					prevTile = sprite;
-				}
-				
 			}
 			
 			//Handling the object collision
@@ -72,11 +82,11 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 				objectSprite->getPhysicsBody()->setContactTestBitmask(BITMASKPLAYER);
 
 				objectPhysicsBody->setTag(GOAL);
-		
 			}
 		}
 	}
-
+	CCLOG("Tile width %f", map->getTileSize().width);
+	CCLOG("Tile amount %i", tileAmount);
 }
 
 void Peli::Tile::loadMap(std::string level)
