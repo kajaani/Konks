@@ -37,7 +37,6 @@ Scene* GameScene::createScene()
 
 void GameScene::setLevel(Scene* scene)
 {
-	//CCLOG("adasdasdfgsdgsgsgsd %s", scene->getChildByTag(50)->getName().c_str());
 	tile = new Peli::Tile(this, scene->getChildByTag(MAPNAME)->getName().c_str());
 	/*this->runAction(Follow::create(player->getPlayer(),
 		Rect(visibleSize.width + origin.x - visibleSize.width,
@@ -228,7 +227,6 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 		// Player hits goal
 		if (bodyA->getTag() == PLAYER && bodyB->getTag() == GOAL)
 		{
-			CCLOG("BODY A OSUI");
 			this->GoToMainMenuScene(this);
 			return false;
 		}
@@ -240,24 +238,20 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 		// Hook hits player, cancel
 		if (bodyA->getTag() == PLAYER && bodyB->getTag() == HOOK)
 		{
-			log("hook hit player");
 			return false;
 		}
 		if (bodyB->getTag() == PLAYER && bodyA->getTag() == HOOK)
 		{
-			log("hook hit player");
 			return false;
 		}
 
 		// RayBox hits player
 		if (bodyA->getTag() == PLAYER && bodyB->getTag() == RAYCASTCOLLISIONBOX)
 		{
-			CCLOG("BOX OSUI PELAAJAAN");
 			return false;
 		}
 		if (bodyB->getTag() == PLAYER && bodyA->getTag() == RAYCASTCOLLISIONBOX)
 		{
-			CCLOG("BOX OSUI PELAAJAAN");
 			return false;
 		}
 		if (sprite)
@@ -267,18 +261,18 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 			{
 				if (bodyA->getTag() == RAYCASTCOLLISIONBOX && bodyB->getTag() == TILE)
 				{
-					CCLOG("BODY A");
 					sprite->stopAllActions();
 					boxHitPos = bodyA->getPosition();
+					player->Run();
 					player->isHooked = true;
 					return true;
 				}
 				else if (bodyB->getTag() == RAYCASTCOLLISIONBOX && bodyA->getTag() == TILE)
 				{
-					CCLOG("BODY B");
 					sprite->stopAllActions();
 					boxHitPos = bodyA->getPosition();
 					player->isHooked = true;
+					player->Run();
 					return true;
 				}
 			}
@@ -332,19 +326,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	Vec2 RayHitPosition(0, 0);
 	int num = 0;
 
-	Vector<SpriteFrame*> animFrames(46);
-
-	char str[100] = { 0 };
-	for (int i = 23; i < 46; i++)
-	{
-		sprintf(str, "PappaRun/run00%0d.png", i);
-		auto frame = SpriteFrame::create(str, Rect(0, 0, 254, 272));
-		animFrames.pushBack(frame);
-	}
-
-	auto animation = Animation::createWithSpriteFrames(animFrames, 0.05f);
-	auto animate = Animate::create(animation);
-	player->runAction(animate);
+	player->Shoot();
 
 	distance = sqrt((player->getPosition().x - boxHitPos.x) * (player->getPosition().x - boxHitPos.x) +
 		(player->getPosition().y - boxHitPos.y) * (player->getPosition().y - boxHitPos.y));
@@ -356,8 +338,6 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 		Point fromplayertohook = ccpSub(player->getPosition(), touchWorld);
 		float angle = -CC_RADIANS_TO_DEGREES(ccpToAngle(fromplayertohook));
 		float realangle = angle + 270;
-
-		CCLOG("Angle: %f", realangle);
 
 		sprite->setRotation(realangle);
 

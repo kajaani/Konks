@@ -42,6 +42,12 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 				sprite->getPhysicsBody()->setCategoryBitmask(BITMASKTILE);
 				sprite->getPhysicsBody()->setCollisionBitmask(BITMASKPLAYER);
 				sprite->getPhysicsBody()->setContactTestBitmask(BITMASKCOLLISIONBOX);
+
+				if (prevTile != sprite)
+				{
+					prevTile = sprite;
+				}
+				
 			}
 			
 			//Handling the object collision

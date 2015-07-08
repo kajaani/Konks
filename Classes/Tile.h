@@ -22,6 +22,8 @@ namespace Peli
 		cocos2d::TMXTiledMap *map;
 		cocos2d::TMXLayer *_background;
 		cocos2d::TMXLayer *_meta;
+		cocos2d::Sprite *prevTile;
+
 
 		int mapWidth, mapHeight, tileWidth, tileHeight, collidableLayer, i, j = 0;
 		int tileYPosition, tileXPosition;

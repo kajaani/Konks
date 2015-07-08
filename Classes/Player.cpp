@@ -28,6 +28,7 @@ Player::Player(Layer *layer)
 
 	player->setPhysicsBody(PlayerPhysics);
 	layer->addChild(player, 15);
+
 }
 
 void Player::runAction(Action *act)
@@ -42,7 +43,10 @@ void Player::update()
 	if (isTouchHold && isHooked)
 		power = 5;
 	else if (!isTouchHold)
+	{
+		player->stopAllActions();
 		power = 0;
+	}
 
 	if (distance > 25 && isTouchHold && isHooked)
 	{
@@ -100,4 +104,53 @@ void Player::Grapple(Vec2 touchPosition)
 Vec2 Player::getPosition()
 {
 	return player->getPosition();
+}
+
+void Player::Run()
+{	
+	Vector<SpriteFrame*> animFrames(46);
+
+	char str[100] = { 0 };
+	for (int i = 23; i < 46; i++)
+	{
+		sprintf(str, "PappaRun/run00%0d.png", i);
+		frame = SpriteFrame::create(str, Rect(0, 0, 254, 272));
+		animFrames.pushBack(frame);
+	}
+
+	animation = Animation::createWithSpriteFrames(animFrames, 0.05f);
+	CCLOG("isHooked: %d", isHooked);
+	if (isTouchHold)
+	{
+		CCLOG("Start");
+		animation->setLoops(-1);
+	}
+	
+	animate = Animate::create(animation);
+	player->runAction(animate);
+	
+}
+
+void Player::Shoot()
+{
+	Vector<SpriteFrame*> animFrames(46);
+
+	char str[100] = { 0 };
+	for (int i = 23; i < 46; i++)
+	{
+		sprintf(str, "PappaRun/run00%0d.png", i);
+		frame = SpriteFrame::create(str, Rect(0, 0, 254, 272));
+		animFrames.pushBack(frame);
+	}
+
+	animation = Animation::createWithSpriteFrames(animFrames, 0.05f);
+
+	if (isTouchHold)
+	{
+		CCLOG("Start");
+		animation->setLoops(1);
+	}
+
+	animate = Animate::create(animation);
+	player->runAction(animate);
 }

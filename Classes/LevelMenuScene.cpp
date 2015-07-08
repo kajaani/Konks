@@ -61,7 +61,7 @@ bool LevelMenuScene::init()
 	//Level 3 button
 	playButton3 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
-	playButton3->setName("Background03.tmx");
+	playButton3->setName("Playground.tmx");
 	playButton3->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 - 100));
 	
 	//In addition to previous sprites the play button changes its graphics once clicked
@@ -98,8 +98,6 @@ void LevelMenuScene::GoToGameScene(cocos2d::Ref *sender)
 	{
 		node->setName(playButton3->getName().c_str());
 	}
-
-	//CCLOG("%s", selectedLevel->getName().c_str());
 
 	auto scene = GameScene::createScene();
 	scene->addChild(node);
