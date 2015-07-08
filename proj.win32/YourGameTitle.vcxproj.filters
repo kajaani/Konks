@@ -18,9 +18,6 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\CubeTest.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -31,9 +28,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Platform.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Tile.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MainMenuScene.cpp">
@@ -48,15 +42,18 @@
     <ClCompile Include="..\Classes\LevelMenuScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Tile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\CubeTest.h">
@@ -69,9 +66,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Platform.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Tile.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Definitions.h">
@@ -87,6 +81,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LevelMenuScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Tile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
