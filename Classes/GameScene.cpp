@@ -38,16 +38,16 @@ Scene* GameScene::createScene()
 void GameScene::setLevel(Scene* scene)
 {
 	tile = new Peli::Tile(this, scene->getChildByTag(MAPNAME)->getName().c_str());
-	/*this->runAction(Follow::create(player->getPlayer(),
+	this->runAction(Follow::create(player->getPlayer(),
 		Rect(visibleSize.width + origin.x - visibleSize.width,
 		visibleSize.height + origin.y - visibleSize.height,
 		tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width,
-		tile->getMap()->getMapSize().height * tile->getMap()->getTileSize().height)));*/
+		tile->getMap()->getMapSize().height * tile->getMap()->getTileSize().height)));
 
 	float gravityMultiplier = 2;
 	_world->setGravity(Vec2(0, -98 * gravityMultiplier));
 
-	this->runAction(cocos2d::MoveTo::create(50, Vec2( -tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width, this->getPosition().y)));
+	//this->runAction(cocos2d::MoveTo::create(50, Vec2( -tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width, this->getPosition().y)));
 }
 
 // on "init" you need to initialize your instance
@@ -120,31 +120,34 @@ bool GameScene::init()
 
 	schedule(schedule_selector(GameScene::SpawnPlatform), 1.5);
 	schedule(schedule_selector(GameScene::update));
+	schedule(schedule_selector(GameScene::TimerMilliSeconds), 0.1);
 
 	this->setKeypadEnabled(true);
 
 	return true;
 }
 
+void GameScene::TimerMilliSeconds(float dt)
+{
+	// do stuph
+	timeMilliseconds += 0.1;
+}
+
 void GameScene::update(float dt)
 {
-	player->update();
-	player->getPosition();
-	LabelCubeTest->setColor(ccc3(rand() % 255, 0, 0));
-	LabelCubeTest->setPosition(LabelCubeTest->getPositionX(), LabelCubeTest->getPositionY() - 0.2);
-	LabelCubeTest->setRotation(LabelCubeTest->getRotation() + 1);
-
 	Point hitWorld = convertToNodeSpace(boxHitPos);
 	float realDistance = player->getPosition().distance(hitWorld);
 
+	player->update();
+	LabelCubeTest->setPosition(Vec2(-this->getPosition().x + LabelCubeTest->getContentSize().width / 2, -this->getPosition().y + visibleSize.height - LabelCubeTest->getContentSize().height / 2));
+	LabelCubeTest->setColor(ccc3(255, 255, 0));
+	
+	String *score = String::createWithFormat("%.2f", timeMilliseconds);
+
+	LabelCubeTest->setString(score->getCString());
+
 	if (realDistance > 50 && player->isTouchHold && player->isHooked && !isAlreadyRoped)
 	{
-		log("PlayerPos: %f, %f", player->getPosition().x, player->getPosition().y);
-		log("hit box  : %f, %f", boxHitPos.x, boxHitPos.y);
-
-		log("Distance 1: %f", realDistance);
-		log("Distance 2: %f", distanceFromHook);
-
 		rope->getRopePhysicsBody()->setEnable(false);
 		rope->getRopePhysicsBody()->setDynamic(false);
 

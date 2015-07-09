@@ -37,6 +37,7 @@ public:
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event *event);
 
 	void SpawnPlatform(float dt);
+	void TimerMilliSeconds(float dt);
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(GameScene);
@@ -66,6 +67,8 @@ protected:
 	Size visibleSize;
 	Vec2 boxHitPos;
 	Vec2 SpawnPosition;
+	
+	float timeMilliseconds = 0;
 
 	DrawNode *_drawNode;
 	Sprite *sprite;
