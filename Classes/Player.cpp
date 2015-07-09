@@ -119,10 +119,8 @@ void Player::Run()
 	}
 
 	animation = Animation::createWithSpriteFrames(animFrames, 0.05f);
-	CCLOG("isHooked: %d", isHooked);
 	if (isTouchHold)
 	{
-		CCLOG("Start");
 		animation->setLoops(-1);
 	}
 	
@@ -147,7 +145,6 @@ void Player::Shoot()
 
 	if (isTouchHold)
 	{
-		CCLOG("Start");
 		animation->setLoops(1);
 	}
 

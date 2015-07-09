@@ -2,6 +2,8 @@
 #include "math\CCMath.h"
 #include "MainMenuScene.h"
 #include "Definitions.h"
+#include "ScoreScene.h"
+#include "Constant.h"
 
 // TODO LIST //
 /*
@@ -132,7 +134,7 @@ bool GameScene::init()
 	highscorelabel->setString(score->getCString());
 
 	this->addChild(highscorelabel, 99);
-	this->setKeypadEnabled(true);
+	//this->setKeypadEnabled(true);
 
 	return true;
 }
@@ -245,13 +247,12 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 				highscore = timeMilliseconds;
 				def->setIntegerForKey("SCORE", highscore);
 			}
-
-			this->GoToMainMenuScene(this);
+			this->GoToScoreScene(this);
 			return false;
 		}
 		if (bodyB->getTag() == PLAYER && bodyA->getTag() == GOAL)
 		{
-			this->GoToMainMenuScene(this);
+			this->GoToScoreScene(this);
 			return false;
 		}
 
@@ -382,6 +383,15 @@ void GameScene::GoToMainMenuScene(cocos2d::Ref *sender)
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
+void GameScene::GoToScoreScene(cocos2d::Ref *sender)
+{
+	auto scene = ScoreScene::createScene();
+
+	Constant::score = timeMilliseconds;
+
+	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+
 void GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	rope->getRopePhysicsBody()->setDynamic(false);
@@ -395,6 +405,12 @@ void GameScene::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event)
 {
 	Point touchWorld = convertToNodeSpace(touch->getLocation());
 	player->TouchPosition = Vec2(touchWorld.x, touchWorld.y);
+}
+
+void GameScene::Pause()
+{
+	Director::getInstance()->pause();
+	//player->getPlayerPhysicsBody()->setResting(true);
 }
 
 void GameScene::menuCloseCallback(Ref* pSender)
