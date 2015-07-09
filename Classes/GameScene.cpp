@@ -122,6 +122,16 @@ bool GameScene::init()
 	schedule(schedule_selector(GameScene::update));
 	schedule(schedule_selector(GameScene::TimerMilliSeconds), 0.1);
 
+	auto highscorelabel = LabelTTF::create("", "fonts/arial.ttf", 72);
+	highscorelabel->setPosition(100, 100);
+
+	UserDefault *def = UserDefault::getInstance();
+	highscore = def->getIntegerForKey("SCORE", 0);
+	
+	String *score = String::createWithFormat("Score: %.2f", highscore);
+	highscorelabel->setString(score->getCString());
+
+	this->addChild(highscorelabel, 99);
 	this->setKeypadEnabled(true);
 
 	return true;
@@ -141,7 +151,6 @@ void GameScene::update(float dt)
 	player->update();
 	LabelCubeTest->setPosition(Vec2(-this->getPosition().x + LabelCubeTest->getContentSize().width / 2, -this->getPosition().y + visibleSize.height - LabelCubeTest->getContentSize().height / 2));
 	LabelCubeTest->setColor(ccc3(255, 255, 0));
-	
 	String *score = String::createWithFormat("%.2f", timeMilliseconds);
 
 	LabelCubeTest->setString(score->getCString());
@@ -230,12 +239,20 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 		// Player hits goal
 		if (bodyA->getTag() == PLAYER && bodyB->getTag() == GOAL)
 		{
+			if (timeMilliseconds < highscore || highscore == 0)
+			{
+				UserDefault *def = UserDefault::getInstance();
+				highscore = timeMilliseconds;
+				def->setIntegerForKey("SCORE", highscore);
+			}
+
 			this->GoToMainMenuScene(this);
 			return false;
 		}
 		if (bodyB->getTag() == PLAYER && bodyA->getTag() == GOAL)
 		{
 			this->GoToMainMenuScene(this);
+			return false;
 		}
 
 		// Hook hits player, cancel

@@ -68,6 +68,8 @@ protected:
 	Vec2 boxHitPos;
 	Vec2 SpawnPosition;
 	
+	float highscore = 0;
+
 	float timeMilliseconds = 0;
 
 	DrawNode *_drawNode;
