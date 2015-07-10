@@ -28,7 +28,7 @@ Scene* GameScene::createScene()
 	auto layer = GameScene::create();
 	layer->setPhysicsWorld(scene->getPhysicsWorld());
 
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	// add layer as a child to scene
 	scene->addChild(layer);
@@ -40,16 +40,19 @@ Scene* GameScene::createScene()
 void GameScene::setLevel(Scene* scene)
 {
 	tile = new Peli::Tile(this, scene->getChildByTag(MAPNAME)->getName().c_str());
+	
+	// Follow view
 	this->runAction(Follow::create(player->getPlayer(),
 		Rect(visibleSize.width + origin.x - visibleSize.width,
 		visibleSize.height + origin.y - visibleSize.height,
 		tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width,
 		tile->getMap()->getMapSize().height * tile->getMap()->getTileSize().height)));
 
+	// Scrolling view
+	//this->runAction(cocos2d::MoveTo::create(50, Vec2(-tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width, this->getPosition().y)));
+
 	float gravityMultiplier = 2;
 	_world->setGravity(Vec2(0, -98 * gravityMultiplier));
-
-	//this->runAction(cocos2d::MoveTo::create(50, Vec2( -tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width, this->getPosition().y)));
 }
 
 // on "init" you need to initialize your instance
@@ -326,7 +329,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	sprite->setColor(ccc3(100, 0, 0));
 	sprite->setPosition(player->getPosition());
 
-	auto spriteBody = PhysicsBody::createBox(sprite->getContentSize() * 0.2);
+	auto spriteBody = PhysicsBody::createBox(sprite->getContentSize() * 0.8);
 	sprite->setPhysicsBody(spriteBody);
 
 	sprite->getPhysicsBody()->setCategoryBitmask(BITMASKCOLLISIONBOX);
