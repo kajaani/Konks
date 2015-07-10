@@ -19,6 +19,8 @@ namespace Peli
 		void MapBoundariesLeft(cocos2d::Layer *layer);
 		cocos2d::TMXTiledMap *getMap();
 		cocos2d::Vec2 GetSpawnPosition();
+
+		std::vector<cocos2d::Sprite*> tileCollisions;
 	private:
 		cocos2d::TMXTiledMap *map;
 		cocos2d::TMXLayer *_background;
@@ -36,7 +38,7 @@ namespace Peli
 		cocos2d::Vec2 *tileCoord;
 		cocos2d::Sprite *sprite;
 		bool onContactBegin(cocos2d::PhysicsContact &contact);
-		
+
 		std::vector<cocos2d::Vec2> TilesInRow;
 	};
 }

@@ -9,11 +9,11 @@ Player::Player(Layer *layer)
 	isHooked = false;
 	TouchPosition = Vec2(0, 0);
 
-	player = Sprite::create("defpappa.png");
-	player->setPosition(100, 120);
-	player->setScale(0.5f);
+	player = Sprite::create("player.png");
+	player->setPosition(100, 520);
+	player->setScale(0.1f);
 
-	PlayerPhysics = PhysicsBody::createCircle(player->getContentSize().width / 6, PhysicsMaterial(1.0f, 0.0f, 0.0f));
+	PlayerPhysics = PhysicsBody::createCircle(player->getContentSize().width * 0.05, PhysicsMaterial(1.0f, 0.0f, 0.0f));
 	PlayerPhysics->setVelocityLimit(500);
 
 	PlayerPhysics->setGravityEnable(true);
@@ -111,10 +111,11 @@ void Player::Run()
 	Vector<SpriteFrame*> animFrames(46);
 
 	char str[100] = { 0 };
-	for (int i = 23; i < 46; i++)
+	for (int i = 0; i <= 14; i++)
 	{
-		sprintf(str, "PappaRun/run00%0d.png", i);
-		frame = SpriteFrame::create(str, Rect(0, 0, 254, 272));
+		//character_animation100.png // run00%0d.png
+		sprintf(str, "Fleng/character_animation_fleng0%i.png", i);
+		frame = SpriteFrame::create(str, Rect(0, 0, 1024, 1024));
 		animFrames.pushBack(frame);
 	}
 
@@ -134,10 +135,11 @@ void Player::Shoot()
 	Vector<SpriteFrame*> animFrames(46);
 
 	char str[100] = { 0 };
-	for (int i = 23; i < 46; i++)
+	for (int i = 0; i <= 14; i++)
 	{
-		sprintf(str, "PappaRun/run00%0d.png", i);
-		frame = SpriteFrame::create(str, Rect(0, 0, 254, 272));
+		//character_animation100.png // run00%0d.png
+		sprintf(str, "Fleng/character_animation_fleng0%i.png", i);
+		frame = SpriteFrame::create(str, Rect(0, 0, 1024, 1024));
 		animFrames.pushBack(frame);
 	}
 

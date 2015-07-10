@@ -28,7 +28,7 @@ Scene* GameScene::createScene()
 	auto layer = GameScene::create();
 	layer->setPhysicsWorld(scene->getPhysicsWorld());
 
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	// add layer as a child to scene
 	scene->addChild(layer);
@@ -40,13 +40,19 @@ Scene* GameScene::createScene()
 void GameScene::setLevel(Scene* scene)
 {
 	tile = new Peli::Tile(this, scene->getChildByTag(MAPNAME)->getName().c_str());
-	
+	isMapLoaded = true;
 	// Follow view
 	this->runAction(Follow::create(player->getPlayer(),
 		Rect(visibleSize.width + origin.x - visibleSize.width,
 		visibleSize.height + origin.y - visibleSize.height,
 		tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width,
 		tile->getMap()->getMapSize().height * tile->getMap()->getTileSize().height)));
+
+	//int i, j;
+	//auto tileCoord = new cocos2d::Vec2(i, j);
+	//float gidPlatform = tile->getMap()->getLayer("Collision")->getTileGIDAt(*tileCoord);
+
+	CCLOG("Sprite amount %i", tile->tileCollisions.size());
 
 	// Scrolling view
 	//this->runAction(cocos2d::MoveTo::create(50, Vec2(-tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width, this->getPosition().y)));
@@ -160,6 +166,28 @@ void GameScene::update(float dt)
 
 	LabelCubeTest->setString(score->getCString());
 
+	// Collision resting
+	if (isMapLoaded)
+	{
+		int colCount = 0;
+		for (int i = 0; i < tile->tileCollisions.size(); i++)
+		{
+			if (tile->tileCollisions[i]->getPhysicsBody()->isEnabled())
+			{
+				colCount++;
+			}
+			if (tile->tileCollisions[i]->getPositionX() < -this->getPositionX() + visibleSize.width - 100 &&  
+				tile->tileCollisions[i]->getPositionX() > -this->getPositionX() + 100)
+			{
+				tile->tileCollisions[i]->getPhysicsBody()->setEnable(true);
+			}
+			else
+				tile->tileCollisions[i]->getPhysicsBody()->setEnable(false);
+		}
+		CCLOG("Number of enabled tiles: %i", colCount);
+	}
+
+
 	if (realDistance > 50 && player->isTouchHold && player->isHooked && !isAlreadyRoped)
 	{
 		rope->getRopePhysicsBody()->setEnable(false);
@@ -167,7 +195,7 @@ void GameScene::update(float dt)
 
 		rope->setPosition(sprite->getPosition());
 
-		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, realDistance - 50);
+		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Point::ZERO, Point::ZERO, 50.0f, realDistance - 25);
 		ropeJoint->setCollisionEnable(true);
 
 		_world->addJoint(ropeJoint);
@@ -368,11 +396,11 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 		if ((angle > 90 && angle <= 179) || (angle > -180 && angle <= -90))
 		{
 	
-			player->getPlayer()->setScaleX(0.5);
+			//player->getPlayer()->setScaleX(0.5);
 		}
 		else
 		{
-			player->getPlayer()->setScaleX(-0.5);
+			//player->getPlayer()->setScaleX(-0.5);
 		}
 		player->Grapple(Vec2(touchWorld.x, touchWorld.y));
 	}

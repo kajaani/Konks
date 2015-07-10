@@ -61,6 +61,7 @@ protected:
 
 	std::string _selectedLevel;
 
+	bool isMapLoaded = false;
 	bool isAlreadyRoped;
 	float distance;
 	float distanceFromHook;
