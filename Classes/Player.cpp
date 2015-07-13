@@ -9,9 +9,9 @@ Player::Player(Layer *layer)
 	isHooked = false;
 	TouchPosition = Vec2(0, 0);
 
-	player = Sprite::create("player.png");
+	player = Sprite::create("Fleng/character_animation_fleng00 copy.png");
 	player->setPosition(100, 1120);
-	player->setScale(0.1f);
+	//player->setScale(0.1f);
 
 	PlayerPhysics = PhysicsBody::createCircle(player->getContentSize().width * 0.05, PhysicsMaterial(1.0f, 0.0f, 0.0f));
 	PlayerPhysics->setVelocityLimit(500);
@@ -114,14 +114,14 @@ Vec2 Player::getPosition()
 
 void Player::Fleng()
 {	
-	Vector<SpriteFrame*> animFrames(46);
+	Vector<SpriteFrame*> animFrames(15);
 
 	char str[100] = { 0 };
 	for (int i = 0; i <= 14; i++)
 	{
 		//character_animation100.png // run00%0d.png
-		sprintf(str, "Fleng/character_animation_fleng0%i.png", i);
-		frame = SpriteFrame::create(str, Rect(0, 0, 1024, 1024));
+		sprintf(str, "Fleng/character_animation_fleng0%i copy.png", i);
+		frame = SpriteFrame::create(str, Rect(0, 0, 100, 100));
 		animFrames.pushBack(frame);
 	}
 
@@ -133,7 +133,6 @@ void Player::Fleng()
 	
 	animate = Animate::create(animation);
 	player->runAction(animate);
-	
 }
 
 void Player::Shoot()
@@ -144,8 +143,8 @@ void Player::Shoot()
 	for (int i = 100; i <= 119; i++)
 	{
 		//character_animation100.png // run00%0d.png
-		sprintf(str, "throwfromair/character_throw_air%i.png", i);
-		frame = SpriteFrame::create(str, Rect(0, 0, 1024, 1024));
+		sprintf(str, "Fleng/character_throw_air100 copy.png", i);
+		frame = SpriteFrame::create(str, Rect(0, 0, 100, 100));
 		animFrames.pushBack(frame);
 	}
 

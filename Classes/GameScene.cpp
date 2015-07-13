@@ -187,7 +187,7 @@ void GameScene::update(float dt)
 			else
 				tile->tileCollisions[i]->getPhysicsBody()->setEnable(false);
 		}
-		CCLOG("Number of enabled tiles: %i", colCount);
+		//CCLOG("Number of enabled tiles: %i", colCount);
 	}
 	
 	if (realDistance > 50 && player->isTouchHold && player->isHooked && !isAlreadyRoped)
@@ -415,11 +415,11 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 		if ((angle > 90 && angle <= 179) || (angle > -180 && angle <= -90))
 		{
 	
-			player->getPlayer()->setScaleX(0.1);
+			//player->getPlayer()->setScaleX(0.1);
 		}
 		else
 		{
-			player->getPlayer()->setScaleX(-0.1);
+			//player->getPlayer()->setScaleX(-0.1);
 		}
 		player->Grapple(Vec2(touchWorld.x, touchWorld.y));
 	}
