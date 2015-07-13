@@ -49,19 +49,19 @@ bool LevelMenuScene::init()
 	//Level 1 button
 	playButton1 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
-	playButton1->setName("Testmap9000.tmx");
+	playButton1->setName("Hugemap.tmx");
 	playButton1->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + 100));
 
 	//Level 2 button
 	playButton2 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
-	playButton2->setName("Tutorial2.tmx");
+	playButton2->setName("Hugemap02.tmx");
 	playButton2->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2));
 
 	//Level 3 button
 	playButton3 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
-	playButton3->setName("Playground.tmx");
+	playButton3->setName("Hugemap03.tmx");
 	playButton3->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 - 100));
 	
 	//In addition to previous sprites the play button changes its graphics once clicked

@@ -112,7 +112,7 @@ Vec2 Player::getPosition()
 	return player->getPosition();
 }
 
-void Player::Run()
+void Player::Fleng()
 {	
 	Vector<SpriteFrame*> animFrames(46);
 
@@ -138,23 +138,18 @@ void Player::Run()
 
 void Player::Shoot()
 {
-	Vector<SpriteFrame*> animFrames(46);
+	Vector<SpriteFrame*> animFrames(20);
 
 	char str[100] = { 0 };
-	for (int i = 0; i <= 14; i++)
+	for (int i = 100; i <= 119; i++)
 	{
 		//character_animation100.png // run00%0d.png
-		sprintf(str, "Fleng/character_animation_fleng0%i.png", i);
+		sprintf(str, "throwfromair/character_throw_air%i.png", i);
 		frame = SpriteFrame::create(str, Rect(0, 0, 1024, 1024));
 		animFrames.pushBack(frame);
 	}
 
 	animation = Animation::createWithSpriteFrames(animFrames, 0.05f);
-
-	if (isTouchHold)
-	{
-		animation->setLoops(1);
-	}
 
 	animate = Animate::create(animation);
 	player->runAction(animate);

@@ -11,7 +11,7 @@ public:
 	void Grapple(cocos2d::Vec2 touchPosition);
 
 	//Animations
-	void Run();
+	void Fleng();
 	void Shoot();
 
 	void update();

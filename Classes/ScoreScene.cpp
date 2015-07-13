@@ -41,7 +41,7 @@ bool ScoreScene::init()
 	this->addChild(backgroundSprite);
 
 	//Doing the same to the rest of the sprites
-	auto titleSprite = Sprite::create("Title.png");
+	auto titleSprite = Sprite::create("logo.png");
 	titleSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height - titleSprite->getContentSize().height));
 	this->addChild(titleSprite);
 
@@ -62,6 +62,7 @@ bool ScoreScene::init()
 	auto scoreLabel = LabelTTF::create("", "font/arial.ttf", 24);
 	scoreLabel->setPosition(100, 150);
 
+	//Constant::score retrieves the value from Constant.h
 	_score = Constant::score;
 
 	String *score = String::createWithFormat("Score: %.2f", _score);
@@ -73,7 +74,7 @@ bool ScoreScene::init()
 	//Level 1 button
 	continueButton = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		ScoreScene::GoToGameScene, this));
-	continueButton->setName("Tutorial.tmx");
+	continueButton->setName("Hugemap.tmx");
 	continueButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + 100));
 
 	//Level 2 button

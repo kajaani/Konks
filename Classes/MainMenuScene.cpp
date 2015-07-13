@@ -42,7 +42,7 @@ bool MainMenuScene::init()
 	this->addChild(backgroundSprite);
 
 	//Doing the same to the rest of the sprites
-	auto titleSprite = Sprite::create("Title.png");
+	auto titleSprite = Sprite::create("logo.png");
 	titleSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height - titleSprite->getContentSize().height));
 	this->addChild(titleSprite);
 
@@ -82,7 +82,7 @@ void MainMenuScene::GoToGameScene(cocos2d::Ref *sender)
 {
 	auto node = Node::create();
 	node->setTag(MAPNAME);
-	node->setName("Tutorial.tmx");
+	node->setName("Hugemap.tmx");
 
 	auto scene = GameScene::createScene();
 	scene->addChild(node);

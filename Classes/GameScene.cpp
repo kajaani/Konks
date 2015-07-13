@@ -7,7 +7,6 @@
 
 // TODO LIST //
 /*
-	Animations
 	Final final final final final level design
 	
 	Fix hook shooting when releasing touch before it finishes moving
@@ -323,7 +322,8 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 				{
 					sprite->stopAllActions();
 					boxHitPos = bodyA->getPosition();
-					player->Run();
+					player->getPlayer()->stopAllActions();
+					player->Fleng();
 					player->isHooked = true;
 					return true;
 				}
@@ -331,8 +331,9 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 				{
 					sprite->stopAllActions();
 					boxHitPos = bodyA->getPosition();
+					player->getPlayer()->stopAllActions();
 					player->isHooked = true;
-					player->Run();
+					player->Fleng();
 					return true;
 				}
 			}
