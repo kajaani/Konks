@@ -6,6 +6,8 @@
 #define DISPLAY_TIME_SPLASH_SCENE 2
 #define TRANSITION_TIME 0.5
 
+#define MAXDISTANCE 500
+
 // Bitmasks for collision check
 #define BITMASKTILE 0x01
 #define BITMASKPLAYER 0x02

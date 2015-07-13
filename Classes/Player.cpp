@@ -10,7 +10,7 @@ Player::Player(Layer *layer)
 	TouchPosition = Vec2(0, 0);
 
 	player = Sprite::create("player.png");
-	player->setPosition(100, 520);
+	player->setPosition(100, 1120);
 	player->setScale(0.1f);
 
 	PlayerPhysics = PhysicsBody::createCircle(player->getContentSize().width * 0.05, PhysicsMaterial(1.0f, 0.0f, 0.0f));
@@ -46,6 +46,12 @@ void Player::update()
 	{
 		player->stopAllActions();
 		power = 0;
+
+		if (player->getRotation() > 10)
+		{
+			player->setRotation(player->getRotation() - 10);
+		}
+
 	}
 
 	if (distance > 25 && isTouchHold && isHooked)
@@ -64,17 +70,17 @@ void Player::update()
 		//
 
 		// Player movement while hooked
-		/*if (player->getPositionY() < TouchPosition.y)
-			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x, PlayerPhysics->getVelocity().y + power));
+		if (player->getPositionY() < TouchPosition.y)
+			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x, PlayerPhysics->getVelocity().y ));
 
 		if (player->getPositionY() > TouchPosition.y)
-			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x, PlayerPhysics->getVelocity().y - power));
+			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x, PlayerPhysics->getVelocity().y ));
 
 		if (player->getPositionX() < TouchPosition.x)
 			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x + power, PlayerPhysics->getVelocity().y));
 
 		if (player->getPositionX() > TouchPosition.x)
-			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x - power, PlayerPhysics->getVelocity().y));*/
+			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x - power, PlayerPhysics->getVelocity().y));
 	}
 
 	//CCLOG("Velocity X: %f Y: %f", PlayerPhysics->getVelocity().x, PlayerPhysics->getVelocity().y);
