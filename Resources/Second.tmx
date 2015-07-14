@@ -45,4 +45,9 @@
    eJztzjEBAAAIwKA99q9sDD0gAQVQcx0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABeWNniAAY=
   </data>
  </layer>
+ <layer name="Spawn" width="200" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7Bd+JeMjJHQKmgCAAAAXDHtAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8N4CDT0ABw==
+  </data>
+ </layer>
 </map>

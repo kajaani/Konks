@@ -1,8 +1,9 @@
 #include "Tile.h"
-
-Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
+#include "Constant.h"
+cocos2d::Vec2 Constant::spawn = cocos2d::Vec2(0, 0);
+Peli::Tile::Tile(cocos2d::Layer *layer)
 {
-	loadMap(level);
+	loadMap();
 	MapBoundariesTop(layer);
 	MapBoundariesRight(layer);
 	MapBoundariesLeft(layer);
@@ -20,9 +21,11 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 			tileCoord = new cocos2d::Vec2(i, j);
 			float gidPlatform = map->getLayer("Collision")->getTileGIDAt(*tileCoord);
 			map->getLayer("Collision")->setVisible(false);
+			map->getLayer("Spawn")->setVisible(false);
 			float gidGoal = map->getLayer("Goal")->getTileGIDAt(*tileCoord);
 			float gidSpike = map->getLayer("Spike")->getTileGIDAt(*tileCoord);
 			float gidMetal = map->getLayer("Metal")->getTileGIDAt(*tileCoord);
+			float gidSpawn = map->getLayer("Spawn")->getTileGIDAt(*tileCoord);
 
 			//Handling the platform collision
 			if (gidPlatform)
@@ -133,6 +136,13 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 
 				objectPhysicsBody->setTag(METAL);
 			}
+			if (gidSpawn)
+			{
+				tileXPosition = i * map->getTileSize().width;																	//	* tileWidth;
+				tileYPosition = (map->getMapSize().height * map->getTileSize().height) - ((j + 1) * map->getTileSize().height); //(mapHeight * tileHeight) - ((j + 1) tileHeight);
+
+				Constant::spawn = cocos2d::Vec2(tileXPosition, tileYPosition);
+			}
 
 		}
 	}
@@ -140,9 +150,9 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 	CCLOG("Tile amount %i", tileAmount);
 }
 
-void Peli::Tile::loadMap(std::string level)
+void Peli::Tile::loadMap()
 {
-	map = cocos2d::TMXTiledMap::create(level);
+	map = cocos2d::TMXTiledMap::create(Constant::mapname);
 	_meta = map->layerNamed("Meta");
 	_meta = map->layerNamed("Background");
 	//_meta = map->layerNamed("TileCats");

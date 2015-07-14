@@ -6,14 +6,14 @@ namespace Peli
 	class Tile
 	{
 	public:
-		Tile(cocos2d::Layer *layer, std::string level);
+		Tile(cocos2d::Layer *layer);
 		cocos2d::Point tileCoordForPosition(cocos2d::Point position);
 		void testFunc();
 		void CollisionCreator();
 		int Width, Height = 0;
 		int tileAmount = 0;
 
-		void loadMap(std::string level);
+		void loadMap();
 		void MapBoundariesTop(cocos2d::Layer *layer);
 		void MapBoundariesRight(cocos2d::Layer *layer);
 		void MapBoundariesLeft(cocos2d::Layer *layer);

@@ -2,7 +2,7 @@
 
 #include "MainMenuScene.h"
 #include "Definitions.h"
-
+#include "Constant.h"
 USING_NS_CC;
 
 Scene* LevelMenuScene::createScene()
@@ -49,19 +49,19 @@ bool LevelMenuScene::init()
 	//Level 1 button
 	playButton1 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
-	playButton1->setName("Hugemap.tmx");
+	playButton1->setName("Maps/First.tmx");
 	playButton1->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + 100));
 
 	//Level 2 button
 	playButton2 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
-	playButton2->setName("Hugemap02.tmx");
+	playButton2->setName("Second.tmx");
 	playButton2->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2));
 
 	//Level 3 button
 	playButton3 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
-	playButton3->setName("Hugemap03.tmx");
+	playButton3->setName("Hugemap.tmx");
 	playButton3->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 - 100));
 	
 	//In addition to previous sprites the play button changes its graphics once clicked
@@ -88,15 +88,15 @@ void LevelMenuScene::GoToGameScene(cocos2d::Ref *sender)
 
 	if (sender->_ID == playButton1->_ID)
 	{
-		node->setName(playButton1->getName().c_str());
+		Constant::mapname = playButton1->getName().c_str();
 	}
 	if (sender->_ID == playButton2->_ID)
 	{
-		node->setName(playButton2->getName().c_str());
+		Constant::mapname = playButton2->getName().c_str();
 	}
 	if (sender->_ID == playButton3->_ID)
 	{
-		node->setName(playButton3->getName().c_str());
+		Constant::mapname = playButton3->getName().c_str();
 	}
 
 	auto scene = GameScene::createScene();

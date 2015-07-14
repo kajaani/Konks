@@ -9,8 +9,6 @@ std::string Constant::mapname = "Maps/First.tmx";
 /*
 	Final final final final final level design
 	
-	Multiple maps with use of Constant.h
-	
 	Fix hook shooting when releasing touch before it finishes moving
 	Fix bouncing between walls
 
@@ -44,7 +42,7 @@ Scene* GameScene::createScene()
 
 void GameScene::setLevel(Scene* scene)
 {
-	tile = new Peli::Tile(this, Constant::mapname);
+	tile = new Peli::Tile(this);
 	isMapLoaded = true;
 	// Follow view
 	this->runAction(Follow::create(player->getPlayer(),
@@ -52,6 +50,8 @@ void GameScene::setLevel(Scene* scene)
 		visibleSize.height + origin.y - visibleSize.height,
 		tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width,
 		tile->getMap()->getMapSize().height * tile->getMap()->getTileSize().height)));
+
+	player->getPlayer()->setPosition(Constant::spawn);
 
 	//int i, j;
 	//auto tileCoord = new cocos2d::Vec2(i, j);
