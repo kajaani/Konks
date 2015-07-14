@@ -35,6 +35,8 @@ namespace Peli
 
 		cocos2d::PhysicsBody *physicsBody;
 		cocos2d::PhysicsBody *objectPhysicsBody;
+		cocos2d::PhysicsBody *spikePhysicsBody;
+
 		cocos2d::Vec2 *tileCoord;
 		cocos2d::Sprite *sprite;
 		bool onContactBegin(cocos2d::PhysicsContact &contact);

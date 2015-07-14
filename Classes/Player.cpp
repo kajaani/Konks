@@ -13,7 +13,7 @@ Player::Player(Layer *layer)
 	player->setPosition(100, 1120);
 	//player->setScale(0.1f);
 
-	PlayerPhysics = PhysicsBody::createCircle(player->getContentSize().width * 0.05, PhysicsMaterial(1.0f, 0.0f, 0.0f));
+	PlayerPhysics = PhysicsBody::createCircle(player->getContentSize().width * 0.5, PhysicsMaterial(1.0f, 0.0f, 0.0f));
 	PlayerPhysics->setVelocityLimit(500);
 
 	PlayerPhysics->setGravityEnable(true);
@@ -41,7 +41,7 @@ void Player::update()
 	float distance = sqrt((player->getPositionX() - TouchPosition.x) * (player->getPositionX() - TouchPosition.x) + (player->getPositionY() - TouchPosition.y) * (player->getPositionY() - TouchPosition.y));
 
 	if (isTouchHold && isHooked)
-		power = 5;
+		power = 10;
 	else if (!isTouchHold)
 	{
 		player->stopAllActions();
@@ -51,7 +51,6 @@ void Player::update()
 		{
 			player->setRotation(player->getRotation() - 10);
 		}
-
 	}
 
 	if (distance > 25 && isTouchHold && isHooked)

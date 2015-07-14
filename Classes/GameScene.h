@@ -81,6 +81,7 @@ protected:
 private:
 	void GoToScoreScene(cocos2d::Ref *sender);
 	void GoToMainMenuScene(cocos2d::Ref *sender);
+	void RestartScene(cocos2d::Ref *sender);
 	void setPhysicsWorld(cocos2d::PhysicsWorld *world) { _world = world; };
 	cocos2d::MenuItemImage* playButton1;
 

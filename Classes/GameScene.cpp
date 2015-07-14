@@ -4,7 +4,7 @@
 #include "Definitions.h"
 #include "ScoreScene.h"
 #include "Constant.h"
-
+std::string Constant::mapname = "Hugemap.tmx";
 // TODO LIST //
 /*
 	Final final final final final level design
@@ -42,7 +42,7 @@ Scene* GameScene::createScene()
 
 void GameScene::setLevel(Scene* scene)
 {
-	tile = new Peli::Tile(this, scene->getChildByTag(MAPNAME)->getName().c_str());
+	tile = new Peli::Tile(this, Constant::mapname);
 	isMapLoaded = true;
 	// Follow view
 	this->runAction(Follow::create(player->getPlayer(),
@@ -303,8 +303,8 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 		{
 			return false;
 		}
-
-		// RayBox hits player
+		
+		// RayBox hits player, cancel
 		if (bodyA->getTag() == PLAYER && bodyB->getTag() == RAYCASTCOLLISIONBOX)
 		{
 			return false;
@@ -313,6 +313,43 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 		{
 			return false;
 		}
+
+		// RayBox hits spikes, cancel
+		if (bodyA->getTag() == SPIKE && bodyB->getTag() == RAYCASTCOLLISIONBOX)
+		{
+			sprite->stopAllActions();
+			return false;
+		}
+		if (bodyB->getTag() == SPIKE && bodyA->getTag() == RAYCASTCOLLISIONBOX)
+		{
+			sprite->stopAllActions();
+			return false;
+		}
+
+		// Player hits spikes, suffer agonizing death.
+		if (bodyA->getTag() == SPIKE && bodyB->getTag() == PLAYER)
+		{
+			this->RestartScene(this);
+			return false;
+		}
+		if (bodyB->getTag() == SPIKE && bodyA->getTag() == PLAYER)
+		{
+			this->RestartScene(this);
+			return false;
+		}
+
+		// // RayBox hits metal, cancel
+		if (bodyA->getTag() == RAYCASTCOLLISIONBOX && bodyB->getTag() == METAL)
+		{
+			sprite->stopAllActions();
+			return false;
+		}
+		if (bodyB->getTag() == RAYCASTCOLLISIONBOX && bodyA->getTag() == METAL)
+		{
+			sprite->stopAllActions();
+			return false;
+		}
+
 		if (sprite)
 		{
 			// RayBox hits tiles
@@ -439,6 +476,12 @@ void GameScene::GoToScoreScene(cocos2d::Ref *sender)
 
 	Constant::score = timeMilliseconds;
 
+	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+
+void GameScene::RestartScene(cocos2d::Ref *sender)
+{
+	auto scene = GameScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 

@@ -21,11 +21,12 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 			float gidPlatform = map->getLayer("Collision")->getTileGIDAt(*tileCoord);
 			map->getLayer("Collision")->setVisible(false);
 			float gidGoal = map->getLayer("Goal")->getTileGIDAt(*tileCoord);
+			float gidSpike = map->getLayer("Spike")->getTileGIDAt(*tileCoord);
+			float gidMetal = map->getLayer("Metal")->getTileGIDAt(*tileCoord);
 
 			//Handling the platform collision
 			if (gidPlatform)
 			{
-				tileAmount++;
 				tileXPosition = i * map->getTileSize().width;																	//	* tileWidth;
 				tileYPosition = (map->getMapSize().height * map->getTileSize().height) - ((j + 1) * map->getTileSize().height);	//(mapHeight * tileHeight) - ((j + 1) tileHeight);
 
@@ -37,7 +38,7 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 
 				if (previousTilePosition.x + map->getTileSize().width == tileXPosition)
 				{
-					CCLOG("Collision was found next to this guy");
+					//CCLOG("Collision was found next to this guy");
 					previousTilePosition = cocos2d::Vec2(tileXPosition, tileYPosition);
 				}
 					//create a sprite
@@ -85,6 +86,54 @@ Peli::Tile::Tile(cocos2d::Layer *layer, std::string level)
 
 				objectPhysicsBody->setTag(GOAL);
 			}
+			//Handling the spike collisions
+			if (gidSpike)
+			{
+				tileXPosition = i * map->getTileSize().width;																	//	* tileWidth;
+				tileYPosition = (map->getMapSize().height * map->getTileSize().height) - ((j + 1) * map->getTileSize().height); //(mapHeight * tileHeight) - ((j + 1) tileHeight);
+
+				//Creating the sprite
+				auto objectSprite = cocos2d::Sprite::create();
+				objectSprite->setPosition(cocos2d::Vec2(tileXPosition + map->getTileSize().width / 2, tileYPosition + map->getTileSize().height / 2));
+				layer->addChild(objectSprite);
+
+				//Creating the physics body
+				objectPhysicsBody = cocos2d::PhysicsBody::createBox(cocos2d::Size(map->getTileSize().width, map->getTileSize().height));
+				objectPhysicsBody->setDynamic(false);
+
+				objectSprite->setPhysicsBody(objectPhysicsBody);
+
+				objectSprite->getPhysicsBody()->setCategoryBitmask(BITMASKSPIKE);
+				objectSprite->getPhysicsBody()->setCollisionBitmask(BITMASKNONE);
+				objectSprite->getPhysicsBody()->setContactTestBitmask(BITMASKPLAYER);
+
+				objectPhysicsBody->setTag(SPIKE);
+			}
+			//Handling the metal collisions
+			if (gidMetal)
+			{
+				tileAmount++;
+				tileXPosition = i * map->getTileSize().width;																	//	* tileWidth;
+				tileYPosition = (map->getMapSize().height * map->getTileSize().height) - ((j + 1) * map->getTileSize().height); //(mapHeight * tileHeight) - ((j + 1) tileHeight);
+
+				//Creating the sprite
+				auto objectSprite = cocos2d::Sprite::create();
+				objectSprite->setPosition(cocos2d::Vec2(tileXPosition + map->getTileSize().width / 2, tileYPosition + map->getTileSize().height / 2));
+				layer->addChild(objectSprite);
+
+				//Creating the physics body
+				objectPhysicsBody = cocos2d::PhysicsBody::createBox(cocos2d::Size(map->getTileSize().width, map->getTileSize().height));
+				objectPhysicsBody->setDynamic(false);
+
+				objectSprite->setPhysicsBody(objectPhysicsBody);
+
+				objectSprite->getPhysicsBody()->setCategoryBitmask(BITMASKSPIKE);
+				objectSprite->getPhysicsBody()->setCollisionBitmask(BITMASKPLAYER);
+				objectSprite->getPhysicsBody()->setContactTestBitmask(BITMASKCOLLISIONBOX);
+
+				objectPhysicsBody->setTag(METAL);
+			}
+
 		}
 	}
 	CCLOG("Tile width %f", map->getTileSize().width);
