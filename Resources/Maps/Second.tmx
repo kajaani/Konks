@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="40" tilewidth="32" tileheight="32" nextobjectid="2">
+ <tileset firstgid="1" name="Earthblock64x64" tilewidth="32" tileheight="32">
+  <image source="Earthblock64x64.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="5" name="meta_tiles" tilewidth="32" tileheight="32" spacing="48">
+  <image source="meta_tiles.png" width="67" height="34"/>
+ </tileset>
+ <tileset firstgid="6" name="cat02" tilewidth="32" tileheight="32" spacing="48">
+  <image source="cat02.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="7" name="backgroundRock64" tilewidth="32" tileheight="32">
+  <image source="backgroundRock64.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="11" name="spike" tilewidth="32" tileheight="32">
+  <image source="spike.png" width="32" height="32"/>
+ </tileset>
+ <layer name="Background" width="200" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6H71b/jTQgkrJqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrqPzPj2sE=
+  </data>
+ </layer>
+ <layer name="Goal" width="200" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt07EJAAAIBLGv3H9kW62thARuhEsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4K5GwOYPAAAAAD5pWh0AJQ==
+  </data>
+ </layer>
+ <layer name="Meta" width="200" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztmMuKQlEMBPX/f1pmNSBeNCe5eXSqQJiFkNOdFMI8HrE8Dz93kTH/NHPkW6LfkLGbrXTawTQ/OrwBP+6nS//4gR9d6dB/1vzqO8SNmXTof4If1fPxo47q/jPmV98hfsymsvus/VfeIG7MBz/6zceNXlT0n3UD1XeIG7uI2l3mHeCHFpM6On1bVz8qZ0/aeyXTujp54xY/rPMn7LuaDZ2dZPP0UH2P+BHHls5+zfXpO9ZOqm8RN+LY1N2vbkTPy+4TP+Kgu/uo7BM3YqC/e6nsET/80KEu7NUPfmjDXn3ghz7s9Bz82AH7PIP/cwBcgx8A1+AHwDUWP3AEtrHFj+fb35OzQB7qfkzL0v1921D2Y3KeKe9UR9UPpTxT362A1Y8Ju1HK8gmFDFPY7seEPFAHfuyFDr6j5sdJnu6Zotme34LaPanliYQO7Kjd02mezpk8bM/vRemWPG50zeRhe34r3vvp3KdiJg/b80egdEv48Q8dxKB0T6q/i1a2549EpctINzrlsrI9fzR/PbwA1zUFjw==
+  </data>
+ </layer>
+ <layer name="Collision" width="200" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt3F1vwjAMhWFu+P9/eZq0adDVJR/Hrp28j8QNapPKzllYi3g8tJ4/r95zvLSMPTu/6vpHaqe+hqhxd9bT55k10Tq+4hjP8xXjkI9aWte9d/0/ja/IZ4YxyEc9n3ruvXe0XoNqnplzs+xh3mPi3VXvo+p/NX+WfNw5f+SY+O9sHUbsHa9z9bw/OsfIeKo6kI/ajusgsvZR+9fIfbsM976Qw/PwipzXuhbveZTHR4+HeHf8nbPy4TFPz7gZ80HG6jjuN8pnZ3ffD82wf3mNsZKzNZi1RjP/A7e8p9CTj7vm9jp/FxUy0vuMvuU9hSzPRXtlu54KVqnZSD5m9tOIZ/Yz86vO2d2ONTvLRG9Wro6N+s6A5/H4s1Pt1Gs38nPdzBw79ViN2o17zVvWex/Zrqca6jcnay5+Zb2uKjL3FnPoqwZ1XBN91aCO66GnOtSyvgrfj6iMmgI28gHYyAdg43MrcI18ADby4Y97THXRs1hkpRb6dB+eX9RAb3IgKznRD8BGPtbBHqRHLddDT7WoJ2AjH4CNfGBFyt9JJCNYHfkAbPxeK2AjH4Dte31/Ab9eBKI=
+  </data>
+ </layer>
+ <layer name="Spike" width="200" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt3EmOwyAQBVDvff/75Gi9zNCeAoVDwXuSpSgLq8D1g2NZrMvyWAOPpVBkDSX1/GLMkbVE11BbzyhHy3kFgJFZR/eZm7G5vlBOfoASfjsYRXQvy0b/1o0j+PyP4FMOwbzkFZ0RGE2r9QRrxzdm7r+W93Wt1Pa2bHBmLw9ZsqLH79V7P1yx1TM7301Lrub2ev31Avw3yzvL345xhjlpaeb7jqz0PNSTI2al9+HYUUbkJ47/IHldfb4NANzPPRaMaf34LOvwngW5gKezLMgKs8ra+7O8IzaqDH2XocYz9oClBxmyZM9kuE5eKFWyHmRYQyJ5jteWuc3pKBeuKUdG7Y8s+0rQnh54Zz5+p7e5j6intzHV8D8MttX0uYzEGXEus48pe/3Ea7Cve0pRdWcdP3CvPwTsjZE=
+  </data>
+ </layer>
+ <layer name="Metal" width="200" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztzjEBAAAIwKA99q9sDD0gAQVQcx0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABeWNniAAY=
+  </data>
+ </layer>
+</map>
