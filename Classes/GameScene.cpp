@@ -4,14 +4,16 @@
 #include "Definitions.h"
 #include "ScoreScene.h"
 #include "Constant.h"
-std::string Constant::mapname = "Hugemap.tmx";
+std::string Constant::mapname = "Maps/First.tmx";
 // TODO LIST //
 /*
 	Final final final final final level design
 	
+	Multiple maps with use of Constant.h
+	
 	Fix hook shooting when releasing touch before it finishes moving
 	Fix bouncing between walls
-	
+
 	Sound effects
 	Add rotationary joint for hook when stuck on wall
 	Lag issues with android (camera or tiles?)
@@ -210,9 +212,9 @@ void GameScene::update(float dt)
 	}
 
 	//Checks if the player is outside of the screen
-	if (player->getPosition().x <= 0 || player->getPosition().y <= 0)
+	if (player->getPosition().x <= 0 || player->getPosition().y <= 0 - 200)
 	{
-		this->GoToMainMenuScene(this);
+		this->RestartScene(this);
 	}
 
 	// Hide hook if it doesnt hit the wall
@@ -482,7 +484,7 @@ void GameScene::GoToScoreScene(cocos2d::Ref *sender)
 void GameScene::RestartScene(cocos2d::Ref *sender)
 {
 	auto scene = GameScene::createScene();
-	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+	Director::getInstance()->replaceScene(TransitionFade::create(RESTART_TIME, scene));
 }
 
 void GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)

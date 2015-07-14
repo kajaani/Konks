@@ -5,6 +5,7 @@
 //BackgroundSprite is visible
 #define DISPLAY_TIME_SPLASH_SCENE 2
 #define TRANSITION_TIME 0.5
+#define RESTART_TIME 0
 
 // Maximum distance for rope
 #define MAXDISTANCE 500

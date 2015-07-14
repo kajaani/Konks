@@ -10,7 +10,7 @@ Player::Player(Layer *layer)
 	TouchPosition = Vec2(0, 0);
 
 	player = Sprite::create("Fleng/character_animation_fleng00 copy.png");
-	player->setPosition(100, 1120);
+	player->setPosition(100, 520);
 	//player->setScale(0.1f);
 
 	PlayerPhysics = PhysicsBody::createCircle(player->getContentSize().width * 0.5, PhysicsMaterial(1.0f, 0.0f, 0.0f));
