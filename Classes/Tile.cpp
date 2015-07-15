@@ -44,26 +44,26 @@ Peli::Tile::Tile(cocos2d::Layer *layer)
 					//CCLOG("Collision was found next to this guy");
 					previousTilePosition = cocos2d::Vec2(tileXPosition, tileYPosition);
 				}
-					//create a sprite
-					auto sprite = cocos2d::Sprite::create();
-					sprite->setPosition(cocos2d::Vec2(tileXPosition + map->getTileSize().width / 2, tileYPosition + map->getTileSize().height / 2));
-					layer->addChild(sprite);
+				//create a sprite
+				auto sprite = cocos2d::Sprite::create();
+				sprite->setPosition(cocos2d::Vec2(tileXPosition + map->getTileSize().width / 2, tileYPosition + map->getTileSize().height / 2));
+				layer->addChild(sprite);
 
-					//Creating the sprite
+				//Creating the sprite
 
-					// create a static PhysicsBody0
-					physicsBody = cocos2d::PhysicsBody::createBox(cocos2d::Size(map->getTileSize().width, map->getTileSize().height), cocos2d::PhysicsMaterial(1.0f, 0.0f, 0.0f));
-					physicsBody->setDynamic(false);
-					physicsBody->setEnable(false);
-					physicsBody->setTag(TILE);
+				// create a static PhysicsBody0
+				physicsBody = cocos2d::PhysicsBody::createBox(cocos2d::Size(map->getTileSize().width, map->getTileSize().height), cocos2d::PhysicsMaterial(1.0f, 0.0f, 0.0f));
+				physicsBody->setDynamic(false);
+				physicsBody->setEnable(false);
+				physicsBody->setTag(TILE);
 
-					sprite->setPhysicsBody(physicsBody);
+				sprite->setPhysicsBody(physicsBody);
 
-					sprite->getPhysicsBody()->setCategoryBitmask(BITMASKTILE);
-					sprite->getPhysicsBody()->setCollisionBitmask(BITMASKPLAYER);
-					sprite->getPhysicsBody()->setContactTestBitmask(BITMASKCOLLISIONBOX);
+				sprite->getPhysicsBody()->setCategoryBitmask(BITMASKTILE);
+				sprite->getPhysicsBody()->setCollisionBitmask(BITMASKPLAYER);
+				sprite->getPhysicsBody()->setContactTestBitmask(BITMASKCOLLISIONBOX);
 
-					tileCollisions.push_back(sprite);
+				tileCollisions.push_back(sprite);
 			}
 
 			//Handling the object collision

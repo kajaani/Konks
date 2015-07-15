@@ -22,9 +22,16 @@ private:
 	cocos2d::MenuItemImage* playButton1;
 	cocos2d::MenuItemImage* playButton2;
 	cocos2d::MenuItemImage* playButton3;
+	cocos2d::MenuItemImage* playButton4;
+	cocos2d::MenuItemImage* playButton5;
+
+	cocos2d::MenuItemImage* confirmButton;
+	
+	Menu *menu;
+
 	void GoToGameScene(cocos2d::Ref *sender);
 	void GoToMainMenuScene(cocos2d::Ref *sender);
-
+	void ConfirmLevel(cocos2d::Ref *sender);
 };
 
 #endif // __LEVEL_MENU_SCENE_H__

@@ -4,18 +4,18 @@
 #include "Definitions.h"
 #include "ScoreScene.h"
 #include "Constant.h"
-std::string Constant::mapname = "Maps/First.tmx";
+std::string Constant::mapname = "Hugemap.tmx";
 // TODO LIST //
 /*
-	Final final final final final level design
-	
-	Fix hook shooting when releasing touch before it finishes moving
-	Fix bouncing between walls
+Final final final final final level design
 
-	Sound effects
-	Add rotationary joint for hook when stuck on wall
-	Lag issues with android (camera or tiles?)
-	Save progress
+Fix hook shooting when releasing touch before it finishes moving
+Fix bouncing between walls
+
+Sound effects
+Add rotationary joint for hook when stuck on wall
+Lag issues with android (camera or tiles?)
+Save progress
 */
 
 USING_NS_CC;
@@ -142,9 +142,9 @@ bool GameScene::init()
 	highscorelabel->setPosition(100, 100);
 
 	UserDefault *def = UserDefault::getInstance();
-	highscore = def->getIntegerForKey("SCORE", 0);
-	
-	String *score = String::createWithFormat("Score: %.2f", highscore);
+	highscore = def->getIntegerForKey(Constant::mapname.c_str(), 0);
+
+	String *score = String::createWithFormat("Score: %.4f", highscore);
 	highscorelabel->setString(score->getCString());
 
 	this->addChild(highscorelabel, 99);
@@ -181,7 +181,7 @@ void GameScene::update(float dt)
 			{
 				colCount++;
 			}
-			if (tile->tileCollisions[i]->getPositionX() < -this->getPositionX() + visibleSize.width &&  
+			if (tile->tileCollisions[i]->getPositionX() < -this->getPositionX() + visibleSize.width &&
 				tile->tileCollisions[i]->getPositionX() > -this->getPositionX())
 			{
 				tile->tileCollisions[i]->getPhysicsBody()->setEnable(true);
@@ -191,7 +191,7 @@ void GameScene::update(float dt)
 		}
 		//CCLOG("Number of enabled tiles: %i", colCount);
 	}
-	
+
 	if (realDistance > 50 && player->isTouchHold && player->isHooked && !isAlreadyRoped)
 	{
 		rope->getRopePhysicsBody()->setEnable(false);
@@ -205,7 +205,7 @@ void GameScene::update(float dt)
 		_world->addJoint(ropeJoint);
 		isAlreadyRoped = true;
 	}
-	
+
 	if (realDistance > 50 && player->isTouchHold && player->isHooked && isAlreadyRoped)
 	{
 		//player->update();
@@ -221,28 +221,28 @@ void GameScene::update(float dt)
 	if (sprite && !player->isHooked && player->isTouchHold)
 	{
 		if (sprite->numberOfRunningActions() == 0)
-			sprite->setPosition(Vec2(-1000,-1000));
+			sprite->setPosition(Vec2(-1000, -1000));
 	}
 
 	if (_drawNode)
 	{
 		removeChild(_drawNode);
 	}
-	
+
 	_drawNode = DrawNode::create();
 
 	float rayCastOffset = 100;
 	if (isAlreadyRoped)
 	{
 		Point ropeBodyA = Vec2(player->getPlayer()->getPosition().x + 25, player->getPlayer()->getPosition().y);
-		Point ropeBodyB = Vec2(rope->getRope()->getPosition().x, rope->getRope()->getPosition().y );
-		
+		Point ropeBodyB = Vec2(rope->getRope()->getPosition().x, rope->getRope()->getPosition().y);
+
 		Point fromplayertohook = ccpSub(player->getPosition(), sprite->getPosition());
 		float angle = -CC_RADIANS_TO_DEGREES(ccpToAngle(fromplayertohook));
 		float realangle = angle + 270;
 		player->getPlayer()->setRotation(realangle);
 
-		_drawNode->drawSegment(ropeBodyA, ropeBodyB, 1, Color4F::BLACK);
+		_drawNode->drawSegment(ropeBodyA, ropeBodyB, 1, Color4F::RED);
 	}
 	this->addChild(_drawNode);
 }
@@ -256,15 +256,15 @@ void GameScene::onContactPostSolve(PhysicsContact &contact, const PhysicsContact
 {
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
-	
+
 
 	if (bodyA->getTag() == PLAYER && bodyB->getTag() == TILE)
 	{
-		bodyA->setVelocity(Vec2(bodyA->getVelocity().x * 0.99, bodyA->getVelocity().y * 0.99));
+		bodyA->setVelocity(Vec2(bodyA->getVelocity().x * RESTITUTION, bodyA->getVelocity().y * RESTITUTION));
 	}
 	if (bodyB->getTag() == PLAYER && bodyA->getTag() == TILE)
 	{
-		bodyB->setVelocity(Vec2(bodyB->getVelocity().x * 0.99, bodyB->getVelocity().y * 0.99));
+		bodyB->setVelocity(Vec2(bodyB->getVelocity().x * RESTITUTION, bodyB->getVelocity().y * RESTITUTION));
 	}
 }
 
@@ -272,9 +272,9 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 {
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
-	
+
 	distanceFromHook = player->getPosition().distance(contact.getShapeA()->getBody()->getPosition());
-	
+
 	if ((bodyA->getCategoryBitmask() & bodyB->getCollisionBitmask()) == 0
 		|| (bodyB->getCategoryBitmask() & bodyA->getCollisionBitmask()) == 0)
 	{
@@ -285,7 +285,7 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 			{
 				UserDefault *def = UserDefault::getInstance();
 				highscore = timeMilliseconds;
-				def->setIntegerForKey("SCORE", highscore);
+				def->setIntegerForKey(Constant::mapname.c_str(), highscore);
 			}
 			this->GoToScoreScene(this);
 			return false;
@@ -305,7 +305,7 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 		{
 			return false;
 		}
-		
+
 		// RayBox hits player, cancel
 		if (bodyA->getTag() == PLAYER && bodyB->getTag() == RAYCASTCOLLISIONBOX)
 		{
@@ -418,10 +418,10 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	sprite->getPhysicsBody()->setTag(RAYCASTCOLLISIONBOX);
 
 	this->addChild(sprite);
-	
+
 	distance = sqrt((player->getPosition().x - boxHitPos.x) * (player->getPosition().x - boxHitPos.x) +
 		(player->getPosition().y - boxHitPos.y) * (player->getPosition().y - boxHitPos.y));
-	
+
 	float Dx = player->getPosition().x - touchWorld.x;
 	float Dy = player->getPosition().y - touchWorld.y;
 
@@ -429,7 +429,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 	Dx /= Dlength;
 	Dy /= Dlength;
-	
+
 	sprite->runAction(MoveTo::create(0.25, Vec2(touchWorld.x + Dx*-MAXDISTANCE, touchWorld.y + Dy*-MAXDISTANCE)));
 
 	// RayCast
@@ -441,7 +441,7 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	player->Shoot();
 
 	if (distance > 50 && player->isTouchHold)
-	{			
+	{
 		//Handling the rotation of the player, depending on where he shoots
 
 		Point fromplayertohook = ccpSub(player->getPosition(), touchWorld);
@@ -449,11 +449,11 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 		float realangle = angle + 270;
 
 		sprite->setRotation(realangle);
-		
+
 
 		if ((angle > 90 && angle <= 179) || (angle > -180 && angle <= -90))
 		{
-	
+
 			//player->getPlayer()->setScaleX(0.1);
 		}
 		else

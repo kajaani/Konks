@@ -70,7 +70,7 @@ protected:
 	Size visibleSize;
 	Vec2 boxHitPos;
 	Vec2 SpawnPosition;
-	
+
 	float highscore = 0;
 
 	float timeMilliseconds = 0;
@@ -84,7 +84,7 @@ private:
 	void RestartScene(cocos2d::Ref *sender);
 	void setPhysicsWorld(cocos2d::PhysicsWorld *world) { _world = world; };
 	cocos2d::MenuItemImage* playButton1;
-
+	
 };
 
 #endif // __GAME_SCENE_H__

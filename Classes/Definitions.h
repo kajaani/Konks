@@ -10,6 +10,10 @@
 // Maximum distance for rope
 #define MAXDISTANCE 500
 
+
+#define GRAVITY 2
+#define RESTITUTION 1
+
 // Bitmasks for collision check
 #define BITMASKTILE 0x01
 #define BITMASKPLAYER 0x02

@@ -44,14 +44,13 @@ bool ScoreScene::init()
 	auto titleSprite = Sprite::create("logo.png");
 	titleSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height - titleSprite->getContentSize().height));
 	this->addChild(titleSprite);
-
-
+	
 	//Printing highscore to the screen
 	auto highscoreLabel = LabelTTF::create("", "fonts/arial.ttf", 24);
 	highscoreLabel->setPosition(100, 100);
 
 	UserDefault *def = UserDefault::getInstance();
-	_highscore = def->getIntegerForKey("SCORE", 0);
+	_highscore = def->getIntegerForKey(Constant::mapname.c_str(), 0);
 
 	String *highscore = String::createWithFormat("Highscore: %.2f", _highscore);
 	highscoreLabel->setString(highscore->getCString());

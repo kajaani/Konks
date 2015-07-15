@@ -34,7 +34,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::create("My Game");
+        glview = GLViewImpl::create("Konks");
 		//glview->setFrameSize(960, 640);
         director->setOpenGLView(glview);
     }
