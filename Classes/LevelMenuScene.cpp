@@ -55,13 +55,13 @@ bool LevelMenuScene::init()
 	//Level 2 button
 	playButton2 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
-	playButton2->setName("Second.tmx");
+	playButton2->setName("Maps/Second.tmx");
 	playButton2->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2));
 
 	//Level 3 button
 	playButton3 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
-	playButton3->setName("Hugemap.tmx");
+	playButton3->setName("Maps/Third.tmx");
 	playButton3->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 - 100));
 	
 	//In addition to previous sprites the play button changes its graphics once clicked

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="183" height="40" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="BG" tilewidth="32" tileheight="32" spacing="48">
+  <image source="../BG.png" width="2560" height="1280"/>
+ </tileset>
+ <tileset firstgid="513" name="Earthblock64x64" tilewidth="32" tileheight="32" spacing="48">
+  <image source="../Earthblock64x64.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="514" name="meta_tiles" tilewidth="32" tileheight="32" spacing="48">
+  <image source="../meta_tiles.png" width="67" height="34"/>
+ </tileset>
+ <tileset firstgid="515" name="spike" tilewidth="32" tileheight="32" spacing="48">
+  <image source="../spike.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="516" name="cat02" tilewidth="32" tileheight="32" spacing="48">
+  <image source="../cat02.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="517" name="CloseNormal" tilewidth="32" tileheight="32" spacing="48">
+  <image source="../CloseNormal.png" width="40" height="40"/>
+ </tileset>
+ <layer name="Background" width="183" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt2EdVRVEURMGHBDI2yNggY4OMDTI2P3lIe2By7jo12KNS0D2bpuk9faTP9JW+00/6TTPOB/X5uWlaSItpKS2nlbSa1uY4H9fX00baTFtpO+2k3bTH+cC+nw7SYTpKx+kknaYzzgf283SRLtNVuk436TbdcT6w36eH9Jie0nN6Sa/pjfOBvfLO5dxPwrmfhPfxyjuXcz8J534S3scr71zO/SSc+0l4H6+8czn3k3DuJ+F9vPLO5dxPwrmfhPfxyjuXcz8J534S3scr71zO/SSc+0l4H6+8czn3k3DuJ+F9vPLO5dxPwrmfhPfxyjuXcz8J534S3scr71zO/SSc+0l4H6+8czn/j/8B7cdj7A==
+  </data>
+ </layer>
+ <layer name="Meta" width="183" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt0tENg0AMBFGS/otKaUkJPuuOZZwZab8B817v63q5x29axJulDVBmvNJmKDNeaTOUGa+0GcqMV9oMZcYrbYYy45U2Q5nxSpuhzHilzVBGauI3dUqboYzUxG/qlDajy/ml/lPanbbnp21tT03b2p5a6l+m3Wl7fto+c1fLp+0zd+30e5dPZZuehbpNJ22fuWsnbe9N22fu2ulO2/+Qts/ctZO296btM3ftpO29afvMXTtpe2/aPnPXTtre29Nt/1Pa3pu2a1Xd3bH0LShpu1bas7bX03attGdtr6ftWmnP2l5P27XSnrW9nrZrpT1rez1t10p71vZ6Kdu00p61vd4022l32n5O2uYtfWNK2uYtfWNK2uYtfWNK2uYtfWNK2uYtfWNK2uYtfWNKVbdfL8paiQ==
+  </data>
+ </layer>
+ <layer name="Collision" width="183" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt2kEOgjAURVHD/hftAhhQIy2813MS55/2ErB6HJ/PceOHa9b13uZ2WbME1p1W2qaVtmmlbVppm1bappW2aaVtWqW1PTJv2jVxtuNvZo3XxJk9fJ57bQ5rRitt00rbOVrfW/x3kiupe5k6N+ukNvKmuVc+D5xFj0tdh9S5/+W9alzqOqTOzTqpjaTOzTqpjaTOzTqpjaTOzTozGpl59uz7EqNmtQ1Pa2/b82Nf7W2zL23TStu00jattE2rXzt0dkAKHdLqLW07e+Zu9p9W2qaVtmmlbVppm1baJtUXotgEeQ==
+  </data>
+ </layer>
+ <layer name="Spike" width="183" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt2MENAjEMRcEVNEr/VUAHmCjR2p8Zae+28057XcA3z8f1unsGOEHbpNI2qbRNKm2TStuk0japtJ3p866lL5m2SaVtUmmbVNrmtLsa0zanaZtU2iaVtv9X+r9obZNK2324yV7a7sNN9tJ2H26yl7b7cJO9tN2Hm+yl7T7cZC9t9+Eme2mbVNqumTYv2q6aNi/arpo2L9qumjYv2q6aNi/erMqd5vFmNe40jzcjVVrbafuwLq2FtH1Yl9ZC2j6sS2shbR/WpbWQtg/r0lpI24d1v7TwBna3Hys=
+  </data>
+ </layer>
+ <layer name="Metal" width="183" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztw8EJAAAIBKAjaP+VezZDoWDCBV2/AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGsAL/ABbQ==
+  </data>
+ </layer>
+ <layer name="Goal" width="183" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt0rEJAEAIBEER+6/540/NPGZgO9gqAAAAAOC66T9I4W1SeZtU3gYAAAAAAAAAAAAAAAAAAAAAAAAAANh7Qz4AYQ==
+  </data>
+ </layer>
+ <layer name="Spawn" width="183" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt0sEJAEAIBDER+6/53teAyJLAdDBVAAAAAAAAADum/yCFt0nlbVJ5GwAAAAAAAAAAAAAAAAAAAAAAALjoAf4CAGE=
+  </data>
+ </layer>
+</map>
