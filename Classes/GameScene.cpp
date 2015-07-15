@@ -123,9 +123,6 @@ bool GameScene::init()
 	touchListener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 
-	platform.spawnPlatform(this, player->getPosition());
-
-
 	sprite = Sprite::create("CloseSelected.png");
 	sprite->setTag(RAYCASTCOLLISIONBOX);
 	this->addChild(sprite);
@@ -148,7 +145,7 @@ bool GameScene::init()
 	highscorelabel->setString(score->getCString());
 
 	this->addChild(highscorelabel, 99);
-	//this->setKeypadEnabled(true);
+	this->setKeypadEnabled(true);
 
 	return true;
 }

@@ -24,6 +24,7 @@ private:
 	cocos2d::MenuItemImage* playButton3;
 	cocos2d::MenuItemImage* playButton4;
 	cocos2d::MenuItemImage* playButton5;
+	cocos2d::MenuItemImage* playButton6;
 
 	cocos2d::MenuItemImage* confirmButton;
 	

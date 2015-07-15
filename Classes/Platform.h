@@ -6,7 +6,6 @@ class Platform
 {
 public:
 	Platform();		
-	void spawnPlatform(Layer *layer, Vec2 playerPosition);
 	void setPosition(Vec2 newPos);
 
 protected:

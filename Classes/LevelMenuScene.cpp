@@ -51,7 +51,7 @@ bool LevelMenuScene::init()
 	//Level 1 button
 	playButton1 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
-	playButton1->setName("First.tmx");
+	playButton1->setName("Maps/First.tmx");
 	auto label1 = Label::create("", "fonts/Marker Felt.ttf", 32);
 
 	float _highscore = def->getIntegerForKey(playButton1->getName().c_str(), 0);
@@ -66,7 +66,7 @@ bool LevelMenuScene::init()
 	//Level 2 button
 	playButton2 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
-	playButton2->setName("Second.tmx");
+	playButton2->setName("Maps/Second.tmx");
 	auto label2 = Label::create(playButton2->getName().c_str(), "fonts/Marker Felt.ttf", 32);
 	playButton2->setPosition(Vec2(playButton1->getPosition().x + playButton1->getContentSize().width, playButton1->getPosition().y));
 	playButton2->setAnchorPoint(Vec2(0, 1));
@@ -75,7 +75,7 @@ bool LevelMenuScene::init()
 	//Level 3 button
 	playButton3 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
-	playButton3->setName("Third.tmx");
+	playButton3->setName("Maps/Third.tmx");
 	auto label3 = Label::create(playButton3->getName().c_str(), "fonts/Marker Felt.ttf", 32);
 	playButton3->setPosition(Vec2(playButton2->getPosition().x + playButton3->getContentSize().width, playButton2->getPosition().y));
 	playButton3->setAnchorPoint(Vec2(0, 1));
@@ -99,6 +99,15 @@ bool LevelMenuScene::init()
 	playButton5->setAnchorPoint(Vec2(0, 1));
 	label5->setPosition(Vec2(playButton5->getPosition().x + label5->getContentSize().width / 2, playButton5->getPosition().y - label5->getContentSize().height / 2));
 
+	//Level 6 button
+	playButton6 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
+		LevelMenuScene::GoToGameScene, this));
+	playButton6->setName("Maps/Sixth.tmx");
+	auto label6 = Label::create(playButton6->getName().c_str(), "fonts/Marker Felt.ttf", 32);
+	playButton6->setPosition(Vec2(playButton5->getPosition().x + playButton6->getContentSize().width, playButton5->getPosition().y));
+	playButton6->setAnchorPoint(Vec2(0, 1));
+	label6->setPosition(Vec2(playButton6->getPosition().x + label6->getContentSize().width / 2, playButton6->getPosition().y - label6->getContentSize().height / 2));
+
 	// Confirm
 	confirmButton = MenuItemImage::create("CloseNormal.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::ConfirmLevel, this));
@@ -117,6 +126,7 @@ bool LevelMenuScene::init()
 	menu->addChild(playButton3);
 	menu->addChild(playButton4);
 	menu->addChild(playButton5);
+	menu->addChild(playButton6);
 
 	menu->addChild(confirmButton);
 
@@ -125,6 +135,7 @@ bool LevelMenuScene::init()
 	this->addChild(label3, 1);
 	this->addChild(label4, 1);
 	this->addChild(label5, 1);
+	this->addChild(label6, 1);
 
 	this->addChild(menu);
 
@@ -153,6 +164,10 @@ void LevelMenuScene::GoToGameScene(cocos2d::Ref *sender)
 	if (sender->_ID == playButton5->_ID)
 	{
 		Constant::mapname = playButton5->getName().c_str();
+	}
+	if (sender->_ID == playButton6->_ID)
+	{
+		Constant::mapname = playButton6->getName().c_str();
 	}
 }
 
