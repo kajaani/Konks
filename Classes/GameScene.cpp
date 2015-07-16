@@ -10,12 +10,11 @@ std::string Constant::mapname = "Hugemap.tmx";
 Final final final final final level design
 
 Fix hook shooting when releasing touch before it finishes moving
-Fix bouncing between walls
 
 Sound effects
-Add rotationary joint for hook when stuck on wall
+
+Fix bouncing between walls
 Lag issues with android (camera or tiles?)
-Save progress
 */
 
 USING_NS_CC;
