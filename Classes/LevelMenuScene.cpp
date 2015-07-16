@@ -159,10 +159,48 @@ bool LevelMenuScene::init()
 		playButton6->setAnchorPoint(Vec2(0, 1));
 		label6->setPosition(Vec2(playButton6->getPosition().x + label6->getContentSize().width / 2, playButton6->getPosition().y - label6->getContentSize().height / 2));
 
+	//Level 7 button
+		playButton7 = MenuItemImage::create("PlayButton.png", "PlayButton.png", CC_CALLBACK_1(
+			LevelMenuScene::GoToGameScene, this));
+		playButton7->setName("Maps/Seventh.tmx");
+		auto label7 = Label::create(playButton7->getName().c_str(), "fonts/Marker Felt.ttf", 32);
+
+		float _highscore7 = def->getIntegerForKey(playButton7->getName().c_str(), 0);
+		std::string shortName7 = playButton7->getName().erase(0, 5);
+		shortName7.erase(shortName7.length() - 4, 4);
+
+		String *text7 = String::createWithFormat("%s: \n%.2f", shortName7.c_str(), _highscore7);
+		label7->setString(text7->getCString());
+		CCLOG("Level Select Score: %f", _highscore7);
+
+		playButton7->setPosition(Vec2(playButton6->getPosition().x + playButton7->getContentSize().width, playButton6->getPosition().y));
+		playButton7->setAnchorPoint(Vec2(0, 1));
+		label7->setPosition(Vec2(playButton7->getPosition().x + label7->getContentSize().width / 2, playButton7->getPosition().y - label7->getContentSize().height / 2));
+
+	//Level 8 button
+		playButton8 = MenuItemImage::create("PlayButton.png", "PlayButton.png", CC_CALLBACK_1(
+			LevelMenuScene::GoToGameScene, this));
+		playButton8->setName("Maps/Eight.tmx");
+		auto label8 = Label::create(playButton8->getName().c_str(), "fonts/Marker Felt.ttf", 32);
+
+		float _highscore8 = def->getIntegerForKey(playButton8->getName().c_str(), 0);
+		std::string shortName8 = playButton8->getName().erase(0, 5);
+		shortName8.erase(shortName8.length() - 4, 4);
+
+		String *text8 = String::createWithFormat("%s: \n%.2f", shortName8.c_str(), _highscore8);
+		label8->setString(text8->getCString());
+		CCLOG("Level Select Score: %f", _highscore8);
+
+		playButton8->setPosition(Vec2(playButton7->getPosition().x + playButton8->getContentSize().width, playButton7->getPosition().y));
+		playButton8->setAnchorPoint(Vec2(0, 1));
+		label8->setPosition(Vec2(playButton8->getPosition().x + label8->getContentSize().width / 2, playButton8->getPosition().y - label8->getContentSize().height / 2));
+
+
 	// Confirm
-	confirmButton = MenuItemImage::create("CloseNormal.png", "PlayButtonClicked.png", CC_CALLBACK_1(
+	confirmButton = MenuItemImage::create("CloseNormal.png", "CloseNormal.png", CC_CALLBACK_1(
 		LevelMenuScene::ConfirmLevel, this));
 	confirmButton->setPosition(100, 100);
+	confirmButton->setScale(2.5);
 
 	//In addition to previous sprites the play button changes its graphics once clicked
 	auto backButton = MenuItemImage::create("backButton.png", "backButtonClicked.png", CC_CALLBACK_1(
@@ -178,6 +216,8 @@ bool LevelMenuScene::init()
 	menu->addChild(playButton4);
 	menu->addChild(playButton5);
 	menu->addChild(playButton6);
+	menu->addChild(playButton7);
+	menu->addChild(playButton8);
 
 	menu->addChild(confirmButton);
 
@@ -187,6 +227,8 @@ bool LevelMenuScene::init()
 	this->addChild(label4, 1);
 	this->addChild(label5, 1);
 	this->addChild(label6, 1);
+	this->addChild(label7, 1);
+	this->addChild(label8, 1);
 
 	this->addChild(menu);
 
@@ -219,6 +261,14 @@ void LevelMenuScene::GoToGameScene(cocos2d::Ref *sender)
 	if (sender->_ID == playButton6->_ID)
 	{
 		Constant::mapname = playButton6->getName().c_str();
+	}
+	if (sender->_ID == playButton7->_ID)
+	{
+		Constant::mapname = playButton7->getName().c_str();
+	}
+	if (sender->_ID == playButton8->_ID)
+	{
+		Constant::mapname = playButton8->getName().c_str();
 	}
 }
 
