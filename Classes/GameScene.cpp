@@ -5,6 +5,7 @@
 #include "ScoreScene.h"
 #include "Constant.h"
 std::string Constant::mapname = "Hugemap.tmx";
+int Constant::attempts = 0;
 // TODO LIST //
 /*
 Final final final final final level design
@@ -135,7 +136,7 @@ bool GameScene::init()
 	schedule(schedule_selector(GameScene::update));
 	schedule(schedule_selector(GameScene::TimerMilliSeconds), 0.1);
 
-	auto highscorelabel = LabelTTF::create("", "fonts/arial.ttf", 72);
+	auto highscorelabel = Label::create("", "fonts/Marker Felt", 32);
 	highscorelabel->setPosition(100, 100);
 
 	UserDefault *def = UserDefault::getInstance();
@@ -143,6 +144,11 @@ bool GameScene::init()
 
 	String *score = String::createWithFormat("Score: %.4f", highscore);
 	highscorelabel->setString(score->getCString());
+
+	attempts = Label::create("", "fonts/Marker Felt.ttf", 32);
+	String *text6 = String::createWithFormat("Attempts: %i", Constant::attempts);
+	attempts->setString(text6->getCString());
+	this->addChild(attempts, 10000);
 
 	this->addChild(highscorelabel, 99);
 	this->setKeypadEnabled(true);
@@ -164,9 +170,11 @@ void GameScene::update(float dt)
 	player->update();
 	LabelCubeTest->setPosition(Vec2(-this->getPosition().x + LabelCubeTest->getContentSize().width / 2, -this->getPosition().y + visibleSize.height - LabelCubeTest->getContentSize().height / 2));
 	LabelCubeTest->setColor(ccc3(255, 255, 0));
-	String *score = String::createWithFormat("%.2f", timeMilliseconds);
+	String *score = String::createWithFormat("Time: %.2f", timeMilliseconds);
 
 	LabelCubeTest->setString(score->getCString());
+	attempts->setPosition(Vec2(-this->getPosition().x + attempts->getContentSize().width / 2, -this->getPosition().y + visibleSize.height - LabelCubeTest->getContentSize().height / 2 - attempts->getContentSize().height));
+
 
 	// Collision resting
 	if (isMapLoaded)
@@ -209,8 +217,9 @@ void GameScene::update(float dt)
 	}
 
 	//Checks if the player is outside of the screen
-	if (player->getPosition().x <= 0 || player->getPosition().y <= 0 - 200)
+	if ((player->getPosition().x <= 0 || player->getPosition().y <= 0 - 200) && !isPlayerDead)
 	{
+		isPlayerDead = true;
 		this->RestartScene(this);
 	}
 
@@ -480,6 +489,8 @@ void GameScene::GoToScoreScene(cocos2d::Ref *sender)
 
 void GameScene::RestartScene(cocos2d::Ref *sender)
 {
+	log("im being an ass");
+	Constant::attempts++;
 	auto scene = GameScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(RESTART_TIME, scene));
 }

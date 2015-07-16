@@ -4,14 +4,14 @@ using namespace cocos2d;
 
 CubeTest::CubeTest()
 {
-	LabelCubeTest = LabelTTF::create("", "fonts/Marker Felt.ttf", 72);
+	LabelCubeTest = Label::create("", "fonts/Marker Felt.ttf", 32);
 }
 
 CubeTest::~CubeTest()
 {
 }
 
-LabelTTF *CubeTest::getLabel()
+Label *CubeTest::getLabel()
 {
 	return LabelCubeTest;
 }

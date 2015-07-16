@@ -46,7 +46,8 @@ public:
 
 protected:
 	CubeTest* cube;
-	cocos2d::LabelTTF* LabelCubeTest;
+	cocos2d::Label* LabelCubeTest;
+	Label *attempts;
 
 	Rope *rope;
 	Player *player;
@@ -61,6 +62,7 @@ protected:
 
 	std::string _selectedLevel;
 
+	bool isPlayerDead = false;
 	bool isMapLoaded = false;
 	bool isAlreadyRoped;
 	float distance;
@@ -72,7 +74,6 @@ protected:
 	Vec2 SpawnPosition;
 
 	float highscore = 0;
-
 	float timeMilliseconds = 0;
 
 	DrawNode *_drawNode;
