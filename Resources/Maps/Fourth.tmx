@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="40" tilewidth="32" tileheight="32" nextobjectid="2">
  <tileset firstgid="1" name="Earthblock64x64" tilewidth="32" tileheight="32">
-  <image source="../Earthblock64x64.png" width="64" height="64"/>
+  <image source="Materials/Earthblock64x64.png" width="64" height="64"/>
  </tileset>
  <tileset firstgid="5" name="bg9" tilewidth="32" tileheight="32">
-  <image source="../bg9.png" width="1024" height="1024"/>
+  <image source="Materials/bg9.png" width="1024" height="1024"/>
  </tileset>
  <tileset firstgid="1029" name="cat02" tilewidth="32" tileheight="32">
-  <image source="../cat02.png" width="64" height="64"/>
+  <image source="Materials/cat02.png" width="64" height="64"/>
  </tileset>
  <tileset firstgid="1033" name="meta_tiles" tilewidth="32" tileheight="32">
-  <image source="../meta_tiles.png" width="67" height="34"/>
+  <image source="Materials/meta_tiles.png" width="67" height="34"/>
  </tileset>
  <tileset firstgid="1035" name="spike" tilewidth="32" tileheight="32">
-  <image source="../spike.png" width="32" height="32"/>
+  <image source="Materials/spike.png" width="32" height="32"/>
  </tileset>
  <layer name="Spawn" width="200" height="40">
   <data encoding="base64" compression="zlib">

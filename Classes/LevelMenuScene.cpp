@@ -7,32 +7,32 @@ USING_NS_CC;
 
 Scene* LevelMenuScene::createScene()
 {
-    // 'scene' is an autorelease object
-    auto scene = Scene::create();
-    
-    // 'layer' is an autorelease object
+	// 'scene' is an autorelease object
+	auto scene = Scene::create();
+
+	// 'layer' is an autorelease object
 	auto layer = LevelMenuScene::create();
 
-    // add layer as a child to scene
-    scene->addChild(layer);
+	// add layer as a child to scene
+	scene->addChild(layer);
 
-    // return the scene
-    return scene;
+	// return the scene
+	return scene;
 }
 
 // on "init" you need to initialize your instance
 bool LevelMenuScene::init()
 {
-    //////////////////////////////
-    // 1. super init first
-    if ( !Layer::init() )
-    {
-        return false;
-    }
-    
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
-	
+	//////////////////////////////
+	// 1. super init first
+	if (!Layer::init())
+	{
+		return false;
+	}
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
 	//Initializing and setting a value to the backgroundSprite
 	auto backgroundSprite = Sprite::create("Background.png");
 	//Setting the position of the backgroundSprite
@@ -41,7 +41,7 @@ bool LevelMenuScene::init()
 	this->addChild(backgroundSprite);
 
 	//Doing the same to the rest of the sprites
-	auto titleSprite = Sprite::create("Title.png");
+	auto titleSprite = Sprite::create("logo.png");
 	titleSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height - titleSprite->getContentSize().height));
 	this->addChild(titleSprite);
 
@@ -89,7 +89,7 @@ bool LevelMenuScene::init()
 	playButton4->setPosition(Vec2(playButton3->getPosition().x + playButton4->getContentSize().width, playButton3->getPosition().y));
 	playButton4->setAnchorPoint(Vec2(0, 1));
 	label4->setPosition(Vec2(playButton4->getPosition().x + label4->getContentSize().width / 2, playButton4->getPosition().y - label4->getContentSize().height / 2));
-	
+
 	//Level 5 button
 	playButton5 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToGameScene, this));
@@ -115,7 +115,7 @@ bool LevelMenuScene::init()
 
 	//In addition to previous sprites the play button changes its graphics once clicked
 	auto backButton = MenuItemImage::create("backButton.png", "backButtonClicked.png", CC_CALLBACK_1(
-	LevelMenuScene::GoToMainMenuScene, this));
+		LevelMenuScene::GoToMainMenuScene, this));
 	backButton->setPosition(Point(visibleSize.width - 30, 30));
 
 	//Initializing the menu, placing the buttons and setting it visible

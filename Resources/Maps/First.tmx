@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="165" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
  <tileset firstgid="1" name="BG" tilewidth="32" tileheight="32" spacing="48">
-  <image source="../BG.png" width="2560" height="1280"/>
+  <image source="Materials/BG.png" width="2560" height="1280"/>
  </tileset>
  <tileset firstgid="513" name="Earthblock64x64" tilewidth="32" tileheight="32" spacing="48">
-  <image source="../Earthblock64x64.png" width="64" height="64"/>
+  <image source="Materials/Earthblock64x64.png" width="64" height="64"/>
  </tileset>
  <tileset firstgid="514" name="meta_tiles" tilewidth="32" tileheight="32" spacing="48">
-  <image source="../meta_tiles.png" width="67" height="34"/>
+  <image source="Materials/meta_tiles.png" width="67" height="34"/>
  </tileset>
  <tileset firstgid="515" name="spike" tilewidth="32" tileheight="32" spacing="48">
-  <image source="../spike.png" width="32" height="32"/>
+  <image source="Materials/spike.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="516" name="cat02" tilewidth="32" tileheight="32" spacing="48">
-  <image source="../cat02.png" width="64" height="64"/>
+  <image source="Materials/cat02.png" width="64" height="64"/>
  </tileset>
  <tileset firstgid="517" name="CloseNormal" tilewidth="32" tileheight="32" spacing="48">
-  <image source="../CloseNormal.png" width="40" height="40"/>
+  <image source="Materials/CloseNormal.png" width="40" height="40"/>
  </tileset>
  <layer name="Background" width="165" height="20">
   <data encoding="base64" compression="zlib">
