@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="35" tilewidth="32" tileheight="32" nextobjectid="1">
  <tileset firstgid="1" name="earthblock_small" tilewidth="32" tileheight="32">
-  <image source="../earthblock_small.png" width="32" height="32"/>
+  <image source="Materials/earthblock_small.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="2" name="Bg4" tilewidth="32" tileheight="32">
-  <image source="../Bg4.png" width="32" height="32"/>
+  <image source="Materials/Bg4.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="3" name="steel_small" tilewidth="32" tileheight="32">
-  <image source="../steel_small.png" width="32" height="32"/>
+  <image source="Materials/steel_small.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="4" name="Spike_small" tilewidth="32" tileheight="32">
-  <image source="../Spike_small.png" width="32" height="33"/>
+  <image source="Materials/Spike_small.png" width="32" height="33"/>
  </tileset>
  <tileset firstgid="5" name="stone_dark_small" tilewidth="32" tileheight="32">
-  <image source="../stone_dark_small.png" width="32" height="32"/>
+  <image source="Materials/stone_dark_small.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="6" name="bg3" tilewidth="32" tileheight="32">
-  <image source="../bg3.png" width="32" height="32"/>
+  <image source="Materials/bg3.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="7" name="bg6" tilewidth="32" tileheight="32">
-  <image source="../bg6.png" width="1024" height="1024"/>
+  <image source="Materials/bg6.png" width="1024" height="1024"/>
  </tileset>
  <layer name="Background" width="200" height="35">
   <data encoding="base64" compression="zlib">

@@ -1,7 +1,6 @@
 #include "MainMenuScene.h"
 #include "GameScene.h"
 #include "LevelMenuScene.h"
-#include "SettingsScene.h"
 #include "Definitions.h"
 
 USING_NS_CC;
@@ -35,10 +34,9 @@ bool MainMenuScene::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	
 	//Initializing and setting a value to the backgroundSprite
-	auto backgroundSprite = Sprite::create("Background.png");
-	//Setting the position of the backgroundSprite
+	auto backgroundSprite = Sprite::create("Muumilaakso.jpg");
 	backgroundSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	//Adding backgroundSprite to the MainMenuScene
+	backgroundSprite->setScale(4);
 	this->addChild(backgroundSprite);
 
 	//Doing the same to the rest of the sprites
@@ -59,17 +57,11 @@ bool MainMenuScene::init()
 	//Settings button initialization and placement 
 	auto levelsButton = MenuItemImage::create("levelsButton.png", "levelsButtonClicked.png", CC_CALLBACK_1(
 		MainMenuScene::GoToLevelMenuScene, this));
-	levelsButton->setPosition(Point(visibleSize.width / 2, visibleSize.height / 5));
-
-	//Settings button initialization and placement 
-	auto settingsButton = MenuItemImage::create("SettingsButton.png", "SettingsButtonClicked.png", CC_CALLBACK_1(
-		MainMenuScene::GoToSettingsScene, this));
-	settingsButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2));
+	levelsButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2));
 	
 	//Initializing the menu, placing the buttons and setting it visible
 	auto menu = Menu::create(playButton, NULL);
 	menu->setPosition(Point::ZERO);
-	menu->addChild(settingsButton);
 	menu->addChild(levelsButton);
 	menu->addChild(quitButton);
 	this->addChild(menu);
@@ -90,13 +82,6 @@ void MainMenuScene::GoToGameScene(cocos2d::Ref *sender)
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
-//Method which replaces the current scene with the settings scene
-void MainMenuScene::GoToSettingsScene(cocos2d::Ref *sender)
-{
-	auto scene = SettingsScene::createScene();
-
-	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-}
 
 //Method which replaces the current scene with the level menu scene
 void MainMenuScene::GoToLevelMenuScene(cocos2d::Ref *sender)

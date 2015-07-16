@@ -20,7 +20,6 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 				   ../../Classes/Platform.cpp \
 				   ../../Classes/Player.cpp \
 				   ../../Classes/Rope.cpp \
-				   ../../Classes/SettingsScene.cpp \
 				   ../../Classes/SplashScene.cpp \
 				   ../../Classes/Tile.cpp
 				   
