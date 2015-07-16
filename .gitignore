@@ -5824,7 +5824,6 @@ proj.android/.settings/org.eclipse.cdt.codan.core.prefs
 proj.android/.settings/org.eclipse.cdt.core.prefs
 proj.android/.settings/org.eclipse.jdt.core.prefs
 proj.android/.settings/org.eclipse.ltk.core.refactoring.prefs
-proj.android/AndroidManifest.xml
 proj.android/ant.properties
 proj.android/assets/backButton.png
 proj.android/assets/backButtonPressed.png
@@ -7195,10 +7194,6 @@ proj.android/obj/local/armeabi/objs-debug/spine_static/spine-cocos2dx.o
 proj.android/obj/local/armeabi/objs-debug/spine_static/spine-cocos2dx.o.d
 proj.android/proguard-project.txt
 proj.android/project.properties
-proj.android/res/drawable-hdpi/icon.png
-proj.android/res/drawable-ldpi/icon.png
-proj.android/res/drawable-mdpi/icon.png
-proj.android/res/values/strings.xml
 proj.android/src/org/cocos2dx/cpp/AppActivity.java
 proj.win32/Debug.win32/Background SKY.png
 proj.win32/Debug.win32/Earthblock64x64.png
@@ -7627,3 +7622,6 @@ proj.win32/Debug.win32/Third.tmx
 proj.win32/Debug.win32/tutorial.tmx
 proj.win32/Debug.win32/Tutorial2.tmx
 proj.win32/Debug.win32/YourGameTitle.Build.CppClean.log
+proj.win32/Debug.win32/GameScene.obj
+proj.win32/Debug.win32/ScoreScene.obj
+proj.win32/Debug.win32/tutorial.tmx
