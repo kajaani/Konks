@@ -55,7 +55,7 @@ protected:
 	Peli::Tile *tile;
 
 	// Physics
-	cocos2d::PhysicsJointLimit *ropeJoint;
+	cocos2d::PhysicsJointDistance *ropeJoint;
 	cocos2d::PhysicsWorld *_world;
 	cocos2d::Node *node;
 

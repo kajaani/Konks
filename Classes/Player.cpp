@@ -41,7 +41,7 @@ void Player::update()
 	float distance = sqrt((player->getPositionX() - TouchPosition.x) * (player->getPositionX() - TouchPosition.x) + (player->getPositionY() - TouchPosition.y) * (player->getPositionY() - TouchPosition.y));
 
 	if (isTouchHold && isHooked)
-		power = 10;
+		power = 20;
 	else if (!isTouchHold)
 	{
 		player->stopAllActions();
@@ -76,10 +76,10 @@ void Player::update()
 			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x, PlayerPhysics->getVelocity().y ));
 
 		if (player->getPositionX() < TouchPosition.x)
-			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x + power, PlayerPhysics->getVelocity().y));
+			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x + power, PlayerPhysics->getVelocity().y - 5));
 
 		if (player->getPositionX() > TouchPosition.x)
-			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x - power, PlayerPhysics->getVelocity().y));
+			PlayerPhysics->setVelocity(Vec2(PlayerPhysics->getVelocity().x - power, PlayerPhysics->getVelocity().y - 5));
 	}
 
 	//CCLOG("Velocity X: %f Y: %f", PlayerPhysics->getVelocity().x, PlayerPhysics->getVelocity().y);

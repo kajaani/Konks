@@ -123,6 +123,7 @@ bool GameScene::init()
 	touchListener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 
+
 	sprite = Sprite::create("CloseSelected.png");
 	sprite->setTag(RAYCASTCOLLISIONBOX);
 	this->addChild(sprite);
@@ -196,7 +197,7 @@ void GameScene::update(float dt)
 
 		rope->setPosition(sprite->getPosition());
 
-		ropeJoint = PhysicsJointLimit::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Vec2(Point::ZERO.x + 25, Point::ZERO.y), Vec2(Point::ZERO.x, Point::ZERO.y), 50.0f, realDistance);
+		ropeJoint = PhysicsJointDistance::construct(player->getPlayerPhysicsBody(), rope->getRopePhysicsBody(), Vec2(Point::ZERO.x + 25, Point::ZERO.y), Vec2(Point::ZERO.x, Point::ZERO.y));
 		ropeJoint->setCollisionEnable(true);
 
 		_world->addJoint(ropeJoint);
@@ -399,11 +400,11 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	}
 
 	sprite = Sprite::create("hookah.png");
-	sprite->setScale(0.2);
+	sprite->setScale(0.4);
 	//sprite->setColor(ccc3(100, 0, 0));
 	sprite->setPosition(player->getPosition());
 
-	auto spriteBody = PhysicsBody::createBox(Size(sprite->getContentSize().width * 0.2, sprite->getContentSize().height * 0.1));
+	auto spriteBody = PhysicsBody::createBox(Size(sprite->getContentSize().width * 0.4, sprite->getContentSize().height * 0.2));
 	sprite->setPhysicsBody(spriteBody);
 
 	sprite->getPhysicsBody()->setCategoryBitmask(BITMASKCOLLISIONBOX);
