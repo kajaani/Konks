@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "math\CCMath.h"
+#include "SimpleAudioEngine.h"  
 #include "MainMenuScene.h"
 #include "Definitions.h"
 #include "ScoreScene.h"
@@ -150,6 +151,8 @@ bool GameScene::init()
 	attempts->setString(text6->getCString());
 	this->addChild(attempts, 10000);
 
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sounds/background-music-aac.wav", true);
+
 	this->addChild(highscorelabel, 99);
 	this->setKeypadEnabled(true);
 
@@ -209,6 +212,8 @@ void GameScene::update(float dt)
 
 		_world->addJoint(ropeJoint);
 		isAlreadyRoped = true;
+		
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Insult_Specimens_4.wav");
 	}
 
 	if (realDistance > 50 && player->isTouchHold && player->isHooked && isAlreadyRoped)
@@ -287,6 +292,7 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 		// Player hits goal
 		if (bodyA->getTag() == PLAYER && bodyB->getTag() == GOAL)
 		{
+			CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
 			if (timeMilliseconds < highscore || highscore == 0)
 			{
 				UserDefault *def = UserDefault::getInstance();
@@ -473,17 +479,16 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 void GameScene::GoToMainMenuScene(cocos2d::Ref *sender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
 	auto scene = MainMenuScene::createScene();
-
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 void GameScene::GoToScoreScene(cocos2d::Ref *sender)
 {
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
 	auto scene = ScoreScene::createScene();
-
 	Constant::score = timeMilliseconds;
-
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
