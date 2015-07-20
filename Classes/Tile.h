@@ -21,6 +21,7 @@ namespace Peli
 		cocos2d::Vec2 GetSpawnPosition();
 
 		std::vector<cocos2d::Sprite*> tileCollisions;
+		std::vector<cocos2d::Sprite*> tiles;
 	private:
 		cocos2d::TMXTiledMap *map;
 		cocos2d::TMXLayer *_background;

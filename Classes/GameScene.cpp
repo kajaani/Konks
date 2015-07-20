@@ -10,11 +10,7 @@ int Constant::attempts = 0;
 // TODO LIST //
 /*
 Final final final final final level design
-
 Fix hook shooting when releasing touch before it finishes moving
-
-Sound effects
-
 Fix bouncing between walls
 Lag issues with android (camera or tiles?)
 */
@@ -193,14 +189,34 @@ void GameScene::update(float dt)
 				colCount++;
 			}
 			if (tile->tileCollisions[i]->getPositionX() < -this->getPositionX() + visibleSize.width &&
-				tile->tileCollisions[i]->getPositionX() > -this->getPositionX())
+				tile->tileCollisions[i]->getPositionX() > -this->getPositionX() && 
+
+				tile->tileCollisions[i]->getPositionY() < -this->getPositionY() + MAXDISTANCE + visibleSize.height &&
+				tile->tileCollisions[i]->getPositionY() > -this->getPositionY() - MAXDISTANCE)
 			{
 				tile->tileCollisions[i]->getPhysicsBody()->setEnable(true);
 			}
 			else
 				tile->tileCollisions[i]->getPhysicsBody()->setEnable(false);
 		}
-		//CCLOG("Number of enabled tiles: %i", colCount);
+
+		for (int i = 0; i < tile->tiles.size(); i++)
+		{
+			float distanceToTile = player->getPosition().distance(tile->tiles[i]->getPosition());
+			float distanceToTileFromHook = sprite->getPosition().distance(tile->tiles[i]->getPosition());
+			if (tile->tiles[i]->getPhysicsBody()->isEnabled())
+			{
+				colCount++;
+			}
+			if ( distanceToTile < 100 || distanceToTileFromHook < 100)
+			{
+				tile->tiles[i]->getPhysicsBody()->setEnable(true);
+			}
+			else
+				tile->tiles[i]->getPhysicsBody()->setEnable(false);
+		}
+
+		CCLOG("Number of enabled tiles: %i", colCount);
 	}
 
 	if (realDistance > 50 && player->isTouchHold && player->isHooked && !isAlreadyRoped)

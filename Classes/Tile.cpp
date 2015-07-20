@@ -88,6 +88,8 @@ Peli::Tile::Tile(cocos2d::Layer *layer)
 				objectSprite->getPhysicsBody()->setContactTestBitmask(BITMASKPLAYER);
 
 				objectPhysicsBody->setTag(GOAL);
+
+				tiles.push_back(objectSprite);
 			}
 			//Handling the spike collisions
 			if (gidSpike)
@@ -111,6 +113,8 @@ Peli::Tile::Tile(cocos2d::Layer *layer)
 				objectSprite->getPhysicsBody()->setContactTestBitmask(BITMASKPLAYER);
 
 				objectPhysicsBody->setTag(SPIKE);
+
+				tiles.push_back(objectSprite);
 			}
 			//Handling the metal collisions
 			if (gidMetal)
@@ -135,6 +139,8 @@ Peli::Tile::Tile(cocos2d::Layer *layer)
 				objectSprite->getPhysicsBody()->setContactTestBitmask(BITMASKCOLLISIONBOX);
 
 				objectPhysicsBody->setTag(METAL);
+
+				tiles.push_back(objectSprite);
 			}
 			if (gidSpawn)
 			{
