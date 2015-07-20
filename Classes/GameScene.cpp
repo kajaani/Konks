@@ -5,7 +5,7 @@
 #include "Definitions.h"
 #include "ScoreScene.h"
 #include "Constant.h"
-std::string Constant::mapname = "Hugemap.tmx";
+std::string Constant::mapname = "Maps/First.tmx";
 int Constant::attempts = 0;
 // TODO LIST //
 /*
@@ -151,7 +151,10 @@ bool GameScene::init()
 	attempts->setString(text6->getCString());
 	this->addChild(attempts, 10000);
 
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sounds/background-music-aac.wav", true);
+	if (!Constant::soundMuted)
+	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sounds/background-music-aac.wav", true);
+	}
 
 	this->addChild(highscorelabel, 99);
 	this->setKeypadEnabled(true);
@@ -212,8 +215,11 @@ void GameScene::update(float dt)
 
 		_world->addJoint(ropeJoint);
 		isAlreadyRoped = true;
-		
-		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Insult_Specimens_4.wav");
+
+		if (!Constant::soundMuted)
+		{
+			CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Insult_Specimens_4.wav");
+		}
 	}
 
 	if (realDistance > 50 && player->isTouchHold && player->isHooked && isAlreadyRoped)
@@ -465,12 +471,11 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 		if ((angle > 90 && angle <= 179) || (angle > -180 && angle <= -90))
 		{
-
-			//player->getPlayer()->setScaleX(0.1);
+			player->getPlayer()->setScaleX(1);
 		}
 		else
 		{
-			//player->getPlayer()->setScaleX(-0.1);
+			player->getPlayer()->setScaleX(-1);
 		}
 		player->Grapple(Vec2(touchWorld.x, touchWorld.y));
 	}

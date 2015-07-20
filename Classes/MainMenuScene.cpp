@@ -2,9 +2,12 @@
 #include "GameScene.h"
 #include "LevelMenuScene.h"
 #include "Definitions.h"
+#include "SimpleAudioEngine.h"  
+#include "Constant.h"
 
 USING_NS_CC;
 
+bool Constant::soundMuted = false;
 Scene* MainMenuScene::createScene()
 {
     // 'scene' is an autorelease object
@@ -59,10 +62,23 @@ bool MainMenuScene::init()
 		MainMenuScene::GoToLevelMenuScene, this));
 	levelsButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2));
 	
+	muteButton = MenuItemImage::create("soundEnabled.png", "soundEnabled.png", CC_CALLBACK_1(
+		MainMenuScene::MuteSound, this));
+	muteButton->setPosition(Point(50,50));
+
+	muted = cocos2d::Sprite::create("soundDisabled.png");
+	notMuted = cocos2d::Sprite::create("soundEnabled.png");
+
+	if (Constant::soundMuted)
+	{
+		muteButton->setNormalImage(muted);
+	}
+
 	//Initializing the menu, placing the buttons and setting it visible
 	auto menu = Menu::create(playButton, NULL);
 	menu->setPosition(Point::ZERO);
 	menu->addChild(levelsButton);
+	menu->addChild(muteButton);
 	menu->addChild(quitButton);
 	this->addChild(menu);
 
@@ -82,13 +98,33 @@ void MainMenuScene::GoToGameScene(cocos2d::Ref *sender)
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
-
 //Method which replaces the current scene with the level menu scene
 void MainMenuScene::GoToLevelMenuScene(cocos2d::Ref *sender)
 {
 	auto scene = LevelMenuScene::createScene();
 	
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+
+void MainMenuScene::MuteSound(cocos2d::Ref *sender)
+{
+	muted = cocos2d::Sprite::create("soundDisabled.png");
+	notMuted = cocos2d::Sprite::create("soundEnabled.png");
+	
+	//Muted -> not muted
+	if (Constant::soundMuted)
+	{
+		muteButton->setNormalImage(notMuted);
+		Constant::soundMuted = false;
+	}
+	//Not muted -> muted
+	else
+	{
+		muteButton->setNormalImage(muted);
+		Constant::soundMuted = true;
+	}
+
+	
 }
 
 //Quits the game

@@ -12,10 +12,15 @@ public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
     
+	cocos2d::Sprite* muted;
+	cocos2d::Sprite* notMuted;
+	cocos2d::MenuItemImage* muteButton;
+
     // implement the "static create()" method manually
 	CREATE_FUNC(MainMenuScene);
 
 private:
+	void MuteSound(cocos2d::Ref *sender);
 	void GoToGameScene(cocos2d::Ref *sender);
 	void GoToLevelMenuScene(cocos2d::Ref *sender);
 	void Quit(cocos2d::Ref *sender);

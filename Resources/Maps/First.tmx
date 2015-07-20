@@ -1,56 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="165" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
- <tileset firstgid="1" name="BG" tilewidth="32" tileheight="32" spacing="48">
-  <image source="Materials/BG.png" width="2560" height="1280"/>
- </tileset>
- <tileset firstgid="513" name="Earthblock64x64" tilewidth="32" tileheight="32" spacing="48">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="165" height="40" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="Earthblock64x64" tilewidth="32" tileheight="32" spacing="48">
   <image source="Materials/Earthblock64x64.png" width="64" height="64"/>
  </tileset>
- <tileset firstgid="514" name="meta_tiles" tilewidth="32" tileheight="32" spacing="48">
-  <image source="Materials/meta_tiles.png" width="67" height="34"/>
- </tileset>
- <tileset firstgid="515" name="spike" tilewidth="32" tileheight="32" spacing="48">
+ <tileset firstgid="2" name="spike" tilewidth="32" tileheight="32" spacing="48">
   <image source="Materials/spike.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="516" name="cat02" tilewidth="32" tileheight="32" spacing="48">
-  <image source="Materials/cat02.png" width="64" height="64"/>
+ <tileset firstgid="3" name="Metal" tilewidth="32" tileheight="32" spacing="48">
+  <image source="Materials/steel.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="517" name="CloseNormal" tilewidth="32" tileheight="32" spacing="48">
-  <image source="Materials/CloseNormal.png" width="40" height="40"/>
+ <tileset firstgid="4" name="bg9" tilewidth="32" tileheight="32">
+  <image source="Materials/bg9.png" width="1024" height="1024"/>
  </tileset>
- <layer name="Background" width="165" height="20">
+ <tileset firstgid="1028" name="meta_tiles" tilewidth="32" tileheight="32">
+  <image source="Materials/meta_tiles.png" width="67" height="34"/>
+ </tileset>
+ <layer name="Background" width="165" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt10cRAlAQBFEwQMYGGRtkbJCxQcYGGX+0Cv5U7Rz69BR0LpvJ5KlARSpRmSpUpZzd/mevUZ0a1KQWtalDXbs9gfeoTwMa0ojGNKGp3Z7AZzSnBS1pRWva0NZuT+A72tOBjnSiM13oarcn8Bvd6UFPetGbPvS12xO44nfZY7vid9lju+J32WO74nfZY7vid9lju+J32WO74nfZY7vid9lju+J32WO74nfZY7vid9lju+J32WO74nfZY7vid9lj+w8J+6Lh
+   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
   </data>
  </layer>
- <layer name="Meta" width="165" height="20">
+ <layer name="Meta" width="165" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmMERgDAMwyj7D80KBdLaTqW7vonOejHu6xq8+PcW9b2VLjtJcVFv6LRj6t2zpPipe3TaNvXuWVL81D06bZt69ywpfuoeE7dNJWUXdY80uY+UXdQ9dmvyBMfVqHvsttcJjqtR91i5l0P36u93QN0jTUJnaBLcoElwgybBDZoEN2gS3KBJcIMmwY0vTVb/W3Vp8q+Xi0c6NFnn5eKRjkOTD8ABCYU=
+   eJzt1TGOw0AQA8HV/z/tfAJCFgxyKHcBzrWcxt11zrn41f++lf7eX77FqeUt6RtuumPrd9/V8r50j5tu2/rdd7W8L93jptu2fvddLe9L99h421Ytd0n3SJM+LXdJ90iTPi13SfdIkz4td0n3SJM+LXdJ90iTPi13SfdIkz4td0n3SJM+LXdJ90iTPi13SfdIk5jSPdIkpnSPNIkp3ePTJun+vdI9ppvkb/w+6R5pElO6R5rElO4x3ST2SfdIk5jSPdIk3oImsQ1Napv+p/0LttRo0o8tNZr0Y0uNJv3YUqNJP7bUaNKPLTWa9GNLjSb92FKjST+21GjSjy01mvRjS40m/dhSo0k/ttRo0o8tNZr027rlByGABso=
   </data>
  </layer>
- <layer name="Collision" width="165" height="20">
+ <layer name="Collision" width="165" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt2jEOgCAUBFHD/Q9tYUNjAX6YVecltq5uttHQ2nG00GvUm56VltDFV7pMRPdI5/dGN6k16G7p/J6bzEB3S+f33GQGuls6X3noTdD5ykNvgs6v5vf4c3RfdP4Of3jHSnRflfl39/rSO/7B6v/pO//Zu0mlcZNK4yaVxk0qjZtUGjepNG5Sadyk0sxscscZYGKT9JlnXWY3WZ1XmTFrRaabHJewyRPxPwOB
+   eJzt2kEKwlAQBNEscv8zuw0uGpL4pzqxHrhuHQtFcN+3bS99nPWk5/pLbbe6+xx0H31Hev/obJNag74tvX9kkx3o29L7RzbZgb4tva8+dBP0vvrQTdD76kM3Qe+rD90Eva8+dBP0vvrQTdD76kM3Qe+rD90Eva8+dBP0vvrQTdD76kM3Qe+rD93E1X3/L/Fe9PtFN/nk/0O/FX3Xhiavom/3VvRdG5r0c7ILfVe6SfWh3y+b1LfV302rvv9sUm1sUm1sMrv7283fdOfZZLbiNf/jHc+wycwm59lkZpPzbDKzyXk2mdnkPJvMbHKeTWY2Oc8mM5ucZ5OZTc6zycwm59lkZpPzbDKzyXk2mdnkPJvMbHJea5MfpoIJSQ==
   </data>
  </layer>
- <layer name="Spike" width="165" height="20">
+ <layer name="Spike" width="165" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt1tEJgDAMBcCgizpaR3E0K34XjAhGvYN8BkLzoIkAzpinWC70tPsngYNMUo1MUo1MvlPfwZqpp+fNkEmqkUkq+vI/UFV/x2EBwF9kbxA3CQAAAAAAsNsAx+klKA==
+   eJzt2cEJgDAQRcFgJZZmaZZiaQoevbgh4FdnIMfAQt4p2xpwx9Ta0nFnHT8JnDRJGk2SRpPvdLzBVjlPz1uhSdJokjRHX3PHnXX8JHDSJGk0SRpNkkaTpNEkaTRJoi/vBICrqXgAAAAAgPep/v3bBQAAAAAAAAAAAAD8yw59jCnd
   </data>
  </layer>
- <layer name="Metal" width="165" height="20">
+ <layer name="Metal" width="165" height="40">
   <data encoding="base64" compression="zlib">
-   eJztw8EJAAAIBKAjaP+Vm6GeoWDCB127AAAAAAAAAAAAAAAA3AyC0ABV
+   eJztw7EJAAAIA7CC///sDR1cJIEkfDBlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgGsLpToAJQ==
   </data>
  </layer>
- <layer name="Goal" width="165" height="20">
+ <layer name="Goal" width="165" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt0rEJAAAIBDER95/Z0hH8IoHb4KoAAAAAAAAAAIBE0xck8CRpPAkAwJcF94QANw==
+   eJzt0qENAAAIBDHE7z8zAoFFItrkNrgqAAAAAAAAAAAAuEsm+MKTfONJAAAAAAAAAAAAAAAAAABYDQscADE=
   </data>
  </layer>
- <layer name="Spawn" width="165" height="20">
+ <layer name="Spawn" width="165" height="40">
   <data encoding="base64" compression="zlib">
-   eJztzkEJAAAIBLBD7J/ZEIJ+tgRLAABgr+t7AAAAAAAAAAAAAHBjACrtAAc=
+   eJztzjENAAAIA7Ad4N8yJkjgaBU0AQCAHV3XAwAAAAAAAAAAAAAAAAAAAAAAAAAAAADgkwGqLQAK
   </data>
  </layer>
 </map>
