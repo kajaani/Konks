@@ -69,45 +69,18 @@ bool ScoreScene::init()
 	
 	this->addChild(scoreLabel, 99);
 
-	//In addition to previous sprites the play button changes its graphics once clicked
-	//Level 1 button
-	continueButton = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
-		ScoreScene::GoToGameScene, this));
-	continueButton->setName("Hugemap.tmx");
-	continueButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + 100));
-
 	//Level 2 button
 	menuButton = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
 		ScoreScene::GoToMainMenuScene, this));
 	menuButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2));
 
-	//Quit button
-	quitButton = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
-		ScoreScene::Quit, this));
-	quitButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 - 100));
-
 	//Initializing the menu, placing the buttons and setting it visible
-	auto menu = Menu::create(continueButton, NULL);
+	auto menu = Menu::create();
 	menu->setPosition(Point::ZERO); // == 0,
 	menu->addChild(menuButton);
-	menu->addChild(quitButton);
 	this->addChild(menu);
 
 	return true;
-}
-
-//Method that replaces the current scene with the game scene
-void ScoreScene::GoToGameScene(cocos2d::Ref *sender)
-{
-	auto node = Node::create();
-	node->setTag(MAPNAME);
-
-	node->setName(continueButton->getName().c_str());
-
-	auto scene = GameScene::createScene();
-	scene->addChild(node);
-
-	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
 //Method that replaces current scene with the main menu scene
@@ -116,10 +89,4 @@ void ScoreScene::GoToMainMenuScene(cocos2d::Ref *sender)
 	auto scene = MainMenuScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
-}
-
-//Quits the game
-void ScoreScene::Quit(cocos2d::Ref *sender)
-{
-	exit(0);
 }

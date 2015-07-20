@@ -18,12 +18,8 @@ public:
 	CREATE_FUNC(ScoreScene);
 
 private:
-	cocos2d::MenuItemImage* continueButton;
 	cocos2d::MenuItemImage* menuButton;
-	cocos2d::MenuItemImage* quitButton;
-	void GoToGameScene(cocos2d::Ref *sender);
 	void GoToMainMenuScene(cocos2d::Ref *sender);
-	void Quit(cocos2d::Ref *sender);
 
 	float _score;
 	float _highscore;

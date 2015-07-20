@@ -23,7 +23,6 @@ private:
 	void MuteSound(cocos2d::Ref *sender);
 	void GoToGameScene(cocos2d::Ref *sender);
 	void GoToLevelMenuScene(cocos2d::Ref *sender);
-	void Quit(cocos2d::Ref *sender);
 };
 
 #endif // __MAIN_MENU_SCENE_H__

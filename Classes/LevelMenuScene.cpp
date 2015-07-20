@@ -34,7 +34,7 @@ bool LevelMenuScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	//Initializing and setting a value to the backgroundSprite
-	auto backgroundSprite = Sprite::create("Background.png");
+	auto backgroundSprite = Sprite::create("paper_bg.png");
 	//Setting the position of the backgroundSprite
 	backgroundSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	//Adding backgroundSprite to the MainMenuScene
