@@ -70,7 +70,7 @@ bool ScoreScene::init()
 	this->addChild(scoreLabel, 99);
 
 	//Level 2 button
-	menuButton = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
+	menuButton = MenuItemImage::create("menuButton.png", "menuButton.png", CC_CALLBACK_1(
 		ScoreScene::GoToMainMenuScene, this));
 	menuButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2));
 
