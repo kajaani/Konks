@@ -27,12 +27,12 @@
  </layer>
  <layer name="Collision" width="165" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt2kEKwlAQBNEscv8zuw0uGpL4pzqxHrhuHQtFcN+3bS99nPWk5/pLbbe6+xx0H31Hev/obJNag74tvX9kkx3o29L7RzbZgb4tva8+dBP0vvrQTdD76kM3Qe+rD90Eva8+dBP0vvrQTdD76kM3Qe+rD90Eva8+dBP0vvrQTdD76kM3Qe+rD93E1X3/L/Fe9PtFN/nk/0O/FX3Xhiavom/3VvRdG5r0c7ILfVe6SfWh3y+b1LfV302rvv9sUm1sUm1sMrv7283fdOfZZLbiNf/jHc+wycwm59lkZpPzbDKzyXk2mdnkPJvMbHKeTWY2Oc8mM5ucZ5OZTc6zycwm59lkZpPzbDKzyXk2mdnkPJvMbHJea5MfpoIJSQ==
+   eJzt2kFug1AQBFEvuP+ZvUVetAT4TzVQT8q6ybgUy4q37fPZSn+OutOz/lPbra4+g66j70jv7x1tUmvQt6X392yyA31ben/PJjvQt6X31Ydugt5XH7oJel996CboffWhm6D31Ydugt5XH7oJel996CboffWhm6D33+Qu/5Onn5HeVx+6CXpffegm6H31oZs4u+/3JZ6Lfr3oJu/8feinou/a0ORZ9O2eir5rQ5P+nexC35VuUn3o18sm9Wv1e9Oq9z+bVBubVBubzK5+dvMz3XE2ma34nd94xyNsMrPJeTaZ2eQ8m8xscp5NZjY5zyYzm5xnk5lNzrPJzCbn2WRmk/NsMrPJeTaZ2eQ8m8xscp5NZjY5zyYzm5zX2uQX9pYJWQ==
   </data>
  </layer>
  <layer name="Spike" width="165" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt2cEJgDAQRcFgJZZmaZZiaQoevbgh4FdnIMfAQt4p2xpwx9Ta0nFnHT8JnDRJGk2SRpPvdLzBVjlPz1uhSdJokjRHX3PHnXX8JHDSJGk0SRpNkkaTpNEkaTRJoi/vBICrqXgAAAAAgPep/v3bBQAAAAAAAAAAAAD8yw59jCnd
+   eJzt28EJgDAQRcFgJZZmaZZiaQoevbgh4FdnYI+BhbxbSGvAHVNrS8eZdfwmcNIkaTRJGk2+03EHW2We3rdCk6TRJGmOvuaOM+v4TeCkSdJokjSaJI0mSaNJ0miSZF98EwCupuIAAAAAAO9T/Q/gLQAAAAAAAAAAAADgX3bTeShZ
   </data>
  </layer>
  <layer name="Metal" width="165" height="40">
