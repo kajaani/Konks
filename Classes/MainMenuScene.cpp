@@ -32,7 +32,9 @@ bool MainMenuScene::init()
     {
         return false;
     }
-    
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopAllEffects();
+
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	

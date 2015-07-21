@@ -140,7 +140,7 @@ bool GameScene::init()
 
 	if (!Constant::soundMuted)
 	{
-		CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sounds/background-music-aac.wav", true);
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sounds/Music/IndianMusic 6023_15.wav", true);
 	}
 
 
@@ -223,9 +223,10 @@ void GameScene::update(float dt)
 		_world->addJoint(ropeJoint);
 		isAlreadyRoped = true;
 
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->stopAllEffects();
 		if (!Constant::soundMuted)
 		{
-			CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Insult_Specimens_4.wav");
+			CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Konks/HitMetal 6095_51_1.wav");
 		}
 	}
 
@@ -267,6 +268,7 @@ void GameScene::update(float dt)
 		player->getPlayer()->setRotation(realangle);
 
 		_drawNode->drawSegment(ropeBodyA, ropeBodyB, 1, Color4F::RED);
+
 	}
 	this->addChild(_drawNode);
 }
@@ -306,6 +308,10 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 		if (bodyA->getTag() == PLAYER && bodyB->getTag() == GOAL)
 		{
 			CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+			if (!Constant::soundMuted)
+			{
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Goal/IndianWarChant 6077_99.wav");
+			}
 			if (timeMilliseconds < highscore || highscore == 0)
 			{
 				UserDefault *def = UserDefault::getInstance();
@@ -454,7 +460,10 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 
 	Dx /= Dlength;
 	Dy /= Dlength;
-
+	if (!Constant::soundMuted)
+	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Hooked/MusicAccent 6117_66_2.wav");
+	}
 	sprite->runAction(MoveTo::create(0.25, Vec2(touchWorld.x + Dx*-MAXDISTANCE, touchWorld.y + Dy*-MAXDISTANCE)));
 
 	// RayCast
@@ -506,7 +515,10 @@ void GameScene::GoToScoreScene(cocos2d::Ref *sender)
 
 void GameScene::RestartScene(cocos2d::Ref *sender)
 {
-	log("im being an ass");
+	if (!Constant::soundMuted)
+	{
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Death/MusicCymbal 6107_02_1.wav");
+	}
 	Constant::attempts++;
 	auto scene = GameScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(RESTART_TIME, scene));
