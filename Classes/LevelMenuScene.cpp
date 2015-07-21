@@ -52,7 +52,7 @@ bool LevelMenuScene::init()
 	Constant::attempts = 0;
 
 	//Level 1 button
-		playButton1 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
+		playButton1 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton1->setName("Maps/First.tmx");
 		auto label1 = Label::create("", "fonts/Marker Felt.ttf", 32);
@@ -70,7 +70,7 @@ bool LevelMenuScene::init()
 		label1->setPosition(Vec2(playButton1->getPosition().x + label1->getContentSize().width / 2, playButton1->getPosition().y - label1->getContentSize().height / 2));
 
 	//Level 2 button
-		playButton2 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
+		playButton2 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton2->setName("Maps/Second.tmx");
 		auto label2 = Label::create(playButton2->getName().c_str(), "fonts/Marker Felt.ttf", 32);
@@ -88,7 +88,7 @@ bool LevelMenuScene::init()
 		label2->setPosition(Vec2(playButton2->getPosition().x + label2->getContentSize().width / 2, playButton2->getPosition().y - label2->getContentSize().height / 2));
 
 	//Level 3 button
-		playButton3 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
+		playButton3 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton3->setName("Maps/Third.tmx");
 		auto label3 = Label::create(playButton3->getName().c_str(), "fonts/Marker Felt.ttf", 32);
@@ -106,7 +106,7 @@ bool LevelMenuScene::init()
 		label3->setPosition(Vec2(playButton3->getPosition().x + label3->getContentSize().width / 2, playButton3->getPosition().y - label3->getContentSize().height / 2));
 
 	//Level 4 button
-		playButton4 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
+		playButton4 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton4->setName("Maps/Fourth.tmx");
 		auto label4 = Label::create(playButton4->getName().c_str(), "fonts/Marker Felt.ttf", 32);
@@ -124,7 +124,7 @@ bool LevelMenuScene::init()
 		label4->setPosition(Vec2(playButton4->getPosition().x + label4->getContentSize().width / 2, playButton4->getPosition().y - label4->getContentSize().height / 2));
 
 	//Level 5 button
-		playButton5 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
+		playButton5 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton5->setName("Maps/Fifth.tmx");
 		auto label5 = Label::create(playButton5->getName().c_str(), "fonts/Marker Felt.ttf", 32);
@@ -142,7 +142,7 @@ bool LevelMenuScene::init()
 		label5->setPosition(Vec2(playButton5->getPosition().x + label5->getContentSize().width / 2, playButton5->getPosition().y - label5->getContentSize().height / 2));
 
 	//Level 6 button
-		playButton6 = MenuItemImage::create("PlayButton.png", "PlayButtonClicked.png", CC_CALLBACK_1(
+		playButton6 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton6->setName("Maps/Sixth.tmx");
 		auto label6 = Label::create(playButton6->getName().c_str(), "fonts/Marker Felt.ttf", 32);
@@ -160,7 +160,7 @@ bool LevelMenuScene::init()
 		label6->setPosition(Vec2(playButton6->getPosition().x + label6->getContentSize().width / 2, playButton6->getPosition().y - label6->getContentSize().height / 2));
 
 	//Level 7 button
-		playButton7 = MenuItemImage::create("PlayButton.png", "PlayButton.png", CC_CALLBACK_1(
+		playButton7 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton7->setName("Maps/Seventh.tmx");
 		auto label7 = Label::create(playButton7->getName().c_str(), "fonts/Marker Felt.ttf", 32);
@@ -178,7 +178,7 @@ bool LevelMenuScene::init()
 		label7->setPosition(Vec2(playButton7->getPosition().x + label7->getContentSize().width / 2, playButton7->getPosition().y - label7->getContentSize().height / 2));
 
 	//Level 8 button
-		playButton8 = MenuItemImage::create("PlayButton.png", "PlayButton.png", CC_CALLBACK_1(
+		playButton8 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton8->setName("Maps/Eight.tmx");
 		auto label8 = Label::create(playButton8->getName().c_str(), "fonts/Marker Felt.ttf", 32);
@@ -196,7 +196,7 @@ bool LevelMenuScene::init()
 		label8->setPosition(Vec2(playButton8->getPosition().x + label8->getContentSize().width / 2, playButton8->getPosition().y - label8->getContentSize().height / 2));
 
 	//Level 9 button
-		playButton9 = MenuItemImage::create("PlayButton.png", "PlayButton.png", CC_CALLBACK_1(
+		playButton9 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton9->setName("Maps/Ninth.tmx");
 		auto label9 = Label::create(playButton9->getName().c_str(), "fonts/Marker Felt.ttf", 32);
