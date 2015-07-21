@@ -18,11 +18,13 @@ namespace Peli
 		void MapBoundariesRight(cocos2d::Layer *layer);
 		void MapBoundariesLeft(cocos2d::Layer *layer);
 		cocos2d::TMXTiledMap *getMap();
+		cocos2d::TMXTiledMap *getminiMap();
 		cocos2d::Vec2 GetSpawnPosition();
 
 		std::vector<cocos2d::Sprite*> tileCollisions;
 		std::vector<cocos2d::Sprite*> tiles;
 	private:
+		cocos2d::TMXTiledMap *minimap;
 		cocos2d::TMXTiledMap *map;
 		cocos2d::TMXLayer *_background;
 		cocos2d::TMXLayer *_meta;

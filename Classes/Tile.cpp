@@ -11,6 +11,7 @@ Peli::Tile::Tile(cocos2d::Layer *layer)
 	previousTilePosition = cocos2d::Vec2(-1, -1);
 
 	layer->addChild(map, 0);
+	layer->addChild(minimap, 1);
 
 	cocos2d::Vec2 tileSize = map->getLayer("Collision")->getMapTileSize();
 
@@ -149,7 +150,6 @@ Peli::Tile::Tile(cocos2d::Layer *layer)
 
 				Constant::spawn = cocos2d::Vec2(tileXPosition, tileYPosition);
 			}
-
 		}
 	}
 }
@@ -157,6 +157,9 @@ Peli::Tile::Tile(cocos2d::Layer *layer)
 void Peli::Tile::loadMap()
 {
 	map = cocos2d::TMXTiledMap::create(Constant::mapname);
+	minimap = cocos2d::TMXTiledMap::create(Constant::mapname);
+	minimap->setScaleY(0.1);
+	minimap->setScaleX(0.05);
 	_meta = map->layerNamed("Meta");
 	_meta = map->layerNamed("Background");
 	//_meta = map->layerNamed("TileCats");
@@ -211,4 +214,9 @@ void Peli::Tile::MapBoundariesLeft(cocos2d::Layer *layer)
 cocos2d::TMXTiledMap *Peli::Tile::getMap()
 {
 	return map;
+}
+
+cocos2d::TMXTiledMap *Peli::Tile::getminiMap()
+{
+	return minimap;
 }

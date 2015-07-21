@@ -48,7 +48,16 @@ void GameScene::setLevel(Scene* scene)
 		tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width,
 		tile->getMap()->getMapSize().height * tile->getMap()->getTileSize().height)));
 
+	auto renderTexture = RenderTexture::create(250, 250);
+	tile->getMap()->visit();
+
+	minisprite = Sprite::create();
+	minisprite->createWithTexture(renderTexture->getSprite()->getTexture());
+	minisprite->setScale(0.1);
+	this->addChild(minisprite, 900000);
+
 	player->getPlayer()->setPosition(Constant::spawn);
+
 
 	//int i, j;
 	//auto tileCoord = new cocos2d::Vec2(i, j);
@@ -166,10 +175,10 @@ void GameScene::update(float dt)
 	LabelCubeTest->setString(score->getCString());
 	attempts->setPosition(Vec2(-this->getPosition().x + attempts->getContentSize().width / 2, -this->getPosition().y + visibleSize.height - LabelCubeTest->getContentSize().height / 2 - attempts->getContentSize().height));
 
-
 	// Collision resting
 	if (isMapLoaded)
 	{
+		tile->getminiMap()->setPosition(Vec2(-this->getPosition().x, -this->getPosition().y));
 		int colCount = 0;
 		for (int i = 0; i < tile->tileCollisions.size(); i++)
 		{
@@ -268,7 +277,7 @@ void GameScene::update(float dt)
 		_drawNode->drawSegment(ropeBodyA, ropeBodyB, 1, Color4F::RED);
 
 	}
-	this->addChild(_drawNode);
+	this->addChild(_drawNode, 90000001);
 }
 
 void GameScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event *event)
