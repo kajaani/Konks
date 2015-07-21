@@ -152,8 +152,6 @@ Peli::Tile::Tile(cocos2d::Layer *layer)
 
 		}
 	}
-	CCLOG("Tile width %f", map->getTileSize().width);
-	CCLOG("Tile amount %i", tileAmount);
 }
 
 void Peli::Tile::loadMap()

@@ -54,8 +54,6 @@ void GameScene::setLevel(Scene* scene)
 	//auto tileCoord = new cocos2d::Vec2(i, j);
 	//float gidPlatform = tile->getMap()->getLayer("Collision")->getTileGIDAt(*tileCoord);
 
-	CCLOG("Sprite amount %i", tile->tileCollisions.size());
-
 	// Scrolling view
 	//this->runAction(cocos2d::MoveTo::create(50, Vec2(-tile->getMap()->getMapSize().width * tile->getMap()->getTileSize().width, this->getPosition().y)));
 
@@ -140,7 +138,7 @@ bool GameScene::init()
 
 	if (!Constant::soundMuted)
 	{
-		CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sounds/Music/IndianMusic 6023_15.wav", true);
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sounds/Music/IndianMusic 6023_15.mp3", true);
 	}
 
 
@@ -226,7 +224,7 @@ void GameScene::update(float dt)
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->stopAllEffects();
 		if (!Constant::soundMuted)
 		{
-			CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Konks/HitMetal 6095_51_1.wav");
+			CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Konks/HitMetal 6095_51_1.mp3");
 		}
 	}
 
@@ -310,7 +308,7 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 			CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
 			if (!Constant::soundMuted)
 			{
-				CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Goal/IndianWarChant 6077_99.wav");
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Goal/IndianWarChant 6077_99.mp3");
 			}
 			if (timeMilliseconds < highscore || highscore == 0)
 			{
@@ -462,9 +460,9 @@ bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 	Dy /= Dlength;
 	if (!Constant::soundMuted)
 	{
-		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Hooked/MusicAccent 6117_66_2.wav");
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Hooked/MusicAccent 6117_66_2.mp3");
 	}
-	sprite->runAction(MoveTo::create(0.25, Vec2(touchWorld.x + Dx*-MAXDISTANCE, touchWorld.y + Dy*-MAXDISTANCE)));
+	sprite->runAction(MoveTo::create(0.50, Vec2(touchWorld.x + Dx*-MAXDISTANCE, touchWorld.y + Dy*-MAXDISTANCE)));
 
 	// RayCast
 	player->getPlayerPhysicsBody()->setEnable(true); // Disabled player collisions while testing raycast functioning //
@@ -517,7 +515,7 @@ void GameScene::RestartScene(cocos2d::Ref *sender)
 {
 	if (!Constant::soundMuted)
 	{
-		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Death/MusicCymbal 6107_02_1.wav");
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Death/MusicCymbal 6107_02_1.mp3");
 	}
 	Constant::attempts++;
 	auto scene = GameScene::createScene();
