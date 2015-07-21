@@ -131,16 +131,7 @@ bool GameScene::init()
 
 	schedule(schedule_selector(GameScene::SpawnPlatform), 1.5);
 	schedule(schedule_selector(GameScene::update));
-	schedule(schedule_selector(GameScene::TimerMilliSeconds), 0.1);
-
-	auto highscorelabel = Label::create("", "fonts/Marker Felt", 32);
-	highscorelabel->setPosition(100, 100);
-
-	UserDefault *def = UserDefault::getInstance();
-	highscore = def->getIntegerForKey(Constant::mapname.c_str(), 0);
-
-	String *score = String::createWithFormat("Score: %.4f", highscore);
-	highscorelabel->setString(score->getCString());
+	schedule(schedule_selector(GameScene::TimerMilliSeconds), 0.1);	
 
 	attempts = Label::create("", "fonts/Marker Felt.ttf", 32);
 	String *text6 = String::createWithFormat("Attempts: %i", Constant::attempts);
@@ -152,7 +143,7 @@ bool GameScene::init()
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sounds/background-music-aac.wav", true);
 	}
 
-	this->addChild(highscorelabel, 99);
+
 	this->setKeypadEnabled(true);
 
 	return true;
