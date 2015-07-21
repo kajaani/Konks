@@ -54,7 +54,7 @@ bool LevelMenuScene::init()
 	//Level 1 button
 		playButton1 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
-		playButton1->setName("Maps/First1.tmx");
+		playButton1->setName("Maps/First.tmx");
 		auto label1 = Label::create("", "fonts/Marker Felt.ttf", 32);
 
 		float _highscore = def->getIntegerForKey(playButton1->getName().c_str(), 0);
@@ -72,7 +72,7 @@ bool LevelMenuScene::init()
 	//Level 2 button
 		playButton2 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
-		playButton2->setName("Maps/Second1.tmx");
+		playButton2->setName("Maps/Second.tmx");
 		auto label2 = Label::create(playButton2->getName().c_str(), "fonts/Marker Felt.ttf", 32);
 
 		float _highscore2 = def->getIntegerForKey(playButton2->getName().c_str(), 0);
@@ -90,7 +90,7 @@ bool LevelMenuScene::init()
 	//Level 3 button
 		playButton3 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
-		playButton3->setName("Maps/Third1.tmx");
+		playButton3->setName("Maps/Third.tmx");
 		auto label3 = Label::create(playButton3->getName().c_str(), "fonts/Marker Felt.ttf", 32);
 
 		float _highscore3 = def->getIntegerForKey(playButton3->getName().c_str(), 0);
@@ -108,7 +108,7 @@ bool LevelMenuScene::init()
 	//Level 4 button
 		playButton4 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
-		playButton4->setName("Maps/Fourth1.tmx");
+		playButton4->setName("Maps/Fourth.tmx");
 		auto label4 = Label::create(playButton4->getName().c_str(), "fonts/Marker Felt.ttf", 32);
 
 		float _highscore4 = def->getIntegerForKey(playButton4->getName().c_str(), 0);
@@ -126,7 +126,7 @@ bool LevelMenuScene::init()
 	//Level 5 button
 		playButton5 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
-		playButton5->setName("Maps/Fifth1.tmx");
+		playButton5->setName("Maps/Fifth.tmx");
 		auto label5 = Label::create(playButton5->getName().c_str(), "fonts/Marker Felt.ttf", 32);
 
 		float _highscore5 = def->getIntegerForKey(playButton5->getName().c_str(), 0);
@@ -144,7 +144,7 @@ bool LevelMenuScene::init()
 	//Level 6 button
 		playButton6 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
-		playButton6->setName("Maps/Sixth1.tmx");
+		playButton6->setName("Maps/Sixth.tmx");
 		auto label6 = Label::create(playButton6->getName().c_str(), "fonts/Marker Felt.ttf", 32);
 
 		float _highscore6 = def->getIntegerForKey(playButton6->getName().c_str(), 0);
@@ -162,7 +162,7 @@ bool LevelMenuScene::init()
 	//Level 7 button
 		playButton7 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
-		playButton7->setName("Maps/Seventh1.tmx");
+		playButton7->setName("Maps/Seventh.tmx");
 		auto label7 = Label::create(playButton7->getName().c_str(), "fonts/Marker Felt.ttf", 32);
 
 		float _highscore7 = def->getIntegerForKey(playButton7->getName().c_str(), 0);
@@ -180,7 +180,7 @@ bool LevelMenuScene::init()
 	//Level 8 button
 		playButton8 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
-		playButton8->setName("Maps/Eight1.tmx");
+		playButton8->setName("Maps/Eight.tmx");
 		auto label8 = Label::create(playButton8->getName().c_str(), "fonts/Marker Felt.ttf", 32);
 
 		float _highscore8 = def->getIntegerForKey(playButton8->getName().c_str(), 0);
@@ -198,7 +198,7 @@ bool LevelMenuScene::init()
 	//Level 9 button
 		playButton9 = MenuItemImage::create("levelBG.png", "levelBG.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
-		playButton9->setName("Maps/Ninth1.tmx");
+		playButton9->setName("Maps/Ninth.tmx");
 		auto label9 = Label::create(playButton9->getName().c_str(), "fonts/Marker Felt.ttf", 32);
 
 		float _highscore9 = def->getIntegerForKey(playButton9->getName().c_str(), 0);

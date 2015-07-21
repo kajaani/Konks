@@ -5,7 +5,7 @@
 #include "Definitions.h"
 #include "ScoreScene.h"
 #include "Constant.h"
-std::string Constant::mapname = "Maps/First1.tmx";
+std::string Constant::mapname = "Maps/First.tmx";
 int Constant::attempts = 0;
 // TODO LIST //
 /*
