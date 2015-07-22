@@ -46,6 +46,7 @@ bool LevelMenuScene::init()
 
 	Constant::attempts = 0;
 
+
 	//Level 1 button
 		playButton1 = MenuItemImage::create("Level_1_wood.png", "Level_1_wood.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
@@ -58,6 +59,7 @@ bool LevelMenuScene::init()
 
 		String *text1 = String::createWithFormat("Hiscore: %.2f", _highscore);
 		label1->setString(text1->getCString());
+		label1->setColor(defineMedal(_highscore));
 
 		playButton1->setPosition(Point((visibleSize.width - playButton1->getContentSize().width * 4) / 2, visibleSize.height - ((visibleSize.height - playButton1->getContentSize().height * 3 ) / 2)));
 		playButton1->setAnchorPoint(Vec2(0, 1));
@@ -75,6 +77,7 @@ bool LevelMenuScene::init()
 
 		String *text2 = String::createWithFormat("Hiscore: %.2f", _highscore2);
 		label2->setString(text2->getCString());
+		label2->setColor(defineMedal(_highscore2));
 	
 		playButton2->setPosition(Vec2(playButton1->getPosition().x + playButton1->getContentSize().width, playButton1->getPosition().y));
 		playButton2->setAnchorPoint(Vec2(0, 1));
@@ -92,6 +95,7 @@ bool LevelMenuScene::init()
 
 		String *text3 = String::createWithFormat("Hiscore: %.2f", _highscore3);
 		label3->setString(text3->getCString());
+		label3->setColor(defineMedal(_highscore3));
 
 		playButton3->setPosition(Vec2(playButton2->getPosition().x + playButton3->getContentSize().width, playButton2->getPosition().y));
 		playButton3->setAnchorPoint(Vec2(0, 1));
@@ -109,6 +113,7 @@ bool LevelMenuScene::init()
 
 		String *text4 = String::createWithFormat("Hiscore: %.2f", _highscore4);
 		label4->setString(text4->getCString());
+		label4->setColor(defineMedal(_highscore4));
 
 
 		playButton4->setPosition(Vec2(playButton3->getPosition().x + playButton4->getContentSize().width, playButton3->getPosition().y));
@@ -127,6 +132,7 @@ bool LevelMenuScene::init()
 
 		String *text5 = String::createWithFormat("Hiscore: %.2f", _highscore5);
 		label5->setString(text5->getCString());
+		label5->setColor(defineMedal(_highscore5));
 
 
 		playButton5->setPosition(Vec2(playButton1->getPosition().x, playButton1->getPosition().y - playButton5->getContentSize().height));
@@ -145,6 +151,7 @@ bool LevelMenuScene::init()
 
 		String *text6 = String::createWithFormat("Hiscore: %.2f", _highscore6);
 		label6->setString(text6->getCString());
+		label6->setColor(defineMedal(_highscore6));
 
 		playButton6->setPosition(Vec2(playButton5->getPosition().x + playButton6->getContentSize().width, playButton5->getPosition().y));
 		playButton6->setAnchorPoint(Vec2(0, 1));
@@ -162,6 +169,7 @@ bool LevelMenuScene::init()
 
 		String *text7 = String::createWithFormat("Hiscore: %.2f", _highscore7);
 		label7->setString(text7->getCString());
+		label7->setColor(defineMedal(_highscore7));
 
 		playButton7->setPosition(Vec2(playButton6->getPosition().x + playButton7->getContentSize().width, playButton6->getPosition().y));
 		playButton7->setAnchorPoint(Vec2(0, 1));
@@ -179,6 +187,7 @@ bool LevelMenuScene::init()
 
 		String *text8 = String::createWithFormat("Hiscore: %.2f", _highscore8);
 		label8->setString(text8->getCString());
+		label8->setColor(defineMedal(_highscore8));
 
 		playButton8->setPosition(Vec2(playButton7->getPosition().x + playButton8->getContentSize().width, playButton7->getPosition().y));
 		playButton8->setAnchorPoint(Vec2(0, 1));
@@ -196,6 +205,7 @@ bool LevelMenuScene::init()
 
 		String *text9 = String::createWithFormat("Hiscore: %.2f", _highscore9);
 		label9->setString(text9->getCString());
+		label9->setColor(defineMedal(_highscore9));
 
 		playButton9->setPosition(Vec2(visibleSize.width / 2 - playButton9->getContentSize().width / 2, playButton5->getPosition().y - playButton9->getContentSize().height));
 		playButton9->setAnchorPoint(Vec2(0, 1));
@@ -295,4 +305,26 @@ void LevelMenuScene::GoToMainMenuScene(cocos2d::Ref *sender)
 	auto scene = MainMenuScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+
+cocos2d::Color3B LevelMenuScene::defineMedal(float score)
+{
+	auto color = Color3B(255, 255, 255);
+	if (score <= GOLD)
+	{
+		color = Color3B(255, 215, 0);
+	}
+	if (score <= SILVER)
+	{
+		color = Color3B(192, 192, 192);
+	}
+	if (score <= BRONZE)
+	{
+		color = Color3B(205, 127, 50);
+	}
+	if (!score)
+	{
+		color = Color3B(255, 255, 255);
+	}
+	return color;
 }

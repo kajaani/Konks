@@ -36,6 +36,8 @@ private:
 	void GoToGameScene(cocos2d::Ref *sender);
 	void GoToMainMenuScene(cocos2d::Ref *sender);
 	void ConfirmLevel(cocos2d::Ref *sender);
+
+	cocos2d::Color3B defineMedal(float score);
 };
 
 #endif // __LEVEL_MENU_SCENE_H__

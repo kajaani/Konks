@@ -33,4 +33,9 @@
 #define SPIKE 6
 #define METAL 7
 
+// Time goals
+#define GOLD 10
+#define SILVER 25
+#define BRONZE 35
+
 #endif // __DEFINITIONS_H__
