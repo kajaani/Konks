@@ -129,7 +129,7 @@ bool LevelMenuScene::init()
 		label5->setString(text5->getCString());
 
 
-		playButton5->setPosition(Vec2(playButton1->getPosition().x, visibleSize.height - playButton1->getContentSize().height));
+		playButton5->setPosition(Vec2(playButton1->getPosition().x, playButton1->getPosition().y - playButton5->getContentSize().height));
 		playButton5->setAnchorPoint(Vec2(0, 1));
 		label5->setPosition(Vec2(playButton5->getPosition().x + playButton5->getContentSize().width / 2, playButton5->getPosition().y - 190));
 
