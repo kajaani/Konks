@@ -212,7 +212,7 @@ bool LevelMenuScene::init()
 		label9->setPosition(Vec2(playButton9->getPosition().x + playButton9->getContentSize().width / 2, playButton9->getPosition().y - 190));
 
 	// Confirm
-	confirmButton = MenuItemImage::create("CloseNormal.png", "CloseNormal.png", CC_CALLBACK_1(
+	confirmButton = MenuItemImage::create("confirmButton.png", "confirmButton.png", CC_CALLBACK_1(
 		LevelMenuScene::ConfirmLevel, this));
 	confirmButton->setPosition(confirmButton->getContentSize().width + 25, confirmButton->getContentSize().height + 25);
 	confirmButton->setScale(2.5);
@@ -224,7 +224,7 @@ bool LevelMenuScene::init()
 
 	//Initializing the menu, placing the buttons and setting it visible
 	menu = Menu::create(backButton, NULL);
-	menu->setPosition(Point::ZERO); // == 0,
+	menu->setPosition(Point::ZERO); // == 0
 	menu->addChild(playButton1);
 	menu->addChild(playButton2);
 	menu->addChild(playButton3);
@@ -320,6 +320,7 @@ cocos2d::Color3B LevelMenuScene::defineMedal(float score)
 	}
 	if (score <= GOLD)
 	{
+		
 		color = Color3B(255, 215, 0);
 	}
 	if (!score)
