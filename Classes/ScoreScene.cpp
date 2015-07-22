@@ -50,7 +50,7 @@ bool ScoreScene::init()
 	highscoreLabel->setPosition(100, 100);
 
 	UserDefault *def = UserDefault::getInstance();
-	_highscore = def->getIntegerForKey(Constant::mapname.c_str(), 0);
+	_highscore = def->getFloatForKey(Constant::mapname.c_str(), 0);
 
 	String *highscore = String::createWithFormat("Highscore: %.2f", _highscore);
 	highscoreLabel->setString(highscore->getCString());

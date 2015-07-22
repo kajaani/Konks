@@ -52,7 +52,7 @@ bool LevelMenuScene::init()
 		playButton1->setName("Maps/First.tmx");
 		auto label1 = Label::create("", "fonts/Marker Felt.ttf", 28);
 
-		float _highscore = def->getIntegerForKey(playButton1->getName().c_str(), 0);
+		float _highscore = def->getFloatForKey(playButton1->getName().c_str(), 0);
 		std::string shortName = playButton1->getName().erase(0, 5);
 		shortName.erase(shortName.length() - 4, 4);
 
@@ -69,7 +69,7 @@ bool LevelMenuScene::init()
 		playButton2->setName("Maps/Second.tmx");
 		auto label2 = Label::create(playButton2->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
-		float _highscore2 = def->getIntegerForKey(playButton2->getName().c_str(), 0);
+		float _highscore2 = def->getFloatForKey(playButton2->getName().c_str(), 0);
 		std::string shortName2 = playButton2->getName().erase(0, 5);
 		shortName2.erase(shortName2.length() - 4, 4);
 
@@ -86,7 +86,7 @@ bool LevelMenuScene::init()
 		playButton3->setName("Maps/Third.tmx");
 		auto label3 = Label::create(playButton3->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
-		float _highscore3 = def->getIntegerForKey(playButton3->getName().c_str(), 0);
+		float _highscore3 = def->getFloatForKey(playButton3->getName().c_str(), 0);
 		std::string shortName3 = playButton3->getName().erase(0, 5);
 		shortName3.erase(shortName3.length() - 4, 4);
 
@@ -103,7 +103,7 @@ bool LevelMenuScene::init()
 		playButton4->setName("Maps/Fourth.tmx");
 		auto label4 = Label::create(playButton4->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
-		float _highscore4 = def->getIntegerForKey(playButton4->getName().c_str(), 0);
+		float _highscore4 = def->getFloatForKey(playButton4->getName().c_str(), 0);
 		std::string shortName4 = playButton4->getName().erase(0, 5);
 		shortName4.erase(shortName4.length() - 4, 4);
 
@@ -121,7 +121,7 @@ bool LevelMenuScene::init()
 		playButton5->setName("Maps/Fifth.tmx");
 		auto label5 = Label::create(playButton5->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
-		float _highscore5 = def->getIntegerForKey(playButton5->getName().c_str(), 0);
+		float _highscore5 = def->getFloatForKey(playButton5->getName().c_str(), 0);
 		std::string shortName5 = playButton5->getName().erase(0, 5);
 		shortName5.erase(shortName5.length() - 4, 4);
 
@@ -139,7 +139,7 @@ bool LevelMenuScene::init()
 		playButton6->setName("Maps/Sixth.tmx");
 		auto label6 = Label::create(playButton6->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
-		float _highscore6 = def->getIntegerForKey(playButton6->getName().c_str(), 0);
+		float _highscore6 = def->getFloatForKey(playButton6->getName().c_str(), 0);
 		std::string shortName6 = playButton6->getName().erase(0, 5);
 		shortName6.erase(shortName6.length() - 4, 4);
 
@@ -156,7 +156,7 @@ bool LevelMenuScene::init()
 		playButton7->setName("Maps/Seventh.tmx");
 		auto label7 = Label::create(playButton7->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
-		float _highscore7 = def->getIntegerForKey(playButton7->getName().c_str(), 0);
+		float _highscore7 = def->getFloatForKey(playButton7->getName().c_str(), 0);
 		std::string shortName7 = playButton7->getName().erase(0, 5);
 		shortName7.erase(shortName7.length() - 4, 4);
 
@@ -173,7 +173,7 @@ bool LevelMenuScene::init()
 		playButton8->setName("Maps/Eight.tmx");
 		auto label8 = Label::create(playButton8->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
-		float _highscore8 = def->getIntegerForKey(playButton8->getName().c_str(), 0);
+		float _highscore8 = def->getFloatForKey(playButton8->getName().c_str(), 0);
 		std::string shortName8 = playButton8->getName().erase(0, 5);
 		shortName8.erase(shortName8.length() - 4, 4);
 
@@ -190,7 +190,7 @@ bool LevelMenuScene::init()
 		playButton9->setName("Maps/Ninth.tmx");
 		auto label9 = Label::create(playButton9->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
-		float _highscore9 = def->getIntegerForKey(playButton9->getName().c_str(), 0);
+		float _highscore9 = def->getFloatForKey(playButton9->getName().c_str(), 0);
 		std::string shortName9 = playButton9->getName().erase(0, 5);
 		shortName9.erase(shortName9.length() - 4, 4);
 

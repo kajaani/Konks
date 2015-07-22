@@ -323,7 +323,7 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 			{
 				UserDefault *def = UserDefault::getInstance();
 				highscore = timeMilliseconds;
-				def->setIntegerForKey(Constant::mapname.c_str(), highscore);
+				def->setFloatForKey(Constant::mapname.c_str(), highscore);
 			}
 			this->GoToScoreScene(this);
 			return false;
