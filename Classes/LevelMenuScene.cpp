@@ -59,7 +59,7 @@ bool LevelMenuScene::init()
 		String *text1 = String::createWithFormat("Hiscore: %.2f", _highscore);
 		label1->setString(text1->getCString());
 
-		playButton1->setPosition(Point((visibleSize.width - playButton1->getContentSize().width * 4) / 2, visibleSize.height));
+		playButton1->setPosition(Point((visibleSize.width - playButton1->getContentSize().width * 4) / 2, visibleSize.height - ((visibleSize.height - playButton1->getContentSize().height * 3 ) / 2)));
 		playButton1->setAnchorPoint(Vec2(0, 1));
 		label1->setPosition(Vec2(playButton1->getPosition().x + playButton1->getContentSize().width / 2, playButton1->getPosition().y - 190));
 
@@ -204,11 +204,11 @@ bool LevelMenuScene::init()
 	// Confirm
 	confirmButton = MenuItemImage::create("CloseNormal.png", "CloseNormal.png", CC_CALLBACK_1(
 		LevelMenuScene::ConfirmLevel, this));
-	confirmButton->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height - confirmButton->getContentSize().height);
+	confirmButton->setPosition(confirmButton->getContentSize().width + 25, confirmButton->getContentSize().height + 25);
 	confirmButton->setScale(2.5);
 
 	//In addition to previous sprites the play button changes its graphics once clicked
-	auto backButton = MenuItemImage::create("backButton.png", "backButtonClicked.png", CC_CALLBACK_1(
+	auto backButton = MenuItemImage::create("backButton.png", "backButton.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToMainMenuScene, this));
 	backButton->setPosition(Point(visibleSize.width - 30, 30));
 
