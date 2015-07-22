@@ -310,17 +310,17 @@ void LevelMenuScene::GoToMainMenuScene(cocos2d::Ref *sender)
 cocos2d::Color3B LevelMenuScene::defineMedal(float score)
 {
 	auto color = Color3B(255, 255, 255);
-	if (score <= GOLD)
+	if (score <= BRONZE)
 	{
-		color = Color3B(255, 215, 0);
+		color = Color3B(205, 127, 50);
 	}
 	if (score <= SILVER)
 	{
 		color = Color3B(192, 192, 192);
 	}
-	if (score <= BRONZE)
+	if (score <= GOLD)
 	{
-		color = Color3B(205, 127, 50);
+		color = Color3B(255, 215, 0);
 	}
 	if (!score)
 	{

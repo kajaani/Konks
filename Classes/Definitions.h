@@ -34,7 +34,7 @@
 #define METAL 7
 
 // Time goals
-#define GOLD 10
+#define GOLD 15
 #define SILVER 25
 #define BRONZE 35
 
