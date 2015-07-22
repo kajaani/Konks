@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "math\CCMath.h"
-#include "SimpleAudioEngine.h"  
+#include "SimpleAudioEngine.h"
+#include "LevelMenuScene.h"
 #include "MainMenuScene.h"
 #include "Definitions.h"
 #include "ScoreScene.h"
@@ -325,12 +326,12 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 				highscore = timeMilliseconds;
 				def->setFloatForKey(Constant::mapname.c_str(), highscore);
 			}
-			this->GoToScoreScene(this);
+			this->GoToLevelMenuScene(this);
 			return false;
 		}
 		if (bodyB->getTag() == PLAYER && bodyA->getTag() == GOAL)
 		{
-			this->GoToScoreScene(this);
+			this->GoToLevelMenuScene(this);
 			return false;
 		}
 
@@ -512,11 +513,10 @@ void GameScene::GoToMainMenuScene(cocos2d::Ref *sender)
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 
-void GameScene::GoToScoreScene(cocos2d::Ref *sender)
+void GameScene::GoToLevelMenuScene(cocos2d::Ref *sender)
 {
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
-	auto scene = ScoreScene::createScene();
-	Constant::score = timeMilliseconds;
+	auto scene = LevelMenuScene::createScene();
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
 }
 

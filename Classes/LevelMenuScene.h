@@ -29,6 +29,16 @@ private:
 	cocos2d::MenuItemImage* playButton8;
 	cocos2d::MenuItemImage* playButton9;
 
+	cocos2d::Label* label1;
+	cocos2d::Label* label2;
+	cocos2d::Label* label3;
+	cocos2d::Label* label4;
+	cocos2d::Label* label5;
+	cocos2d::Label* label6;
+	cocos2d::Label* label7;
+	cocos2d::Label* label8;
+	cocos2d::Label* label9;
+
 	cocos2d::MenuItemImage* confirmButton;
 	
 	Menu *menu;
@@ -36,6 +46,7 @@ private:
 	void GoToGameScene(cocos2d::Ref *sender);
 	void GoToMainMenuScene(cocos2d::Ref *sender);
 	void ConfirmLevel(cocos2d::Ref *sender);
+	void resetButtonOpacity();
 
 	cocos2d::Color3B defineMedal(float score);
 };

@@ -42,8 +42,6 @@ bool LevelMenuScene::init()
 
 	UserDefault *def = UserDefault::getInstance();
 
-	//In addition to previous sprites the play button changes its graphics once clicked
-
 	Constant::attempts = 0;
 
 
@@ -51,7 +49,7 @@ bool LevelMenuScene::init()
 		playButton1 = MenuItemImage::create("Level_1_wood.png", "Level_1_wood.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton1->setName("Maps/First.tmx");
-		auto label1 = Label::create("", "fonts/Marker Felt.ttf", 28);
+		label1 = Label::create("", "fonts/Marker Felt.ttf", 28);
 
 		float _highscore = def->getFloatForKey(playButton1->getName().c_str(), 0);
 		std::string shortName = playButton1->getName().erase(0, 5);
@@ -69,7 +67,7 @@ bool LevelMenuScene::init()
 		playButton2 = MenuItemImage::create("Level_2_wood.png", "Level_2_wood.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton2->setName("Maps/Second.tmx");
-		auto label2 = Label::create(playButton2->getName().c_str(), "fonts/Marker Felt.ttf", 28);
+		label2 = Label::create(playButton2->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
 		float _highscore2 = def->getFloatForKey(playButton2->getName().c_str(), 0);
 		std::string shortName2 = playButton2->getName().erase(0, 5);
@@ -87,7 +85,7 @@ bool LevelMenuScene::init()
 		playButton3 = MenuItemImage::create("Level_3_wood.png", "Level_3_wood.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton3->setName("Maps/Third.tmx");
-		auto label3 = Label::create(playButton3->getName().c_str(), "fonts/Marker Felt.ttf", 28);
+		label3 = Label::create(playButton3->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
 		float _highscore3 = def->getFloatForKey(playButton3->getName().c_str(), 0);
 		std::string shortName3 = playButton3->getName().erase(0, 5);
@@ -105,7 +103,7 @@ bool LevelMenuScene::init()
 		playButton4 = MenuItemImage::create("Level_4_wood.png", "Level_4_wood.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton4->setName("Maps/Fourth.tmx");
-		auto label4 = Label::create(playButton4->getName().c_str(), "fonts/Marker Felt.ttf", 28);
+		label4 = Label::create(playButton4->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
 		float _highscore4 = def->getFloatForKey(playButton4->getName().c_str(), 0);
 		std::string shortName4 = playButton4->getName().erase(0, 5);
@@ -124,7 +122,7 @@ bool LevelMenuScene::init()
 		playButton5 = MenuItemImage::create("Level_5_wood.png", "Level_5_wood.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton5->setName("Maps/Fifth.tmx");
-		auto label5 = Label::create(playButton5->getName().c_str(), "fonts/Marker Felt.ttf", 28);
+		label5 = Label::create(playButton5->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
 		float _highscore5 = def->getFloatForKey(playButton5->getName().c_str(), 0);
 		std::string shortName5 = playButton5->getName().erase(0, 5);
@@ -143,7 +141,7 @@ bool LevelMenuScene::init()
 		playButton6 = MenuItemImage::create("Level_6_wood.png", "Level_6_wood.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton6->setName("Maps/Sixth.tmx");
-		auto label6 = Label::create(playButton6->getName().c_str(), "fonts/Marker Felt.ttf", 28);
+		label6 = Label::create(playButton6->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
 		float _highscore6 = def->getFloatForKey(playButton6->getName().c_str(), 0);
 		std::string shortName6 = playButton6->getName().erase(0, 5);
@@ -161,7 +159,7 @@ bool LevelMenuScene::init()
 		playButton7 = MenuItemImage::create("Level_7_wood.png", "Level_7_wood.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton7->setName("Maps/Seventh.tmx");
-		auto label7 = Label::create(playButton7->getName().c_str(), "fonts/Marker Felt.ttf", 28);
+		label7 = Label::create(playButton7->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
 		float _highscore7 = def->getFloatForKey(playButton7->getName().c_str(), 0);
 		std::string shortName7 = playButton7->getName().erase(0, 5);
@@ -179,7 +177,7 @@ bool LevelMenuScene::init()
 		playButton8 = MenuItemImage::create("Level_8_wood.png", "Level_8_wood.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton8->setName("Maps/Eight.tmx");
-		auto label8 = Label::create(playButton8->getName().c_str(), "fonts/Marker Felt.ttf", 28);
+		label8 = Label::create(playButton8->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
 		float _highscore8 = def->getFloatForKey(playButton8->getName().c_str(), 0);
 		std::string shortName8 = playButton8->getName().erase(0, 5);
@@ -197,7 +195,7 @@ bool LevelMenuScene::init()
 		playButton9 = MenuItemImage::create("Level_9_wood.png", "Level_9_wood.png", CC_CALLBACK_1(
 			LevelMenuScene::GoToGameScene, this));
 		playButton9->setName("Maps/Ninth.tmx");
-		auto label9 = Label::create(playButton9->getName().c_str(), "fonts/Marker Felt.ttf", 28);
+		label9 = Label::create(playButton9->getName().c_str(), "fonts/Marker Felt.ttf", 28);
 
 		float _highscore9 = def->getFloatForKey(playButton9->getName().c_str(), 0);
 		std::string shortName9 = playButton9->getName().erase(0, 5);
@@ -214,13 +212,18 @@ bool LevelMenuScene::init()
 	// Confirm
 	confirmButton = MenuItemImage::create("confirmButton.png", "confirmButton.png", CC_CALLBACK_1(
 		LevelMenuScene::ConfirmLevel, this));
-	confirmButton->setPosition(confirmButton->getContentSize().width + 25, confirmButton->getContentSize().height + 25);
-	confirmButton->setScale(2.5);
+	confirmButton->setPosition(visibleSize.width - confirmButton->getContentSize().width / 2, confirmButton->getContentSize().height / 2);
 
 	//In addition to previous sprites the play button changes its graphics once clicked
 	auto backButton = MenuItemImage::create("backButton.png", "backButton.png", CC_CALLBACK_1(
 		LevelMenuScene::GoToMainMenuScene, this));
-	backButton->setPosition(Point(visibleSize.width - 30, 30));
+	backButton->setPosition(Point(backButton->getContentSize().width / 2, backButton->getContentSize().height / 2));
+	backButton->setScale(0.7);
+
+	//Highlight the initially selected level
+	resetButtonOpacity();
+	playButton1->setOpacity(250);
+	label1->setOpacity(250);
 
 	//Initializing the menu, placing the buttons and setting it visible
 	menu = Menu::create(backButton, NULL);
@@ -258,38 +261,65 @@ void LevelMenuScene::GoToGameScene(cocos2d::Ref *sender)
 	if (sender->_ID == playButton1->_ID)
 	{
 		Constant::mapname = playButton1->getName().c_str();
+		resetButtonOpacity();
+		playButton1->setOpacity(250);
+		label1->setOpacity(250);
 	}
 	if (sender->_ID == playButton2->_ID)
 	{
 		Constant::mapname = playButton2->getName().c_str();
+		resetButtonOpacity();
+		playButton2->setOpacity(250);
+		label2->setOpacity(250);
 	}
 	if (sender->_ID == playButton3->_ID)
 	{
 		Constant::mapname = playButton3->getName().c_str();
+		resetButtonOpacity();
+		playButton3->setOpacity(250);
+		label3->setOpacity(250);
 	}
 	if (sender->_ID == playButton4->_ID)
 	{
 		Constant::mapname = playButton4->getName().c_str();
+		resetButtonOpacity();
+		playButton4->setOpacity(250);
+		label4->setOpacity(250);
 	}
 	if (sender->_ID == playButton5->_ID)
 	{
 		Constant::mapname = playButton5->getName().c_str();
+		resetButtonOpacity();
+		playButton5->setOpacity(250);
+		label5->setOpacity(250);
 	}
 	if (sender->_ID == playButton6->_ID)
 	{
 		Constant::mapname = playButton6->getName().c_str();
+		resetButtonOpacity();
+		playButton6->setOpacity(250);
+		label6->setOpacity(250);
 	}
 	if (sender->_ID == playButton7->_ID)
 	{
 		Constant::mapname = playButton7->getName().c_str();
+		resetButtonOpacity();
+		playButton7->setOpacity(250);
+		label7->setOpacity(250);
 	}
 	if (sender->_ID == playButton8->_ID)
 	{
 		Constant::mapname = playButton8->getName().c_str();
+		resetButtonOpacity();
+		playButton8->setOpacity(250);
+		label8->setOpacity(250);
 	}
 	if (sender->_ID == playButton9->_ID)
 	{
 		Constant::mapname = playButton9->getName().c_str();
+		resetButtonOpacity();
+		playButton9->setOpacity(250);
+		label9->setOpacity(250);
 	}
 }
 
@@ -305,6 +335,29 @@ void LevelMenuScene::GoToMainMenuScene(cocos2d::Ref *sender)
 	auto scene = MainMenuScene::createScene();
 
 	Director::getInstance()->replaceScene(TransitionFade::create(TRANSITION_TIME, scene));
+}
+
+void LevelMenuScene::resetButtonOpacity()
+{
+	playButton1->setOpacity(50);
+	playButton2->setOpacity(50);
+	playButton3->setOpacity(50);
+	playButton4->setOpacity(50);
+	playButton5->setOpacity(50);
+	playButton6->setOpacity(50);
+	playButton7->setOpacity(50);
+	playButton8->setOpacity(50);
+	playButton9->setOpacity(50);
+
+	label1->setOpacity(50);
+	label2->setOpacity(50);
+	label3->setOpacity(50);
+	label4->setOpacity(50);
+	label5->setOpacity(50);
+	label6->setOpacity(50);
+	label7->setOpacity(50);
+	label8->setOpacity(50);
+	label9->setOpacity(50);
 }
 
 cocos2d::Color3B LevelMenuScene::defineMedal(float score)

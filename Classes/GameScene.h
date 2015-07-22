@@ -80,7 +80,7 @@ protected:
 	Sprite *sprite;
 	Sprite *minisprite;
 private:
-	void GoToScoreScene(cocos2d::Ref *sender);
+	void GoToLevelMenuScene(cocos2d::Ref *sender);
 	void GoToMainMenuScene(cocos2d::Ref *sender);
 	void RestartScene(cocos2d::Ref *sender);
 	void setPhysicsWorld(cocos2d::PhysicsWorld *world) { _world = world; };
