@@ -212,7 +212,8 @@ bool LevelMenuScene::init()
 	// Confirm
 	confirmButton = MenuItemImage::create("confirmButton.png", "confirmButton.png", CC_CALLBACK_1(
 		LevelMenuScene::ConfirmLevel, this));
-	confirmButton->setPosition(visibleSize.width - confirmButton->getContentSize().width / 2, confirmButton->getContentSize().height / 2);
+	confirmButton->setScale(1.4);
+	confirmButton->setPosition(visibleSize.width - confirmButton->getContentSize().width / 2 * confirmButton->getScale() , confirmButton->getContentSize().height / 2 * confirmButton->getScale());
 
 	//In addition to previous sprites the play button changes its graphics once clicked
 	auto backButton = MenuItemImage::create("backButton.png", "backButton.png", CC_CALLBACK_1(
