@@ -1,0 +1,11 @@
+(jdk) JAVA_HOME and path to jdk in environment settings, rest can be defined in setup.py
+ndk
+sdk
+ant
+python
+
+
+1. cocos2d-x-3.6 / setup.py
+3. konks / cocos2d / build / android-build.py all
+4. profit ????
+5. (adb install Sudoku.apk)

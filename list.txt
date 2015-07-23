@@ -1,5 +1,0 @@
-rope physics
-http://www.emanueleferonato.com/2009/10/05/basic-box2d-rope/
-
-tilemaps
-http://www.cocos2d-x.org/wiki/TileMap
