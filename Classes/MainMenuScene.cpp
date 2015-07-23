@@ -39,9 +39,9 @@ bool MainMenuScene::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	
 	//Initializing and setting a value to the backgroundSprite
-	auto backgroundSprite = Sprite::create("paper_bg.png");
+	auto backgroundSprite = Sprite::create("mainmenu_bg.png");
 	backgroundSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	backgroundSprite->setScale(4);
+	backgroundSprite->setScale(1);
 	this->addChild(backgroundSprite);
 
 	//In addition to previous sprites the play button changes its graphics once clicked
