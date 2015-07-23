@@ -139,7 +139,7 @@ bool GameScene::init()
 
 	schedule(schedule_selector(GameScene::SpawnPlatform), 1.5);
 	schedule(schedule_selector(GameScene::update));
-	schedule(schedule_selector(GameScene::TimerMilliSeconds), 0.1);	
+	schedule(schedule_selector(GameScene::TimerMilliSeconds), 0.01);	
 
 	attempts = Label::create("", "fonts/Marker Felt.ttf", 32);
 	String *text6 = String::createWithFormat("Attempts: %i", Constant::attempts);
@@ -160,7 +160,7 @@ bool GameScene::init()
 void GameScene::TimerMilliSeconds(float dt)
 {
 	// do stuph
-	timeMilliseconds += 0.1;
+	timeMilliseconds += 0.01;
 }
 
 void GameScene::update(float dt)
@@ -320,9 +320,11 @@ bool GameScene::onContactBegin(PhysicsContact& contact)
 			{
 				CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Goal/IndianWarChant 6077_99.mp3");
 			}
+			UserDefault *def = UserDefault::getInstance();
+			def->getFloatForKey(Constant::mapname.c_str(), highscore);
+
 			if (timeMilliseconds < highscore || highscore == 0)
 			{
-				UserDefault *def = UserDefault::getInstance();
 				highscore = timeMilliseconds;
 				def->setFloatForKey(Constant::mapname.c_str(), highscore);
 			}
