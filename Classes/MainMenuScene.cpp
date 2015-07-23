@@ -44,20 +44,20 @@ bool MainMenuScene::init()
 	backgroundSprite->setScale(4);
 	this->addChild(backgroundSprite);
 
-	//Doing the same to the rest of the sprites
-	auto titleSprite = Sprite::create("logo.png");
-	titleSprite->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height - titleSprite->getContentSize().height + 100));
-	this->addChild(titleSprite);
-
 	//In addition to previous sprites the play button changes its graphics once clicked
 	auto playButton = MenuItemImage::create("PlayButton.png", "PlayButton.png", CC_CALLBACK_1(
 		MainMenuScene::GoToGameScene, this));
-	playButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + 125));
+	playButton->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
 
 	//Settings button initialization and placement 
 	auto levelsButton = MenuItemImage::create("levelsButton.png", "levelsButton.png", CC_CALLBACK_1(
 		MainMenuScene::GoToLevelMenuScene, this));
-	levelsButton->setPosition(Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 - 125));
+	levelsButton->setPosition(Point(playButton->getPosition().x, playButton->getPosition().y - playButton->getContentSize().height * 1.15));
+
+	//Doing the same to the rest of the sprites
+	auto titleSprite = Sprite::create("logo.png");
+	titleSprite->setPosition(Point(playButton->getPosition().x, playButton->getPosition().y + playButton->getContentSize().height * 1.25));
+	this->addChild(titleSprite);
 	
 	muteButton = MenuItemImage::create("soundEnabled.png", "soundEnabled.png", CC_CALLBACK_1(
 		MainMenuScene::MuteSound, this));
